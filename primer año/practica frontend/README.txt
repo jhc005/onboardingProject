@@ -1,3 +1,0 @@
-En este una vez instalado todo lo necesario he tenido que borrar el contenido de app.jsx y su correspondiente css, además de crear un archivo ServiceCard.jsx y ServiceList.jsx.
-
-Una vez hechas todas estas acciones he copiado el documento services.ts el cual he importado en ServiceList estableciéndolo como un índice y estableciendo como titulo y descripción los ya puestos en el archivo .ts, también he importado dentro del archivo ServiceCard una fuente de iconos y su css correspondiente por ultimo he aplicado los estilos necesarios para que la vista quedara lo mas parecida a la que se nos pedía además de añadirle algunos extra mas que he visto convenientes para mejorarla.

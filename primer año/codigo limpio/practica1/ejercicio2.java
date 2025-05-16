@@ -1,27 +1,32 @@
-public class ejercicio2{
+public class ejercicio2 {
     public static void main(String[] args) {
-        final String firstName = "Anna";
-        final String lastName = "Garcia";
+        String firstName = "Anna";
+        String lastName = "Garcia";
         int age = 28;
-        final boolean student = true;
-        
-        // Display user information
+        boolean isStudent = true;
+        double basePrice = 100.0;
+
+        printUserInfo(firstName, lastName, age, isStudent);
+        printAdultStatus(age);
+
+        double finalPrice = calculateDiscountedPrice(basePrice, isStudent);
+        System.out.println("Price to pay: " + finalPrice + " euros");
+    }
+
+    private static void printUserInfo(String firstName, String lastName, int age, boolean isStudent) {
         System.out.println("User information:");
         System.out.println("First name: " + firstName);
         System.out.println("Last name: " + lastName);
         System.out.println("Age: " + age);
-        System.out.println("Is student: " + (student ? "Yes" : "No"));
-        
-        // Check if user is an adult
-        final int legalAge=18;
-        System.out.println(age >= legalAge ? "Is an adult" : "Is a minor");
-        
-        // Calculate price with discount if student
-        double basePrice = 100.0;
-        double discountRate= 0.8;
-        double price;
-        
-        System.out.println(student ?price=basePrice*discountRate:basePrice);
-        System.out.println("Price to pay: " + price + " euros");
+        System.out.println("Is student: " + (isStudent ? "Yes" : "No"));
+    }
+
+    private static void printAdultStatus(int age) {
+        System.out.println(age >= 18 ? "Is an adult" : "Is a minor");
+    }
+
+    private static double calculateDiscountedPrice(double price, boolean isStudent) {
+        final double STUDENT_DISCOUNT = 0.20;
+        return isStudent ? price * (1 - STUDENT_DISCOUNT) : price;
     }
 }
