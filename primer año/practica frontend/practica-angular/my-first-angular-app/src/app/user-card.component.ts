@@ -4,7 +4,14 @@ import { Component, Input } from "@angular/core";
   selector: "app-user-card",
   template:`
     <div class="container">
-        <h1>{{name}}</h1>
+        <div class="name-section">
+          <div class="user-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="user-svg">
+              <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+            </svg>
+          </div>
+          <h1>{{name}}</h1>
+        </div>
         <p>Ciudad : {{city}}</p>
         <p>Codigo Postal : {{zipcode}}</p>
         <button class="arrow-button">➜</button>
@@ -23,6 +30,30 @@ import { Component, Input } from "@angular/core";
   transition:  background-color 2s ease;
   overflow: hidden;
 }
+
+.name-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-left: 10px;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+.user-svg {
+  width: 24px;
+  height: 24px;
+  fill: rgb(255, 80, 56);
+  transition: fill 0.3s ease;
+}
+
+.container:hover .user-svg {
+  fill: white;
+}
+
 .container::before{
   content: "";
   position: absolute;
@@ -66,7 +97,8 @@ button {
 .container:hover .arrow-button{
   color: black;
   background-color: white;
-}`],
+}
+`],
 })
 export class UserCardComponent {
     @Input() id = '';
