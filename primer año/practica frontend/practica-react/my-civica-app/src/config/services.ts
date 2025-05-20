@@ -1,31 +1,55 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { 
+  faChartLine, 
+  faDatabase, 
+  faShieldAlt, 
+  faLaptopCode, 
+  faServer, 
+  faUsers, 
+  faPalette 
+} from '@fortawesome/free-solid-svg-icons';
+
 // /src/config/services.ts
-export const SERVICES = [
+export interface Service {
+  title: string;
+  description: string;
+  icon: IconDefinition;
+}
+
+export const SERVICES: Service[] = [
   {
     title: "BI/ANALYTICS",
-    description: "Obtén el máximo provecho de los datos corporativos mediante el diseño y desarrollo de cuadros de mando, informes, portales de información analítica y soluciones de autoservicio."
+    description: "Obtén el máximo provecho de los datos corporativos mediante el diseño y desarrollo de cuadros de mando, informes, portales de información analítica y soluciones de autoservicio.",
+    icon: faChartLine
   },
   {
     title: "DATA ENGINEERING & INTEGRATION",
-    description: "Nos encargamos de modelar, diseñar e implementar procesos de recolección, preparación, tratamiento e integración de datos que faciliten el análisis de la información y la eliminación de silos."
+    description: "Nos encargamos de modelar, diseñar e implementar procesos de recolección, preparación, tratamiento e integración de datos que faciliten el análisis de la información y la eliminación de silos.",
+    icon: faDatabase
   },
   {
     title: "DATA QUALITY & GOVERNANCE",
-    description: "Para una correcta toma de decisiones basada en los datos estos deben ser fiables. Para ello, implantamos procesos de gobierno y aseguramiento de la calidad de la información."
+    description: "Para una correcta toma de decisiones basada en los datos estos deben ser fiables. Para ello, implantamos procesos de gobierno y aseguramiento de la calidad de la información.",
+    icon: faShieldAlt
   },
   {
     title: "DIGITAL SOLUTIONS",
-    description: "Nuestros equipos de usabilidad y desarrollo diseñan y construyen soluciones de negocio optimizadas e intuitivas poniendo la tecnología al servicio de las áreas de negocio."
+    description: "Nuestros equipos de usabilidad y desarrollo diseñan y construyen soluciones de negocio optimizadas e intuitivas poniendo la tecnología al servicio de las áreas de negocio.",
+    icon: faLaptopCode
   },
   {
     title: "BIG DATA SOLUTIONS",
-    description: "Aportamos nuestra amplia experiencia en proyectos Big Data (ecosistema Hadoop, ELK, arquitecturas cloud...). Somos especialistas en soluciones Data Lake y su integración con los sistemas informacionales tradicionales."
+    description: "Aportamos nuestra amplia experiencia en proyectos Big Data (ecosistema Hadoop, ELK, arquitecturas cloud...). Somos especialistas en soluciones Data Lake y su integración con los sistemas informacionales tradicionales.",
+    icon: faServer
   },
   {
     title: "TECH CONSULTING",
-    description: "Realizamos consultoría de servicios aportando nuestro extenso conocimiento en todo el proceso de los mismos, desde que nacen hasta que se implantan."
+    description: "Realizamos consultoría de servicios aportando nuestro extenso conocimiento en todo el proceso de los mismos, desde que nacen hasta que se implantan.",
+    icon: faUsers
   },
   {
     title: "DESIGN",
-    description: "Diseñamos las herramientas y las estrategias necesarias que tu empresa necesita. Nos ajustamos a la imagen de tu empresa."
+    description: "Diseñamos las herramientas y las estrategias necesarias que tu empresa necesita. Nos ajustamos a la imagen de tu empresa.",
+    icon: faPalette
   }
 ];

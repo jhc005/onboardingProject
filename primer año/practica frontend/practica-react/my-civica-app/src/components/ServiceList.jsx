@@ -10,6 +10,7 @@ function ServiceList() {
           key={index}
           title={service.title}
           description={service.description}
+          icon={service.icon}
         />
       ))}
     </div>
