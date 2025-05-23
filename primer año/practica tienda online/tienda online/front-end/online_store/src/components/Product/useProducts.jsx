@@ -39,14 +39,14 @@ export const useProducts = () => {
   const createOrUpdateProduct = async (product) => {
     try {
       if (product.id) {
-        await productService.update(product.id, product);
-      } else {
         await productService.create(product);
+      } else {
+        await productService.update(product.id, product);
       }
       await loadProducts();
     } catch (err) {
       setError('Error saving product');
-      throw err; o
+      throw err; 
     }
   };
 

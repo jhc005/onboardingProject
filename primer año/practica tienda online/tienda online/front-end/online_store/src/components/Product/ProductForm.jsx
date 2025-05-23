@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 
 const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
   const [formProduct, setFormProduct] = useState({
+    id: null,
     name: '',
     description: '',
     price: '',
@@ -15,6 +16,7 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
       setFormProduct(product);
     } else {
       setFormProduct({
+        id: null, 
         name: '',
         description: '',
         price: '',
@@ -30,6 +32,7 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     console.log('Submitting product:', formProduct);
     await onSubmit(formProduct);
     onClose();
   };

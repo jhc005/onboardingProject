@@ -30,6 +30,7 @@ const OrderForm = ({ show, onClose, onSubmit, customers, products }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Submitting order:', order);
         await onSubmit(order);
         onClose();
     };
