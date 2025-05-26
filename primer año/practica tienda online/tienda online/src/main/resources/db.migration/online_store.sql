@@ -8,13 +8,13 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     stock INT DEFAULT 0,
     category_id INT,
-    updateDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
@@ -36,3 +36,5 @@ CREATE TABLE orders (
     total DECIMAL(10, 2),
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
+
+DROP TABLE IF EXISTS orders;

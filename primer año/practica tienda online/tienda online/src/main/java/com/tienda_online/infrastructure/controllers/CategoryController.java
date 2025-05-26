@@ -4,9 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.http.ResponseEntity;
+
+import com.tienda_online.DTO.CategoryDto;
 import com.tienda_online.application.services.CategoryService;
 import java.util.List;
-import com.tienda_online.domain.entities.Category;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,14 +25,23 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
-        return ResponseEntity.ok(categoryService.getAllCategories());
+    public ResponseEntity<List<CategoryDto>> getAllCategories() {
+        List<CategoryDto> categories = categoryService.getAllCategories();
+        return ResponseEntity.ok(categories);
+
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        return ResponseEntity.ok(categoryService.createCategory(category));
+    public ResponseEntity<ResponseEntity<CategoryDto>> createCategory(@RequestBody CategoryDto categoryDto) {
+        if (categoryDto.getName() == null || categoryDto.getName().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        ResponseEntity<CategoryDto> createdCategory = categoryService.createCategory(categoryDto);
+        return ResponseEntity.ok(createdCategory);
+        
     }
     
     
 }
+

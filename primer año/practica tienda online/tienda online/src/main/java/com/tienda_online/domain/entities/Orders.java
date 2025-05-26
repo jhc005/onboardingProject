@@ -1,7 +1,7 @@
 package com.tienda_online.domain.entities;
 
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -31,7 +31,7 @@ public class Orders {
     private Customer customer;
     @Column(name = "order_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime OrderDate;
+    private LocalDateTime orderDate;
     @Column(name = "status")
     private String status;
     @Column(name = "total")

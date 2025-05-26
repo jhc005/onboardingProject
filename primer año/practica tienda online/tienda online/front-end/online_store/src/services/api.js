@@ -11,6 +11,7 @@ const api = axios.create({
 
 export const categoryService = {
     getAll: () => api.get('/categories'),
+    getById: (id) => api.get(`/categories/${id}`),
     create: (category) => api.post('/categories', category)
 };
 

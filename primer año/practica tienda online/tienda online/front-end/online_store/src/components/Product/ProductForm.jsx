@@ -3,7 +3,6 @@ import { Modal, Form, Button } from 'react-bootstrap';
 
 const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
   const [formProduct, setFormProduct] = useState({
-    id: null,
     name: '',
     description: '',
     price: '',
@@ -13,15 +12,15 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
 
   useEffect(() => {
     if (product) {
+      console.log('Producto recibido en formulario:', product);
       setFormProduct(product);
     } else {
       setFormProduct({
-        id: null, 
         name: '',
         description: '',
         price: '',
+        categoryId: '',
         stock: '',
-        categoryId: ''
       });
     }
   }, [product, show]);
@@ -31,11 +30,23 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-     console.log('Submitting product:', formProduct);
-    await onSubmit(formProduct);
-    onClose();
+  e.preventDefault();
+
+  const productToSend = {
+    name: formProduct.name,
+  description: formProduct.description,
+  price: parseFloat(formProduct.price),
+  stock: parseInt(formProduct.stock, 10),
+  categoryId: formProduct.categoryId ? Number(formProduct.categoryId) : null
   };
+
+  console.log('Submitting product:', productToSend);
+  console.log("Datos enviados al backend:", JSON.stringify(productToSend, null, 2));
+
+  await onSubmit(productToSend);
+  onClose();
+};
+
 
   return (
     <Modal show={show} onHide={onClose}>

@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.tienda_online.domain.entities.Category;
 
+
+
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends JpaRepository <Category, Long> {
+
 }

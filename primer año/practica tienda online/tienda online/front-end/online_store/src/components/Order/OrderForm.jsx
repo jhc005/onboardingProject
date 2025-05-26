@@ -28,10 +28,22 @@ const OrderForm = ({ show, onClose, onSubmit, customers, products }) => {
         setOrder({ ...order, products: updatedProducts, total });
     };
 
+    const formattedDate = (date) => {
+        return date.toISOString().split('.')[0];
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitting order:', order);
-        await onSubmit(order);
+
+        const orderToSend = {
+            customer: { id: Number(order.customerId) },
+            status: order.status.toUpperCase(),
+            total: order.total,
+            orderDate: formattedDate(new Date()),
+        };
+
+        console.log('Submitting order:', orderToSend);
+        await onSubmit(orderToSend);
         onClose();
     };
 

@@ -58,7 +58,7 @@ function ProductList() {
               <td>{product.description}</td>
               <td>{product.price}</td>
               <td>{product.stock}</td>
-              <td>{product.category?.name}</td>
+              <td>{categories.find(c => c.id === product.categoryId)?.name}</td>
               <td>
                 <Button
                   variant="info"

@@ -28,6 +28,7 @@ export const useProducts = () => {
   };
 
   const deleteProduct = async (id) => {
+    console.log("Intentando eliminar producto con id:", id);
     try {
       await productService.delete(id);
       await loadProducts();
@@ -37,18 +38,21 @@ export const useProducts = () => {
   };
 
   const createOrUpdateProduct = async (product) => {
-    try {
-      if (product.id) {
-        await productService.create(product);
-      } else {
-        await productService.update(product.id, product);
-      }
-      await loadProducts();
-    } catch (err) {
-      setError('Error saving product');
-      throw err; 
+  try {
+    console.log("Producto que se va a guardar:", product);
+    if (product.id) {
+      await productService.update(product.id, product);
+    } else {
+      await productService.create(product);
     }
-  };
+
+    await loadProducts();
+  } catch (err) {
+    setError('Error saving product');
+    throw err; 
+  }
+};
+
 
   useEffect(() => {
     loadProducts();
