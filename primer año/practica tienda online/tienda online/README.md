@@ -16,17 +16,16 @@ The project is divided into two main parts:
 - Spring Data JPA
 - MySQL Database
 - Maven
+- MapStruct for DTO mapping
 
 ### Features
-- RESTful API endpoints for:
-  - Categories
-  - Products
-  - Customers
-  - Orders
-- CORS configuration for frontend integration
-- Database persistence with JPA
-- Service layer architecture
+- RESTful API endpoints for all entities
+- DTO pattern implementation
+- Optimistic locking for concurrent operations
+- Service layer business logic
 - Repository pattern implementation
+- CORS configuration
+- Error handling and validation
 
 ### Project Structure
 ```
@@ -34,9 +33,13 @@ src/
 ├── main/
 │   ├── java/com/tienda_online/
 │   │   ├── Main.java
-│   │   ├── application/services/
+│   │   ├── application/
+│   │   │   └── services/
 │   │   ├── config/
-│   │   ├── domain/entities/
+│   │   ├── domain/
+│   │   │   └── entities/
+│   │   ├── dto/
+│   │   ├── mappers/
 │   │   └── infrastructure/
 │   │       ├── controllers/
 │   │       └── repositories/
@@ -57,21 +60,24 @@ src/
 
 #### Products
 - GET /api/products - List all products
+- GET /api/products?categoryId={id} - List products by category
 - POST /api/products - Create new product
 - PUT /api/products/{id} - Update product
 - DELETE /api/products/{id} - Delete product
 
-#### Customers
-- GET /api/customers - List all customers
-- POST /api/customers - Create new customer
-- PUT /api/customers/{id} - Update customer
-- DELETE /api/customers/{id} - Delete customer
+// ...existing endpoints...
 
-#### Orders
-- GET /api/orders - List all orders
-- POST /api/orders - Create new order
-- PUT /api/orders/{id} - Update order
-- DELETE /api/orders/{id} - Delete order
+### Data Transfer Objects (DTOs)
+- ProductDTO: Simplified product representation
+- CategoryDTO: Category data without circular references
+- CustomerDTO: Customer information transfer
+- OrderDTO: Order processing data
+
+### Mappers
+- ProductMapper: Product entity-DTO conversion
+- CategoryMapper: Category entity-DTO conversion
+- CustomerMapper: Customer entity-DTO conversion
+- OrderMapper: Order entity-DTO conversion
 
 ## Frontend
 
@@ -79,16 +85,18 @@ src/
 - React 18
 - Vite
 - React Router DOM
-- Bootstrap for styling
+- React Bootstrap
 - Axios for API calls
+- Custom hooks for data management
 
 ### Features
 - Responsive user interface
 - CRUD operations for all entities
-- Navigation menu
-- Form validation
-- Error handling
-- Loading states
+- Custom hooks for API interactions
+- Form validation and error handling
+- Loading states and error messages
+- Category-based product filtering
+- Modal forms for creating/editing
 
 ### Project Structure
 ```
@@ -96,9 +104,12 @@ front-end/online_store/
 ├── src/
 │   ├── components/
 │   │   ├── Category/
-│   │   ├── Customer/
-│   │   ├── Order/
+│   │   │   ├── CategoryList.jsx
+│   │   │   └── CategoryForm.jsx
 │   │   ├── Product/
+│   │   │   ├── ProductList.jsx
+│   │   │   ├── ProductForm.jsx
+│   │   │   └── useProducts.jsx
 │   │   └── OnlineStoreMenu.jsx
 │   ├── services/
 │   │   └── api.js
@@ -107,46 +118,26 @@ front-end/online_store/
 └── public/
 ```
 
-### Components
-- **OnlineStoreMenu**: Main navigation component
-- **Category Management**:
-  - CategoryList: Displays and manages categories
-  - CategoryForm: Form for creating categories
-- **Product Management**:
-  - ProductList: Displays and manages products
-  - ProductForm: Form for creating/editing/delete products
-- **Customer Management**:
-  - CustomerList: Displays and manages customers
-  - CustomerForm: Form for creating/editing customers
-- **Order Management**:
-  - OrderList: Displays and manages orders
-  - OrderForm: Form for creating orders
+### Custom Hooks
+- useProducts: Product management logic
+- useCategories: Category management logic
+- useCustomers: Customer management logic
+- useOrders: Order management logic
 
-## Setup and Installation
+// ...rest of existing content...
 
-### Backend Setup
-1. Clone the repository
-2. Configure MySQL database settings in `application.yaml`
-3. Run `mvn clean install` to build the project
-4. Run `mvn spring-boot:run` to start the server
+## Recent Implementations
 
-### Frontend Setup
-1. Navigate to `front-end/online_store`
-2. Run `npm install` to install dependencies
-3. Run `npm run dev` to start the development server
+### Backend
+- Added DTO pattern for data transfer
+- Implemented MapStruct for object mapping
+- Added optimistic locking for concurrent operations
+- Improved error handling and validation
+- Enhanced service layer logic
 
-## Running the Application
-1. Start the backend server (runs on port 8080)
-2. Start the frontend development server (runs on port 5173)
-3. Access the application at `http://localhost:5173`
-
-## Testing
-- Backend: JUnit tests available in the `test` directory
-- Frontend: Component testing implemented for major features
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+### Frontend
+- Added custom hooks for state management
+- Implemented modal forms for CRUD operations
+- Enhanced error handling and validation
+- Added loading states
+- Improved UI/UX with React Bootstrap

@@ -28,24 +28,18 @@ const OrderForm = ({ show, onClose, onSubmit, customers, products }) => {
         setOrder({ ...order, products: updatedProducts, total });
     };
 
-    const formattedDate = (date) => {
-        return date.toISOString().split('.')[0];
-    };
-
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const orderToSend = {
-            customer: { id: Number(order.customerId) },
-            status: order.status.toUpperCase(),
-            total: order.total,
-            orderDate: formattedDate(new Date()),
-        };
-
-        console.log('Submitting order:', orderToSend);
-        await onSubmit(orderToSend);
-        onClose();
+    const orderToSend = {
+        ...order,
+        customer: { id: order.customerId }
     };
+    delete orderToSend.customerId;
+
+    await onSubmit(orderToSend);
+    onClose();
+};
 
     return (
         <Modal show={show} onHide={onClose} size="lg">
@@ -59,7 +53,7 @@ const OrderForm = ({ show, onClose, onSubmit, customers, products }) => {
                         <Form.Select
                             value={order.customerId}
                             onChange={(e) =>
-                                setOrder({ ...order, customerId: e.target.value })
+                                setOrder({ ...order, customerId:parseInt(e.target.value)})
                             }
                         >
                             <option value="">Select Customer</option>
