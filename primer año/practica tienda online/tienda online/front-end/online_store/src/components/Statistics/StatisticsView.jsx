@@ -13,7 +13,6 @@ import {
 } from 'chart.js';
 import { useOrders } from '../Order/useOrder';
 
-// Registrar los componentes necesarios para Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -31,11 +30,10 @@ function StatisticsView() {
 
   useEffect(() => {
     if (orders.length > 0) {
-      // Inicializar array con 12 meses
+
       const monthlyTotals = new Array(12).fill(0);
       let total = 0;
 
-      // Calcular totales por mes
       orders.forEach(order => {
         const orderDate = new Date(order.orderDate);
         const month = orderDate.getMonth();
