@@ -11,28 +11,24 @@ function OnlineStoreMenu() {
             icon: '📑',
             description: 'Manage product categories',
             path: '/categories',
-            color: '#4CAF50'
         },
         {
             title: 'Products',
             icon: '📦',
             description: 'View and manage products',
             path: '/products',
-            color: '#2196F3'
         },
         {
             title: 'Customers',
             icon: '👥',
             description: 'Customer management',
             path: '/customers',
-            color: '#9C27B0'
         },
         {
             title: 'Orders',
             icon: '🛍️',
             description: 'View and manage orders',
             path: '/orders',
-            color: '#FF9800'
         }
     ];
 

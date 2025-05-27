@@ -1,0 +1,170 @@
+:root {
+  --orange-primary: #FF6B00;
+  --orange-secondary: #FF8534;
+  --orange-light: #FFA66B;
+  --orange-dark: #CC5500;
+  --black-primary: #1A1A1A;
+  --black-secondary: #333333;
+  --black-light: #4D4D4D;
+  --white: #FFFFFF;
+}
+
+/* Global styles */
+body {
+  background-color: var(--black-primary);
+  color: var(--white) !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, td, th, label {
+  color: var(--white) !important;
+}
+
+.card, .card-body {
+  background-color: var(--black-secondary) !important;
+  color: var(--white) !important;
+}
+
+.card-title {
+  color: var(--orange-primary) !important;
+  font-weight: bold !important;
+}
+
+.card-text {
+  color: var(--white) !important;
+}
+
+.text-muted {
+  color: var(--white) !important;
+  opacity: 0.8 !important;
+}
+
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--orange-primary) !important;
+  border-color: var(--orange-dark) !important;
+  color: var(--white) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--orange-dark) !important;
+  border-color: var(--orange-dark) !important;
+}
+
+.btn-secondary {
+  background-color: var(--black-secondary) !important;
+  border-color: var(--black-light) !important;
+  color: var(--white) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--black-light) !important;
+}
+
+/* Form styles */
+.form-control {
+  background-color: var(--black-secondary) !important;
+  border-color: var(--orange-dark) !important;
+  color: var(--white) !important;
+}
+
+.form-control:focus {
+  background-color: var(--black-secondary);
+  border-color: var(--orange-primary);
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+}
+
+.form-control::placeholder {
+  color: #999 !important;
+}
+
+.form-label {
+  color: var(--white) !important;
+}
+
+select.form-control option {
+  background-color: var(--black-secondary);
+  color: var(--white);
+}
+
+/* Table styles */
+.table {
+  color: var(--white) !important;
+}
+
+.table > :not(caption) > * > * {
+  background-color: var(--black-secondary) !important;
+  border-bottom-color: var(--orange-dark) !important;
+  color: var(--white) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--black-primary) !important;
+  color: var(--white) !important;
+}
+
+.table thead th {
+  color: var(--orange-light) !important;
+  border-bottom: 2px solid var(--orange-primary) !important;
+}
+
+/* Modal styles */
+.modal-content {
+  background-color: var(--black-secondary) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--orange-dark) !important;
+}
+
+.modal-header {
+  border-bottom-color: var(--orange-dark) !important;
+}
+
+.modal-header .modal-title {
+  color: var(--orange-primary) !important;
+}
+
+.modal-header .btn-close {
+  color: var(--white) !important;
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-body {
+  color: var(--white) !important;
+}
+
+.modal-footer {
+  border-top-color: var(--orange-dark) !important;
+}
+
+/* Nav styles */
+.navbar {
+  background-color: var(--black-primary) !important;
+  border-bottom: 2px solid var(--orange-primary);
+}
+
+.navbar-brand {
+  color: var(--orange-primary) !important;
+  font-weight: bold !important;
+}
+
+.navbar-brand:hover {
+  color: var(--orange-light) !important;
+}
+
+.navbar-toggler {
+  border-color: var(--orange-primary) !important;
+  color: var(--orange-primary) !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 107, 0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.nav-link {
+  color: var(--orange-light) !important;
+}
+
+.nav-link:hover {
+  color: var(--orange-primary) !important;
+}
+ 
