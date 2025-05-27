@@ -55,11 +55,17 @@
     margin-top: 2rem;
 }
 
+
 .stat-item {
     background: rgba(255, 107, 0, 0.1);
     padding: 1.5rem;
     border-radius: 10px;
     border: 1px solid var(--orange-primary);
+}
+.stat-item:hover {
+    background: rgba(255, 107, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);
 }
 
 .stat-item h3 {
@@ -76,6 +82,14 @@
 /* Features Section */
 .features-section {
     padding: 60px 0;
+}
+
+.features-section h2, .bottom-section h2 {
+    background: linear-gradient(45deg, var(--orange-primary), var(--orange-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 2.5rem;
 }
 
 .feature-card {
