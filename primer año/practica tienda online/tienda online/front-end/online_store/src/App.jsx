@@ -4,6 +4,7 @@ import CategoryList from './components/Category/CategoryList';
 import ProductList from './components/Product/ProductList';
 import CustomerList from './components/Customer/CustomersList';
 import OrderList from './components/Order/OrderList';
+import StatisticsView from './components/Statistics/StatisticsView';
 import OnlineStoreMenu from './components/OnlineStoreMenu';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
@@ -22,6 +23,7 @@ function App() {
                                 <Nav.Link href="/products">Products</Nav.Link>
                                 <Nav.Link href="/customers">Customers</Nav.Link>
                                 <Nav.Link href="/orders">Orders</Nav.Link>
+                                <Nav.Link href="/statistics">Statistics</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -34,6 +36,7 @@ function App() {
                         <Route path="/products" element={<ProductList />} />
                         <Route path="/customers" element={<CustomerList />} />
                         <Route path="/orders" element={<OrderList />} />
+                        <Route path="/statistics" element={<StatisticsView />} />
                     </Routes>
                 </Container>
             </div>

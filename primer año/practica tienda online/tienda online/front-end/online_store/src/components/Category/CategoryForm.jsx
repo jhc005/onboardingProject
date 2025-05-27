@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
+import { PlusCircle } from 'react-bootstrap-icons';
 
 const CategoryForm = ({ onAddCategory }) => {
     const [name, setName] = useState('');
@@ -24,7 +25,7 @@ const CategoryForm = ({ onAddCategory }) => {
                     />
                 </Col>
                 <Col md={2}>
-                    <Button type="submit">Add Category</Button>
+                    <Button type="submit"><PlusCircle size={20} /></Button>
                 </Col>
             </Row>
         </Form>

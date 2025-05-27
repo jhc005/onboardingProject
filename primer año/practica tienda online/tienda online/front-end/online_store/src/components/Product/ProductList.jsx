@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Table, Button, Spinner, Alert } from 'react-bootstrap';
+import { PencilSquare, Trash, PlusCircle } from 'react-bootstrap-icons';
 import { useProducts } from './useProducts';
 import ProductForm from './ProductForm';
 
@@ -33,8 +34,7 @@ function ProductList() {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>Products</h2>
-        <Button variant="primary" onClick={openModalForNew}>
-          Add Product
+        <Button variant="primary" onClick={openModalForNew}>          <PlusCircle size={20} />
         </Button>
       </div>
 
@@ -65,8 +65,7 @@ function ProductList() {
                   size="sm"
                   className="me-2"
                   onClick={() => openModalForEdit(product)}
-                >
-                  Edit
+                >                  <PencilSquare size={16} />
                 </Button>
                 <Button
                   variant="danger"
@@ -81,7 +80,7 @@ function ProductList() {
                     }
                   }}
                 >
-                  Delete
+                  <Trash size={16} />
                 </Button>
               </td>
             </tr>

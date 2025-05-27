@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Table, Button, Spinner, Alert } from 'react-bootstrap';
+import { PlusCircle } from 'react-bootstrap-icons';
 import { useOrders } from './useOrder';
 import OrderForm from './OrderForm';
 
@@ -14,8 +15,7 @@ function OrderList() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Orders</h2>
-                <Button variant="primary" onClick={() => setShowModal(true)}>
-                    Create Order
+                <Button variant="primary" onClick={() => setShowModal(true)} ><PlusCircle size={20} />
                 </Button>
             </div>
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Table, Button, Spinner, Alert } from 'react-bootstrap';
+import { PencilSquare, PlusCircle } from 'react-bootstrap-icons';
 import { useCustomers } from './useCustomers';
 import CustomerForm from './CustomersForm';
 
@@ -25,7 +26,7 @@ function CustomerList() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Customers</h2>
-                <Button variant="primary" onClick={handleAddClick}>Add Customer</Button>
+                <Button variant="primary" onClick={handleAddClick}><PlusCircle size={20} /></Button>
             </div>
 
             <Table striped bordered hover>
@@ -53,7 +54,7 @@ function CustomerList() {
                                     size="sm"
                                     onClick={() => handleEditClick(customer)}
                                 >
-                                    Edit
+                                     <PencilSquare size={16} />
                                 </Button>
                             </td>
                         </tr>

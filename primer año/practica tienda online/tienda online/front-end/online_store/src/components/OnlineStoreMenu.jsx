@@ -29,6 +29,12 @@ function OnlineStoreMenu() {
             icon: '🛍️',
             description: 'View and manage orders',
             path: '/orders',
+        },
+        {
+            title: 'Statistics',
+            icon: '📊',
+            description: 'View sales statistics',
+            path: '/statistics',
         }
     ];
 
@@ -61,4 +67,3 @@ function OnlineStoreMenu() {
 }
 
 export default OnlineStoreMenu;
- 
