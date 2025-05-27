@@ -1,28 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
+const INITIAL_FORM_STATE = {
+  name: '',
+  description: '',
+  price: '',
+  stock: '',
+  categoryId: ''
+};
+
 const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
-  const [formProduct, setFormProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    stock: '',
-    categoryId: ''
-  });
+  const [formProduct, setFormProduct] = useState(INITIAL_FORM_STATE);
 
   useEffect(() => {
-    if (product) {
-      console.log('Producto recibido en formulario:', product);
-      setFormProduct(product);
-    } else {
-      setFormProduct({
-        name: '',
-        description: '',
-        price: '',
-        categoryId: '',
-        stock: '',
-      });
-    }
+    setFormProduct(product || INITIAL_FORM_STATE);
   }, [product, show]);
 
   const handleChange = (field) => (e) => {
@@ -30,28 +21,22 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const productToSend = {
-    name: formProduct.name,
-  description: formProduct.description,
-  price: parseFloat(formProduct.price),
-  stock: parseInt(formProduct.stock, 10),
-  categoryId: formProduct.categoryId ? Number(formProduct.categoryId) : null
+    e.preventDefault();
+    const productToSend = {
+      name: formProduct.name,
+      description: formProduct.description,
+      price: parseFloat(formProduct.price),
+      stock: parseInt(formProduct.stock, 10),
+      categoryId: formProduct.categoryId ? Number(formProduct.categoryId) : null
+    };
+    await onSubmit(productToSend);
+    onClose();
   };
-
-  console.log('Submitting product:', productToSend);
-  console.log("Datos enviados al backend:", JSON.stringify(productToSend, null, 2));
-
-  await onSubmit(productToSend);
-  onClose();
-};
-
 
   return (
     <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{formProduct.id ? 'Edit Product' : 'Add Product'}</Modal.Title>
+        <Modal.Title>{formProduct.id ? 'Edit' : 'Add'} Product</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
