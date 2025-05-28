@@ -52,6 +52,7 @@ function CustomerList() {
                                 <Button
                                     variant="info"
                                     size="sm"
+                                    className="editButton"
                                     onClick={() => handleEditClick(customer)}
                                 >
                                      <PencilSquare size={16} />

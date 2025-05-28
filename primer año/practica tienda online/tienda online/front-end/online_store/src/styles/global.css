@@ -73,6 +73,17 @@ h2 {
 .btn-secondary:hover {
   background-color: var(--black-light);
 }
+.editButton{
+  color: var(--white);
+  background-color: var(--orange-primary);
+  border-color: var(--orange-dark);
+  margin-right: 0.5rem;
+}
+.editButton:hover {
+  color: var(--white);
+  background-color: var(--orange-dark);
+  border-color: var(--orange-dark);
+}
 
 /* Form styles */
 .form-control, .form-select {

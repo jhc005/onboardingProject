@@ -63,7 +63,7 @@ function ProductList() {
                 <Button
                   variant="info"
                   size="sm"
-                  className="me-2"
+                  className="editButton"
                   onClick={() => openModalForEdit(product)}
                 >                  <PencilSquare size={16} />
                 </Button>
