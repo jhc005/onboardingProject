@@ -38,3 +38,5 @@ CREATE TABLE orders (
 );
 
 DROP TABLE IF EXISTS orders;
+
+DROP DATABASE online_store;
