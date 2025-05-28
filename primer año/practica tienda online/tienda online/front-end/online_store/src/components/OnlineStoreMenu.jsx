@@ -39,6 +39,39 @@ function OnlineStoreMenu() {
                 </Container>
             </div>
 
+            <Container className="users-section py-5">
+                <h2 className="text-center mb-5">Users</h2>
+                <Row className="justify-content-center">
+                    <Col xs={12} md={4} className="mb-4">
+                        <Card className="text-center user-stat-card">
+                            <Card.Body>
+                                <h3>Total Users</h3>
+                                <div className="stat-number">15,847</div>
+                                <p>Registered users</p>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col xs={12} md={4} className="mb-4">
+                        <Card className="text-center user-stat-card">
+                            <Card.Body>
+                                <h3>Current Users</h3>
+                                <div className="stat-number">2,534</div>
+                                <p>Users this month</p>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col xs={12} md={4} className="mb-4">
+                        <Card className="text-center user-stat-card">
+                            <Card.Body>
+                                <h3>Active Users</h3>
+                                <div className="stat-number">892</div>
+                                <p>Currently online</p>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+
             <Container className="features-section py-5">
                 <h2 className="text-center mb-5">Operation Panel</h2>
                 <Row className="justify-content-center">
