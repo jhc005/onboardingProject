@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 
 const INITIAL_FORM_STATE = {
+  id:'',
   name: '',
   description: '',
   price: '',
@@ -23,6 +24,7 @@ const ProductForm = ({ show, onClose, onSubmit, product, categories }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const productToSend = {
+      id: formProduct.id ? Number(formProduct.id) : null,
       name: formProduct.name,
       description: formProduct.description,
       price: parseFloat(formProduct.price),

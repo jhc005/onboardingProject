@@ -141,6 +141,3 @@ front-end/online_store/
 - Enhanced error handling and validation
 - Added loading states
 - Improved UI/UX with React Bootstrap
-
-### Errors that i have not been able to solve
-- Edit button from products creates a new product instead of updating it
