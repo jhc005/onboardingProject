@@ -70,6 +70,7 @@ function ProductList() {
                 <Button
                   variant="danger"
                   size="sm"
+                  className="deleteButton"
                   onClick={() => {
                     if (
                       window.confirm(

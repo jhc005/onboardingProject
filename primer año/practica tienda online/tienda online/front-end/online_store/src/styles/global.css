@@ -84,6 +84,16 @@ h2 {
   background-color: var(--orange-dark);
   border-color: var(--orange-dark);
 }
+.deleteButton{
+  color: var(--white);
+  background-color: var(--black-primary);
+  border-color: var(--black-light);
+}
+.deleteButton:hover {
+  color: var(--white);
+  background-color: var(--black-light);
+  border-color: var(--black-light);
+}
 
 /* Form styles */
 .form-control, .form-select {

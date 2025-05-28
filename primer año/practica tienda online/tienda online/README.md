@@ -70,14 +70,10 @@ src/
 ### Data Transfer Objects (DTOs)
 - ProductDTO: Simplified product representation
 - CategoryDTO: Category data without circular references
-- CustomerDTO: Customer information transfer
-- OrderDTO: Order processing data
 
 ### Mappers
 - ProductMapper: Product entity-DTO conversion
 - CategoryMapper: Category entity-DTO conversion
-- CustomerMapper: Customer entity-DTO conversion
-- OrderMapper: Order entity-DTO conversion
 
 ## Frontend
 
@@ -98,25 +94,64 @@ src/
 - Category-based product filtering
 - Modal forms for creating/editing
 
-### Project Structure
+## Frontend Project Structure
+
 ```
 front-end/online_store/
 ├── src/
 │   ├── components/
 │   │   ├── Category/
 │   │   │   ├── CategoryList.jsx
-│   │   │   └── CategoryForm.jsx
+│   │   │   ├── CategoryForm.jsx
+│   │   │   └── useCategories.jsx
 │   │   ├── Product/
 │   │   │   ├── ProductList.jsx
 │   │   │   ├── ProductForm.jsx
 │   │   │   └── useProducts.jsx
+│   │   ├── Customer/
+│   │   │   ├── CustomersList.jsx
+│   │   │   ├── CustomersForm.jsx
+│   │   │   └── useCustomers.jsx
+│   │   ├── Order/
+│   │   │   ├── OrderList.jsx
+│   │   │   ├── OrderForm.jsx
+│   │   │   └── useOrder.jsx
+│   │   ├── Statistics/
+│   │   │   └── StatisticsView.jsx
 │   │   └── OnlineStoreMenu.jsx
 │   ├── services/
 │   │   └── api.js
+│   ├── config/
+│   │   └── menuItems.js
+│   ├── styles/
+│   │   └── global.css
+│   ├── assets/
+│   │   └── fondo_ondas_gris.svg
+│   ├── OnlineStoreMenu.css
 │   ├── App.jsx
 │   └── main.jsx
-└── public/
+├── public/
+│   ├── index.html
+├── package.json
+└── vite.config.js
 ```
+
+### Key Components Description
+
+- **Category**: Manages product categories CRUD operations
+- **Product**: Handles product listing and management
+- **Customer**: Customer information management system
+- **Order**: Order processing and tracking
+- **Statistics**: Data visualization and reporting
+- **OnlineStoreMenu**: Main navigation and dashboard
+
+### Core Files
+
+- **api.js**: Centralized API service calls
+- **menuItems.js**: Navigation and menu configuration
+- **global.css**: Application-wide styling
+- **App.jsx**: Main application component
+- **main.jsx**: Application entry point
 
 ### Custom Hooks
 - useProducts: Product management logic
