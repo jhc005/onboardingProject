@@ -1,0 +1,182 @@
+:root {
+  --orange-primary: #FF6B00;
+  --orange-secondary: #FF8534;
+  --orange-light: #FFA66B;
+  --orange-dark: #CC5500;
+  --black-primary: #1A1A1A;
+  --black-secondary: #333333;
+  --black-light: #4D4D4D;
+  --white: #FFFFFF;
+}
+
+/* Global styles */
+body {
+  color: var(--white);
+  background-image: url('../assets/fondo_ondas_gris.svg');
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+h1, h3, h4, h5, h6,
+p, span, td, th, label,
+.card, .card-body,
+.card-text,
+.text-muted,
+.form-label,
+.table {
+  color: var(--white);
+}
+
+/* Section titles */
+h2 {
+  color: var(--orange-primary);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.card, .card-body,
+.form-control,
+.modal-content {
+  background-color: var(--black-secondary);
+}
+
+.card-title,
+.modal-header .modal-title,
+.navbar-brand {
+  color: var(--orange-primary);
+  font-weight: bold;
+}
+
+.text-muted {
+  opacity: 0.8;
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--orange-primary);
+  border-color: var(--orange-dark);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--orange-dark);
+  border-color: var(--orange-dark);
+}
+
+.btn-secondary {
+  background-color: var(--black-secondary);
+  border-color: var(--black-light);
+  color: var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: var(--black-light);
+}
+.editButton{
+  color: var(--white);
+  background-color: var(--orange-primary);
+  border-color: var(--orange-dark);
+  margin-right: 0.5rem;
+}
+.editButton:hover {
+  color: var(--white);
+  background-color: var(--orange-dark);
+  border-color: var(--orange-dark);
+}
+.deleteButton{
+  color: var(--white);
+  background-color: var(--black-primary);
+  border-color: var(--black-light);
+}
+.deleteButton:hover {
+  color: var(--white);
+  background-color: var(--black-light);
+  border-color: var(--black-light);
+}
+
+/* Form styles */
+.form-control, .form-select {
+  border-color: var(--orange-dark);
+  color: var(--white);
+  background-color: var(--black-secondary);
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--black-secondary);
+  border-color: var(--orange-primary);
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+  color: var(--white);
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
+select.form-control option {
+  background-color: var(--black-secondary);
+  color: var(--white);
+}
+
+/* Table styles */
+.table > :not(caption) > * > * {
+  background-color: var(--black-secondary);
+  border-bottom-color: var(--orange-dark);
+  color: var(--white);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--black-primary);
+  color: var(--white);
+}
+
+.table thead th {
+  color: var(--orange-light);
+  border-bottom: 2px solid var(--orange-primary);
+}
+
+/* Modal styles */
+.modal-content {
+  border: 1px solid var(--orange-dark);
+  color: var(--white);
+}
+
+.modal-header {
+  border-bottom-color: var(--orange-dark);
+}
+
+.modal-header .btn-close {
+  color: var(--white);
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-footer {
+  border-top-color: var(--orange-dark);
+}
+
+/* Nav styles */
+.navbar {
+  background-color: var(--black-primary);
+  border-bottom: 2px solid var(--orange-primary);
+}
+
+.navbar-brand:hover {
+  color: var(--orange-light);
+}
+
+.navbar-toggler {
+  border-color: var(--orange-primary);
+  color: var(--orange-primary);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 107, 0, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.nav-link {
+  color: var(--orange-light);
+}
+
+.nav-link:hover {
+  color: var(--orange-primary);
+}

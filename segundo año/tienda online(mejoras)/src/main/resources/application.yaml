@@ -1,0 +1,11 @@
+
+spring:
+    application:
+        name: online-store
+    datasource:
+        url: jdbc:mysql://localhost:3306/online_store?createDatabaseIfNotExist=true
+        username: root
+        password: MiPassword123
+    jpa:
+        show-sql: true
+    
