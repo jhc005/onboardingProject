@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -19,6 +18,8 @@ import lombok.AllArgsConstructor;
 import com.tienda_online.DTO.ProductDto;
 
 import com.tienda_online.application.services.ProductService;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -40,12 +41,14 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(
+            @Valid
             @RequestBody ProductDto productDto) {
         return ResponseEntity.ok(productService.createProduct(productDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(
+            @Valid
             @PathVariable Long id, 
             @RequestBody ProductDto productDto) {
         return ResponseEntity.ok(productService.updateProduct(id, productDto) );

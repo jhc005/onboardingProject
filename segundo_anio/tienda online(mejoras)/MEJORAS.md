@@ -105,6 +105,8 @@ A pesar de todo, hay cosas que funcionan y están bien hechas:
 - CORS configurado
 - El frontend funciona y se comunica con el backend
 
+
+# Extension de los problemas ya mencionados para verlos a profundidad
 ## 🔴 PROBLEMAS CRÍTICOS (Arreglar ya)
 
 ### 1. ResponseEntity Anidado en CategoryController
@@ -185,44 +187,6 @@ public class CustomerDto {
     private Long id;
     private String name;
     // ... otros campos
-}
-```
-
----
-
-### 4. Falta Global Exception Handler
-
-**Ubicación:** Todo el proyecto
-
-La aplicación no tiene un manejador centralizado de excepciones. Cada servicio lanza `RuntimeException` genérica:
-
-```java
-.orElseThrow(() -> new RuntimeException("Category not found with id: " + productDto.getCategoryId()));
-```
-
-Problemas:
-- Cada endpoint retorna errores diferentes
-- Stacktraces expuestos al cliente
-- No hay logging centralizado de errores
-- Imposible controlar el formato de respuesta de error
-
-**Solución:** Crear un handler global con `@RestControllerAdvice`
-
-```java
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-    
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(EntityNotFoundException ex) {
-        ErrorResponse error = new ErrorResponse("Recurso no encontrado", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }
-    
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ErrorResponse> handleValidation(ValidationException ex) {
-        ErrorResponse error = new ErrorResponse("Validación fallida", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-    }
 }
 ```
 
@@ -368,49 +332,6 @@ public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDt
 
 ---
 
-### 9. Inconsistencia en Constructores de Servicios
-
-Algunos servicios usan `@AllArgsConstructor` de Lombok, otros tienen constructores manuales. Esto es inconsistente.
-
-**Solución:** Usar `@AllArgsConstructor` en todos para consistencia
-
-```java
-@Service
-@AllArgsConstructor
-public class CustomerService {
-    private final CustomerRepository repository;
-    private final CustomerMapper mapper;
-}
-```
-
----
-
-### 10. Tests Vacíos e Inútiles
-
-**Archivo:** [ProyectoTiendaOnlineApplicationTests.java](src/test/java/com/tienda_online/ProyectoTiendaOnlineApplicationTests.java)
-
-```java
-@Test
-void contextLoads() { }  // No valida nada
-```
-
-Este test solo verifica que la aplicación arranca, pero no testea ninguna funcionalidad.
-
-**Solución:** Escribir tests con sentido
-
-```java
-@Test
-void shouldCreateCategorySuccessfully() {
-    CategoryDto dto = new CategoryDto(null, "Electronics");
-    CategoryDto created = categoryService.createCategory(dto);
-    
-    assertThat(created.getId()).isNotNull();
-    assertThat(created.getName()).isEqualTo("Electronics");
-}
-```
-
----
-
 ## 🟡 PROBLEMAS MEDIOS (Siguiente sprint)
 
 ### 11. Método Muy Largo en ProductService
@@ -481,30 +402,6 @@ public class ProductService {
 
 ---
 
-### 13. Falta Documentación JavaDoc
-
-**Ubicación:** Toda la codebase
-
-Los métodos complejos no tienen documentación JavaDoc, haciendo difícil entender qué hacen.
-
-**Solución:** Agregar comentarios JavaDoc
-
-```java
-/**
- * Creates a new product and persists it in the database.
- * 
- * @param productDto the product data transfer object containing product details
- * @return the created product as a DTO with the generated ID
- * @throws CategoryNotFoundException if the specified category doesn't exist
- * @throws ValidationException if the product data is invalid
- */
-public ProductDto createProduct(ProductDto productDto) {
-    // ...
-}
-```
-
----
-
 ### 14. Imports No Utilizados
 
 **Archivo:** [application/services/ProductService.java](src/main/java/com/tienda_online/application/services/ProductService.java)
@@ -519,22 +416,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 Los servicios no deben importar anotaciones web, eso es responsabilidad del controlador.
 
 **Solución:** Limpiar imports
-
----
-
-### 15. ProductRepository Tiene Formato Incorrecto
-
-**Archivo:** [infrastructure/repositories/ProductRepository.java](src/main/java/com/tienda_online/infrastructure/repositories/ProductRepository.java) línea 12
-
-```java
-// ❌ INCORRECTO
-List<Product>findByCategoryId(Long categoryId);
-
-// ✅ CORRECTO
-List<Product> findByCategoryId(Long categoryId);
-```
-
-Falta espacio entre el tipo de retorno y el nombre del método.
 
 ---
 
@@ -601,4 +482,3 @@ A pesar de los problemas listados, tienes:
 - ✅ Mappers con MapStruct
 - ✅ CORS configurado
 - ✅ Frontend funcionando
-

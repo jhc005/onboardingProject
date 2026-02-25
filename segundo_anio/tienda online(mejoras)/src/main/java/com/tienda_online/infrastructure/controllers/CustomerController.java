@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tienda_online.DTO.CustomerDto;
 import com.tienda_online.application.services.CustomerService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -34,12 +36,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customer) {
+    public ResponseEntity<CustomerDto> createCustomer( @Valid @RequestBody CustomerDto customer) {
         return ResponseEntity.ok(customerService.createCustomer(customer));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customer) {
+    public ResponseEntity<CustomerDto> updateCustomer( @Valid @PathVariable Long id, @RequestBody CustomerDto customer) {
         return customerService.updateCustomer(id, customer)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());

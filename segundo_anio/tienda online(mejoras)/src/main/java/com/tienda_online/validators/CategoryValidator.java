@@ -8,20 +8,10 @@ import com.tienda_online.DTO.CategoryDto;
 public class CategoryValidator {
 
     public void validateData(CategoryDto categoryDto) {
-        validateNonNullFields(categoryDto);
         validateProductName(categoryDto.getName());
     }
 
-    public void validateNonNullFields(CategoryDto categoryDto) {
-        if (categoryDto.getName() == null || categoryDto.getId() == null) {
-            throw new RuntimeException("Invalid category data");
-        }
-    }
-
     public void validateProductName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new RuntimeException("Category name cannot be empty");
-        }
         if (name.length() < 3 || name.length() > 100) {
             throw new RuntimeException("Category name must be between 3 and 100 characters");
         }
