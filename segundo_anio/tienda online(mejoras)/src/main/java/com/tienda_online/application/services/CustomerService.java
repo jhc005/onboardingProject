@@ -7,6 +7,7 @@ import com.tienda_online.DTO.CustomerDto;
 import com.tienda_online.Mappers.CustomerMapper;
 import com.tienda_online.domain.entities.Customer;
 import com.tienda_online.infrastructure.repositories.CustomerRepository;
+import com.tienda_online.validators.CustomerValidator;
 
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final CustomerValidator customerValidator;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper, CustomerValidator customerValidator) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.customerValidator = customerValidator;
     }
 
     public List<CustomerDto> getAllCustomers() {
@@ -28,12 +31,17 @@ public class CustomerService {
     public CustomerDto createCustomer (CustomerDto customerDto) {
         Customer customer = customerMapper.toEntity(customerDto);
 
+        customerValidator.validateCustomerData(customerDto);
+
         customer = customerRepository.save(customer);
 
         return customerMapper.toDto(customer);
     }
 
     public Optional <CustomerDto> updateCustomer(Long id, CustomerDto customerDtoDetails) {
+
+        customerValidator.validateCustomerData(customerDtoDetails);
+
         return customerRepository.findById(id)
             .map(existingCustomer -> {
                 existingCustomer.setFirstName(customerDtoDetails.getFirstName());

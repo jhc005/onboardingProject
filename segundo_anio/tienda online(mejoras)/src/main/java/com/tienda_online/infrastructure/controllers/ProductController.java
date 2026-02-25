@@ -35,26 +35,26 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
-        return productService.getProductById(id);
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(
-            @RequestBody ProductDto productDto, 
-            UriComponentsBuilder uriBuilder) {
-        return productService.createProduct(productDto, uriBuilder);
+            @RequestBody ProductDto productDto) {
+        return ResponseEntity.ok(productService.createProduct(productDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(
             @PathVariable Long id, 
             @RequestBody ProductDto productDto) {
-        return productService.updateProduct(id, productDto);
+        return ResponseEntity.ok(productService.updateProduct(id, productDto) );
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        return productService.deleteProduct(id);
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

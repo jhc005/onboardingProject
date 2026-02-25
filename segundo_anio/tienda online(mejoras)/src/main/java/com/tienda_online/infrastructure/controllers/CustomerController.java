@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda_online.DTO.CustomerDto;
 import com.tienda_online.application.services.CustomerService;
-import com.tienda_online.domain.entities.Customer;
 
 import java.util.List;
 

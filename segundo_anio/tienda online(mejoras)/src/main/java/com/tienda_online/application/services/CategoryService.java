@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.tienda_online.DTO.CategoryDto;
 
 import com.tienda_online.infrastructure.repositories.CategoryRepository;
+import com.tienda_online.validators.CategoryValidator;
 
 import lombok.AllArgsConstructor;
 
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final CategoryValidator categoryValidator;
 
 
     public List<CategoryDto> getAllCategories() {
@@ -24,6 +26,7 @@ public class CategoryService {
 
     public CategoryDto createCategory(CategoryDto categoryDto) {
         var category = new com.tienda_online.domain.entities.Category();
+        categoryValidator.validateData(categoryDto);
         category.setName(categoryDto.getName());
         category = categoryRepository.save(category);
         

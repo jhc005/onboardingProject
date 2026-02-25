@@ -37,6 +37,15 @@ Dejé la contraseña de la base de datos en el archivo de configuración. Esto e
 
 Los servicios deberían ser agnósticos de HTTP. Ahora mismo devuelvo `ResponseEntity` desde los servicios, cuando eso debería hacerlo solo el controlador. Tengo que corregir esto y devolver solo DTOs o entidades desde los servicios.
 
+### 9. Creación manual de la base de datos
+Actualmente mi backend requiere que la base de datos exista antes de arrancar la aplicación. Esto es problemático porque:
+
+- Cada vez que alguien nuevo clona el proyecto tiene que crear la DB manualmente.
+
+- No es reproducible ni escalable (dev → staging → producción).
+
+- Puede romper el arranque si cambias algo del esquema.
+
 ---
 
 ## 🟡 Problemas medios (para el siguiente sprint)
@@ -76,6 +85,7 @@ En algunos casos devuelvo un BadRequest vacío. Es mejor devolver un objeto con 
 - Añadir @Valid y Bean Validation
 - Unificar constructores
 - Mover credenciales a variables de entorno
+- Usar spring.jpa.hibernate.ddl-auto
 
 **Fase 3 (Media):**
 - Agregar logging
