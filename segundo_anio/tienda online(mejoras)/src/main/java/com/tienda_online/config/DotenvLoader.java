@@ -1,4 +1,4 @@
-package com.tienda_online;
+package com.tienda_online.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

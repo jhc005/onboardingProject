@@ -482,3 +482,173 @@ A pesar de los problemas listados, tienes:
 - ✅ Mappers con MapStruct
 - ✅ CORS configurado
 - ✅ Frontend funcionando
+
+
+# MEJORAS FRONT-END (ANÁLISIS DETALLADO)
+
+Este documento analiza en profundidad los errores, code smells y oportunidades de mejora en la carpeta `front-end/online_store/src/components`, siguiendo los principios SOLID, Clean Code y buenas prácticas de React.
+
+---
+
+## 1. Generalidades y Smells Globales
+
+- **Duplicación de lógica**: Hay patrones repetidos en formularios, manejo de estado, validación y modales en Category, Customer, Order y Product. Esto dificulta el mantenimiento y la escalabilidad.
+- **Componentes con demasiadas responsabilidades**: Muchos componentes mezclan lógica de negocio, presentación y manejo de estado (violación de SRP de SOLID).
+- **Nombres poco claros**: Algunos handlers y estados no reflejan su propósito real, dificultando la comprensión.
+- **Hardcodeo de datos**: Números de usuarios, textos y configuraciones están fijos en el código (ej: OnlineStoreMenu).
+- **Manejo inconsistente de errores y loading**: No todos los hooks y componentes muestran feedback uniforme al usuario.
+- **Falta de reutilización**: No se aprovechan componentes genéricos para formularios, tablas y modales.
+- **Validación débil**: Los formularios solo usan `required`, sin validaciones más robustas (ej: email, números positivos, etc).
+
+---
+
+## 2. Análisis por Carpeta/Componente
+
+### Category
+**Archivos:** CategoryForm.jsx, CategoryList.jsx, useCategories.jsx
+
+- **SRP**: `CategoryList` y `CategoryForm` mezclan lógica de UI y negocio. Ejemplo: `handleAddCategory` realiza lógica de API y actualización de estado.
+- **Duplicación**: El patrón de formulario y lista es casi idéntico al de otras entidades.
+- **Validación**: Solo se valida que el campo no esté vacío. No hay feedback específico para errores de API.
+- **Nombres**: `name` es poco expresivo si en el futuro hay más campos. Mejor usar `categoryName`.
+- **Manejo de errores**: El error de carga se muestra, pero el de creación solo se loguea en consola.
+- **Reutilización**: El formulario podría ser un componente genérico reutilizable.
+- **Hook personalizado**: `useCategories` está bien, pero podría aceptar callbacks para mayor flexibilidad.
+
+**Ejemplo de mejora:**
+- Extraer un componente `GenericForm` y un hook `useEntityList` reutilizable.
+- Mejorar validación y feedback visual.
+
+### Customer
+**Archivos:** CustomersForm.jsx, CustomersList.jsx, useCustomers.jsx
+
+- **SRP**: `CustomersForm` mezcla lógica de presentación, validación y manejo de estado.
+- **Inicialización de estado**: `emptyCustomer` podría estar en un archivo de constantes reutilizable.
+- **Repetición**: El patrón de formulario y lista es igual al de Category y Product.
+- **Validación**: Solo se usa `required`. No hay validación de email ni teléfono.
+- **Manejo de errores**: No se muestra feedback si falla el guardado.
+- **Nombres**: `formData` es genérico, mejor usar `customerData`.
+- **Reutilización**: El modal y formulario podrían ser componentes genéricos.
+
+**Ejemplo de mejora:**
+- Usar una librería de validación como Yup o Zod.
+- Extraer lógica de formulario a un custom hook.
+
+### Order
+**Archivos:** OrderForm.jsx, OrderList.jsx, useOrder.jsx
+
+- **Complejidad**: `OrderForm` tiene lógica compleja para manejar productos seleccionados y cálculo de totales, mezclada con la UI.
+- **SRP**: El componente debería delegar la lógica de negocio a un hook personalizado.
+- **Validación**: No se valida si el total es positivo, ni si los productos existen realmente.
+- **Reutilización**: El formulario de selección de productos podría ser un componente aparte.
+- **Manejo de errores**: No hay feedback visual si falla la creación de la orden.
+
+**Ejemplo de mejora:**
+- Extraer lógica de selección y cálculo a un hook `useOrderForm`.
+- Mostrar mensajes de error y éxito al usuario.
+
+### Product
+**Archivos:** ProductForm.jsx, ProductList.jsx, useProducts.jsx
+
+- **Duplicación**: El patrón de formulario y lista es igual al de Customer y Category.
+- **SRP**: `ProductForm` mezcla lógica de negocio, validación y presentación.
+- **Validación**: Solo se valida que los campos no estén vacíos. No se valida que el precio y stock sean positivos.
+- **Manejo de errores**: No se muestra feedback si falla la creación/edición/eliminación.
+- **Reutilización**: El formulario podría ser genérico y parametrizable.
+
+**Ejemplo de mejora:**
+- Usar un componente `EntityForm` parametrizable.
+- Validar tipos y rangos de los campos.
+
+### Statistics
+**Archivo:** StatisticsView.jsx
+
+- **SRP**: Mezcla lógica de obtención de datos, procesamiento y renderizado de gráficos.
+- **Hardcodeo**: Los nombres de los meses y textos están fijos en el componente.
+- **Reutilización**: La lógica de procesamiento de datos podría estar en un hook o utilidad aparte.
+- **Manejo de errores**: No se muestra feedback si no hay datos o si ocurre un error.
+
+**Ejemplo de mejora:**
+- Extraer lógica de procesamiento a un hook `useStatistics`.
+- Parametrizar textos y labels.
+
+### OnlineStoreMenu.jsx
+
+- **Hardcodeo**: Los números de usuarios y estadísticas están fijos. Deberían venir de props o de un servicio/API.
+- **Responsabilidad**: El componente mezcla presentación, navegación y datos estáticos.
+- **Estilos**: Algunos estilos inline podrían moverse a CSS o Styled Components.
+- **Reutilización**: Las cards de estadísticas y features podrían ser componentes reutilizables.
+
+**Ejemplo de mejora:**
+- Crear un componente `StatCard` y `FeatureCard` reutilizables.
+- Obtener datos de usuario desde un contexto o API.
+
+---
+
+## 3. Ejemplos de Code Smells Detectados
+
+- **Long Function**: Handlers como `handleSubmit` y `handleProductToggle` hacen demasiadas cosas.
+- **Feature Envy**: Componentes que acceden mucho a props o hooks externos en vez de delegar.
+- **Primitive Obsession**: Uso de strings y números en vez de objetos para entidades.
+- **Magic Numbers/Strings**: Valores como "PENDING", números de usuarios, etc., están hardcodeados.
+- **Repetición**: Formularios y tablas casi idénticos en todas las entidades.
+
+---
+
+## 4. Recomendaciones Generales y Buenas Prácticas
+
+- Extraer hooks personalizados para lógica de negocio y procesamiento de datos.
+- Crear componentes reutilizables para formularios, tablas y modales.
+- Usar librerías de validación (Yup, Zod) para robustez y claridad.
+- Evitar hardcodeo de datos y textos; usar constantes o traducciones.
+- Mejorar nombres de variables y funciones para mayor claridad.
+- Aplicar principios SOLID, especialmente SRP y OCP.
+- Uniformizar manejo de errores y loading en todos los componentes.
+- Separar lógica de presentación y negocio siempre que sea posible.
+- Documentar componentes y hooks complejos.
+
+---
+
+## 5. Ejemplo de Refactorización (SRP y Reutilización)
+
+```jsx
+// Ejemplo de un formulario genérico reutilizable
+function EntityForm({ fields, initialValues, onSubmit, validationSchema }) {
+	const [form, setForm] = useState(initialValues);
+	const [errors, setErrors] = useState({});
+
+	const handleChange = (field) => (e) => {
+		setForm({ ...form, [field]: e.target.value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		// Validar con schema
+		const validationErrors = validationSchema(form);
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors);
+			return;
+		}
+		await onSubmit(form);
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			{fields.map(field => (
+				<div key={field.name}>
+					<label>{field.label}</label>
+					<input
+						type={field.type}
+						value={form[field.name]}
+						onChange={handleChange(field.name)}
+					/>
+					{errors[field.name] && <span>{errors[field.name]}</span>}
+				</div>
+			))}
+			<button type="submit">Guardar</button>
+		</form>
+	);
+}
+```
+
+---
