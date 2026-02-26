@@ -9,6 +9,8 @@ import java.util.List;
 import com.tienda_online.customer.application.dto.CustomerDto;
 import com.tienda_online.customer.domain.ports.in.CustomerUseCase;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/customers")
 @RequiredArgsConstructor
@@ -22,12 +24,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> create(@RequestBody CustomerDto dto) {
+    public ResponseEntity<CustomerDto> create(@Valid 
+                                              @RequestBody CustomerDto dto) {
         return ResponseEntity.ok(customerUseCase.create(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> update(@PathVariable Long id,
+    public ResponseEntity<CustomerDto> update(@Valid
+                                              @PathVariable Long id,
                                               @RequestBody CustomerDto dto) {
         return ResponseEntity.ok(customerUseCase.update(id, dto));
     }

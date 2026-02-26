@@ -38,16 +38,16 @@ public class Customer {
     private void validate(String firstName, String lastName,
                           String email, String phone) {
 
-        if (firstName == null || firstName.length() < 3)
+        if (firstName.length() < 3)
             throw new IllegalArgumentException("Invalid first name");
 
-        if (lastName == null || lastName.length() < 3)
+        if (lastName.length() < 3)
             throw new IllegalArgumentException("Invalid last name");
 
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
             throw new IllegalArgumentException("Invalid email");
 
-        if (phone == null || phone.length() < 7)
+        if (phone.length() < 7)
             throw new IllegalArgumentException("Invalid phone");
     }
 
