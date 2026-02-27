@@ -25,7 +25,8 @@ export const productService = {
 
 export const customerService = {
     getAll: () => api.get('/customers'),
-    create: (customer) => api.post('/customers', customer)
+    create: (customer) => api.post('/customers', customer),
+    update: (id,customer) => api.put(`customers/${id}`, customer)
 };
 
 export const orderService = {

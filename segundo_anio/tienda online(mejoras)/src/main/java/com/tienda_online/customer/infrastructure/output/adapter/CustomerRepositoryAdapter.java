@@ -40,4 +40,24 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
         return mapper.toDomain(saved);
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return jpaRepository.existsByEmail(email);
+    }      
+
+    @Override
+    public boolean existsByEmailAndIdNot(String email, Long id) {
+        return jpaRepository.existsByEmailAndIdNot(email, id);
+    }
+
+    @Override
+     public Customer findByEmail(String email) {
+        return jpaRepository.findAll()
+                .stream()
+                .filter(e -> e.getEmail().equals(email))
+                .findFirst()
+                .map(mapper::toDomain)
+                .orElse(null);
+    }
+
 }

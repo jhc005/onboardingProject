@@ -24,8 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> create(@Valid 
-                                              @RequestBody CustomerDto dto) {
+    public ResponseEntity<CustomerDto> create(@Valid @RequestBody CustomerDto dto) {
         return ResponseEntity.ok(customerUseCase.create(dto));
     }
 
