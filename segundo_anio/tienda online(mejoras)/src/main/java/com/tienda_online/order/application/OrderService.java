@@ -8,20 +8,18 @@ import lombok.RequiredArgsConstructor;
 import com.tienda_online.order.domain.model.Order;
 import com.tienda_online.order.domain.outport.OrderRepositoryPort;
 import com.tienda_online.order.application.dto.OrderDto;
-import com.tienda_online.order.application.inport.OrderUseCase;
 import com.tienda_online.order.mapper.OrderPersistenceMapper;
 import com.tienda_online.customer.domain.model.Customer;
 import com.tienda_online.customer.domain.outport.CustomerRepositoryPort;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService implements OrderUseCase {
+public class OrderService{
 
     private final CustomerRepositoryPort customerRepository;
     private final OrderRepositoryPort repository;
     private final OrderPersistenceMapper mapper;
 
-    @Override
     public List<OrderDto> getAll() {
         return repository.findAll()
                 .stream()
@@ -29,7 +27,6 @@ public class OrderService implements OrderUseCase {
                 .toList();
     }
 
-    @Override
     public OrderDto create(OrderDto dto) {
 
         Customer customer = customerRepository.findById(dto.getCustomer().getId());

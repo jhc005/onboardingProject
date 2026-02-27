@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tienda_online.product.application.dto.ProductDto;
-import com.tienda_online.product.application.inport.ProductUseCase;
 import com.tienda_online.product.domain.model.Product;
 import com.tienda_online.product.domain.outport.ProductRepositoryPort;
 import com.tienda_online.category.domain.model.Category;
@@ -15,12 +14,11 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService implements ProductUseCase {
+public class ProductService{
 
     private final ProductRepositoryPort productRepository;
     private final CategoryRepositoryPort categoryRepository;
 
-    @Override
     public List<ProductDto> getAllProducts(Long categoryId) {
         List<Product> products = (categoryId != null)
             ? productRepository.findByCategoryId(categoryId)
@@ -38,7 +36,6 @@ public class ProductService implements ProductUseCase {
                 .toList();
     }
 
-    @Override
     public ProductDto getProductById(Long id) {
         Product p = productRepository.findById(id);
         return new ProductDto(
@@ -51,7 +48,6 @@ public class ProductService implements ProductUseCase {
                 p.getUpdateDate());
     }
 
-    @Override
     public ProductDto createProduct(ProductDto dto) {
 
         Category category = categoryRepository.findById(dto.getCategoryId());
@@ -75,7 +71,6 @@ public class ProductService implements ProductUseCase {
                 saved.getUpdateDate());
     }
 
-    @Override
     public ProductDto updateProduct(Long id, ProductDto dto) {
         Product existing = productRepository.findById(id);
 
@@ -101,7 +96,6 @@ public class ProductService implements ProductUseCase {
                 updated.getUpdateDate());
     }
 
-    @Override
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id);
         productRepository.delete(product);

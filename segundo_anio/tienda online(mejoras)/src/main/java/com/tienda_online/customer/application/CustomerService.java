@@ -8,17 +8,15 @@ import lombok.RequiredArgsConstructor;
 import com.tienda_online.customer.domain.model.Customer;
 import com.tienda_online.customer.domain.outport.CustomerRepositoryPort;
 import com.tienda_online.customer.application.dto.CustomerDto;
-import com.tienda_online.customer.application.inport.CustomerUseCase;
 import com.tienda_online.customer.mapper.CustomerPersistenceMapper;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerService implements CustomerUseCase {
+public class CustomerService{
 
     private final CustomerRepositoryPort repository;
     private final CustomerPersistenceMapper mapper;
 
-    @Override
     public List<CustomerDto> getAll() {
         return repository.findAll()
                 .stream()
@@ -26,7 +24,6 @@ public class CustomerService implements CustomerUseCase {
                 .toList();
     }
 
-    @Override
     public CustomerDto create(CustomerDto dto) {
 
         if (repository.existsByEmail(dto.getEmail())) {
@@ -43,7 +40,6 @@ public class CustomerService implements CustomerUseCase {
         return mapper.toDto(saved);
     }
 
-    @Override
     public CustomerDto update(Long id, CustomerDto dto) {
 
         Customer customer = repository.findById(id);

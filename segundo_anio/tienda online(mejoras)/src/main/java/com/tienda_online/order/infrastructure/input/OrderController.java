@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.tienda_online.order.application.OrderService;
 import com.tienda_online.order.application.dto.OrderDto;
-import com.tienda_online.order.application.inport.OrderUseCase;
 
 import jakarta.validation.Valid;
 
@@ -16,15 +16,15 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderUseCase orderUseCase;
+    private final OrderService orderService;
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> getAll() {
-        return ResponseEntity.ok(orderUseCase.getAll());
+        return ResponseEntity.ok(orderService.getAll());
     }
 
     @PostMapping
     public ResponseEntity<OrderDto> create(@Valid @RequestBody OrderDto dto) {
-        return ResponseEntity.ok(orderUseCase.create(dto));
+        return ResponseEntity.ok(orderService.create(dto));
     }
 }

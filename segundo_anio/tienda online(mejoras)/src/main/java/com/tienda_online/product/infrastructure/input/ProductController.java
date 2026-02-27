@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.tienda_online.product.application.ProductService;
 import com.tienda_online.product.application.dto.ProductDto;
-import com.tienda_online.product.application.inport.ProductUseCase;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,32 +16,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductUseCase productUseCase;
+    private final ProductService productService;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAll(@RequestParam(required=false) Long categoryId) {
-        return ResponseEntity.ok(productUseCase.getAllProducts(categoryId));
+        return ResponseEntity.ok(productService.getAllProducts(categoryId));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(productUseCase.getProductById(id));
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PostMapping
     public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductDto dto) {
-        return ResponseEntity.ok(productUseCase.createProduct(dto));
+        return ResponseEntity.ok(productService.createProduct(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable Long id,
                                              @Valid @RequestBody ProductDto dto) {
-        return ResponseEntity.ok(productUseCase.updateProduct(id, dto));
+        return ResponseEntity.ok(productService.updateProduct(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productUseCase.deleteProduct(id);
+        productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 }

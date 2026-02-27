@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.tienda_online.category.application.CategoryService;
 import com.tienda_online.category.application.dto.CategoryDto;
-import com.tienda_online.category.application.inport.CategoryUseCase;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryUseCase categoryUseCase;
+    private final CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAll() {
-        return ResponseEntity.ok(categoryUseCase.getAllCategories());
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @PostMapping
@@ -30,6 +30,6 @@ public class CategoryController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(categoryUseCase.createCategory(dto));
+                .body(categoryService.createCategory(dto));
     }
 }

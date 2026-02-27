@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.tienda_online.customer.application.CustomerService;
 import com.tienda_online.customer.application.dto.CustomerDto;
-import com.tienda_online.customer.application.inport.CustomerUseCase;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -16,21 +15,21 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerUseCase customerUseCase;
+    private final CustomerService customerService;
 
     @GetMapping
     public ResponseEntity<List<CustomerDto>> getAll() {
-        return ResponseEntity.ok(customerUseCase.getAll());
+        return ResponseEntity.ok(customerService.getAll());
     }
 
     @PostMapping
     public ResponseEntity<CustomerDto> create(@Valid @RequestBody CustomerDto dto) {
-        return ResponseEntity.ok(customerUseCase.create(dto));
+        return ResponseEntity.ok(customerService.create(dto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> update(@PathVariable Long id,
                                               @Valid @RequestBody CustomerDto dto) {
-        return ResponseEntity.ok(customerUseCase.update(id, dto));
+        return ResponseEntity.ok(customerService.update(id, dto));
     }
 }
