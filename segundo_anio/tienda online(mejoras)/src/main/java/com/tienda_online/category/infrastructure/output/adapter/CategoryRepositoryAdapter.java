@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.tienda_online.category.domain.model.Category;
-import com.tienda_online.category.domain.ports.out.CategoryRepositoryPort;
+import com.tienda_online.category.domain.model.outport.CategoryRepositoryPort;
 import com.tienda_online.category.infrastructure.output.jpa.CategoryJpaRepository;
 import com.tienda_online.category.mapper.CategoryPersistenceMapper;
 

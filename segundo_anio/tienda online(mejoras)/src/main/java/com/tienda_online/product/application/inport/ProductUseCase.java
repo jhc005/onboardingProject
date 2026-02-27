@@ -1,4 +1,4 @@
-package com.tienda_online.product.domain.ports.in;
+package com.tienda_online.product.application.inport;
 
 import java.util.List;
 

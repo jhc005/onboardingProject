@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tienda_online.product.application.dto.ProductDto;
+import com.tienda_online.product.application.inport.ProductUseCase;
 import com.tienda_online.product.domain.model.Product;
-import com.tienda_online.product.domain.ports.in.ProductUseCase;
-import com.tienda_online.product.domain.ports.out.ProductRepositoryPort;
-import com.tienda_online.category.domain.ports.out.CategoryRepositoryPort;
+import com.tienda_online.product.domain.outport.ProductRepositoryPort;
 import com.tienda_online.category.domain.model.Category;
+import com.tienda_online.category.domain.model.outport.CategoryRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 

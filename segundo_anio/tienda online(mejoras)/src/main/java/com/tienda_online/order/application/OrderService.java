@@ -6,13 +6,12 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import com.tienda_online.order.domain.model.Order;
-import com.tienda_online.order.domain.ports.in.OrderUseCase;
-import com.tienda_online.order.domain.ports.out.OrderRepositoryPort;
+import com.tienda_online.order.domain.outport.OrderRepositoryPort;
 import com.tienda_online.order.application.dto.OrderDto;
+import com.tienda_online.order.application.inport.OrderUseCase;
 import com.tienda_online.order.mapper.OrderPersistenceMapper;
-
 import com.tienda_online.customer.domain.model.Customer;
-import com.tienda_online.customer.domain.ports.out.CustomerRepositoryPort;
+import com.tienda_online.customer.domain.outport.CustomerRepositoryPort;
 
 @Service
 @RequiredArgsConstructor

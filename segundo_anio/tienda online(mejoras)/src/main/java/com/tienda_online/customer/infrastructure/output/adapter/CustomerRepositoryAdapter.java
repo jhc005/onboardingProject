@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 import com.tienda_online.customer.domain.model.Customer;
-import com.tienda_online.customer.domain.ports.out.CustomerRepositoryPort;
+import com.tienda_online.customer.domain.outport.CustomerRepositoryPort;
 import com.tienda_online.customer.infrastructure.output.jpa.CustomerJpaRepository;
 import com.tienda_online.customer.mapper.CustomerPersistenceMapper;
 

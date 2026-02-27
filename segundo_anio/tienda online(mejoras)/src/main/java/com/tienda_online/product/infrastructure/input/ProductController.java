@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.tienda_online.product.application.dto.ProductDto;
-import com.tienda_online.product.domain.ports.in.ProductUseCase;
+import com.tienda_online.product.application.inport.ProductUseCase;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

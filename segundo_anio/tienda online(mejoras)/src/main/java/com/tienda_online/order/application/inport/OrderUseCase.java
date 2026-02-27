@@ -1,4 +1,4 @@
-package com.tienda_online.order.domain.ports.in;
+package com.tienda_online.order.application.inport;
 
 import java.util.List;
 import com.tienda_online.order.application.dto.OrderDto;

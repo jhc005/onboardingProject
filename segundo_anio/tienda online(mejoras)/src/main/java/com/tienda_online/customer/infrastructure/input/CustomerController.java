@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import com.tienda_online.customer.application.dto.CustomerDto;
-import com.tienda_online.customer.domain.ports.in.CustomerUseCase;
+import com.tienda_online.customer.application.inport.CustomerUseCase;
 
 import jakarta.validation.Valid;
 

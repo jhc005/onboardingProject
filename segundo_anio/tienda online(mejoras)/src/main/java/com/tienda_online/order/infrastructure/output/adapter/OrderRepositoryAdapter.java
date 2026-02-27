@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 import com.tienda_online.order.domain.model.Order;
-import com.tienda_online.order.domain.ports.out.OrderRepositoryPort;
+import com.tienda_online.order.domain.outport.OrderRepositoryPort;
 import com.tienda_online.order.infrastructure.output.jpa.OrderJpaRepository;
 import com.tienda_online.order.mapper.OrderPersistenceMapper;
 

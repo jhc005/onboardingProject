@@ -1,4 +1,4 @@
-package com.tienda_online.order.domain.ports.out;
+package com.tienda_online.order.domain.outport;
 
 import java.util.List;
 import com.tienda_online.order.domain.model.Order;

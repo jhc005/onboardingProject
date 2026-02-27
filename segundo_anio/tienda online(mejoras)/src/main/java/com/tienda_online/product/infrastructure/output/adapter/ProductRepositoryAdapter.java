@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.tienda_online.product.domain.model.Product;
-import com.tienda_online.product.domain.ports.out.ProductRepositoryPort;
+import com.tienda_online.product.domain.outport.ProductRepositoryPort;
 import com.tienda_online.product.infrastructure.output.jpa.ProductJpaEntity;
 import com.tienda_online.product.infrastructure.output.jpa.ProductJpaRepository;
 import com.tienda_online.product.mapper.ProductPersistenceMapper;

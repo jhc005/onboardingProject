@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import com.tienda_online.customer.domain.model.Customer;
-import com.tienda_online.customer.domain.ports.in.CustomerUseCase;
-import com.tienda_online.customer.domain.ports.out.CustomerRepositoryPort;
+import com.tienda_online.customer.domain.outport.CustomerRepositoryPort;
 import com.tienda_online.customer.application.dto.CustomerDto;
+import com.tienda_online.customer.application.inport.CustomerUseCase;
 import com.tienda_online.customer.mapper.CustomerPersistenceMapper;
 
 @Service

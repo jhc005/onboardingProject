@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.tienda_online.category.application.dto.CategoryDto;
-import com.tienda_online.category.domain.ports.in.CategoryUseCase;
+import com.tienda_online.category.application.inport.CategoryUseCase;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
