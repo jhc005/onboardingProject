@@ -8,7 +8,7 @@ const emptyCustomer = {
     phone: ''
 };
 
-const CustomerForm = ({ show, onClose, onSave, customer = null }) => {
+const CustomerForm = ({ show, onClose, onSave, onUpdate, customer = null }) => {
     const [formData, setFormData] = useState(emptyCustomer);
 
     useEffect(() => {
@@ -22,14 +22,31 @@ const CustomerForm = ({ show, onClose, onSave, customer = null }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await onSave(formData);
-        onClose();
+
+        const payload = {
+            firstName: formData.firstName || "",
+            lastName: formData.lastName || "",
+            email: formData.email || "",
+            phone: formData.phone || ""
+        };
+
+        try {
+            if (customer && customer.id) {
+                await onUpdate(customer.id, payload);
+            } else {
+                await onSave(payload);
+            }
+            onClose();
+        } catch (err) {
+            console.error(err);
+            alert(err.message || "Error saving customer");
+        }
     };
 
     return (
         <Modal show={show} onHide={onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>{formData.id ? 'Edit Customer' : 'Add Customer'}</Modal.Title>
+                <Modal.Title>{customer?.id ? 'Edit Customer' : 'Add Customer'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -50,7 +67,7 @@ const CustomerForm = ({ show, onClose, onSave, customer = null }) => {
                             Cancel
                         </Button>
                         <Button type="submit" variant="primary">
-                            {formData.id ? 'Update' : 'Create'}
+                            {customer?.id ? 'Update' : 'Create'}
                         </Button>
                     </div>
                 </Form>

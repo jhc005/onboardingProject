@@ -5,7 +5,7 @@ import { useCustomers } from './useCustomers';
 import CustomerForm from './CustomersForm';
 
 function CustomerList() {
-    const { customers, loading, error, createCustomer } = useCustomers();
+    const { customers, loading, error, createCustomer, updateCustomer } = useCustomers();
     const [showModal, setShowModal] = useState(false);
     const [editingCustomer, setEditingCustomer] = useState(null);
 
@@ -26,7 +26,9 @@ function CustomerList() {
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Customers</h2>
-                <Button variant="primary" onClick={handleAddClick}><PlusCircle size={20} /></Button>
+                <Button variant="primary" onClick={handleAddClick}>
+                    <PlusCircle size={20} />
+                </Button>
             </div>
 
             <Table striped bordered hover>
@@ -52,10 +54,10 @@ function CustomerList() {
                                 <Button
                                     variant="info"
                                     size="sm"
-                                    className="editButton"
+                                    className='editButton'
                                     onClick={() => handleEditClick(customer)}
                                 >
-                                     <PencilSquare size={16} />
+                                    <PencilSquare size={16}/>
                                 </Button>
                             </td>
                         </tr>
@@ -67,6 +69,7 @@ function CustomerList() {
                 show={showModal}
                 onClose={() => setShowModal(false)}
                 onSave={createCustomer}
+                onUpdate={updateCustomer}
                 customer={editingCustomer}
             />
         </div>

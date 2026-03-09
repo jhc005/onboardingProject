@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { customerService } from '../../services/api';
 
@@ -22,8 +21,23 @@ export const useCustomers = () => {
     };
 
     const createCustomer = async (customer) => {
-        await customerService.create(customer);
-        await loadCustomers();
+        try {
+            await customerService.create(customer);
+            await loadCustomers();
+        } catch (err) {
+            setError('Error creating customer');
+            throw err;
+        }
+    };
+
+    const updateCustomer = async (id, customer) => {
+        try {
+            await customerService.update(id, customer);
+            await loadCustomers();
+        } catch (err) {
+            setError('Error updating customer');
+            throw err;
+        }
     };
 
     useEffect(() => {
@@ -35,6 +49,7 @@ export const useCustomers = () => {
         loading,
         error,
         createCustomer,
+        updateCustomer,
         reload: loadCustomers,
     };
 };
