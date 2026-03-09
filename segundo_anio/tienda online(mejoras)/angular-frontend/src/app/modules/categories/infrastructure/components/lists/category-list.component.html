@@ -1,0 +1,22 @@
+<div class="category-container">
+  <h2>Categorías</h2>
+
+  <app-category-form (create)="createCategory($event)"></app-category-form>
+
+  <div *ngIf="loading()">Cargando categorías...</div>
+
+  <table *ngIf="!loading()" class="category-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of categories()">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

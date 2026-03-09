@@ -1,0 +1,35 @@
+<div class="order-container">
+
+    <h2>Pedidos</h2>
+
+    <button class="btn-create" (click)="openCreateForm()">Crear pedido</button>
+
+    <app-order-form *ngIf="showForm()" (orderCreated)="handleOrderCreated($event)" (cancel)="closeForm()">
+    </app-order-form>
+
+    <div *ngIf="loading()">Cargando pedidos...</div>
+
+    <table *ngIf="!loading() && orders().length > 0" class="order-table">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let o of orders()">
+                <td>{{ o.customer.firstName }} {{ o.customer.lastName }}</td>
+                <td>{{ o.orderDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ o.status }}</td>
+                <td>{{ o.total | currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div *ngIf="!loading() && orders().length === 0">
+        No hay pedidos
+    </div>
+
+</div>

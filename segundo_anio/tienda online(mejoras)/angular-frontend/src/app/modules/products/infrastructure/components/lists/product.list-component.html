@@ -1,0 +1,59 @@
+<div class="customer-container">
+
+  <h2>Productos</h2>
+
+  <button class="btn-create" (click)="createProduct()">
+    Crear producto
+  </button>
+
+  <app-product-form *ngIf="showForm()" [product]="editingProduct()" [categories]="categories()"
+    (saved)="onSaved($event)" (cancelled)="cancelForm()" />
+
+  <div *ngIf="loading()">Cargando productos...</div>
+
+  <table *ngIf="!loading() && products().length > 0" class="customer-table">
+
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let p of products()">
+
+        <td>{{ p.name }}</td>
+        <td>{{ p.description }}</td>
+        <td>{{ p.price | currency }}</td>
+        <td>{{ p.stock }}</td>
+        <td>{{ categories().find(c => c.id === p.categoryId)?.name }}</td>
+
+        <td>
+
+          <button class="btn-edit" (click)="editProduct(p)">
+            Editar
+          </button>
+
+          <button class="btn-delete" (click)="deleteProduct(p.id!)">
+            Eliminar
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+  <div *ngIf="!loading() && products().length === 0">
+    No hay productos.
+  </div>
+
+</div>

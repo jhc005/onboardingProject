@@ -1,0 +1,39 @@
+<div class="customer-container">
+
+  <h2>Clientes</h2>
+  <button class="btn-create" (click)="openCreateForm()">Crear Cliente</button>
+
+  <app-customer-form *ngIf="showForm()" [customerToEdit]="editingCustomer()" (created)="handleCustomerCreated($event)"
+    (updated)="handleCustomerUpdated($event)" (cancelled)="closeForm()">
+  </app-customer-form>
+
+  <div *ngIf="loading()">Cargando clientes...</div>
+
+  <table *ngIf="!loading() && customer().length > 0" class="customer-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customer()">
+        <td>{{ c.firstName }}</td>
+        <td>{{ c.lastName }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.phone }}</td>
+        <td>
+          <button class="btn-edit" (click)="openEditForm(c)">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading() && customer().length === 0">
+    No hay clientes
+  </div>
+
+</div>

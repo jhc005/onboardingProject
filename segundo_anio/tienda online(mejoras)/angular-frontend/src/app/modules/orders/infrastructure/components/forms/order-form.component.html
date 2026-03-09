@@ -1,0 +1,22 @@
+<div class="form-container">
+    <h3>Nuevo Pedido</h3>
+    <form (ngSubmit)="createOrder()">
+        <label>Cliente</label>
+        <select [(ngModel)]="newOrder.customer" name="customer" required>
+            <option *ngFor="let c of customers()" [ngValue]="c">{{c.firstName}} {{c.lastName}}</option>
+        </select>
+
+        <label>Producto</label>
+        <select [(ngModel)]="selectedProduct" (change)="updateTotal()" name="product" required>
+            <option *ngFor="let p of products()" [ngValue]="p">{{p.name}} - {{p.price | currency}}</option>
+        </select>
+
+        <label>Total</label>
+        <input type="number" [value]="newOrder.total" name="total" readonly />
+
+        <div class="form-buttons">
+            <button type="submit">Guardar</button>
+            <button type="button" (click)="cancelForm()">Cancelar</button>
+        </div>
+    </form>
+</div>

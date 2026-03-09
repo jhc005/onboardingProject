@@ -1,0 +1,33 @@
+<div class="form-container">
+
+  <h3>{{ model.id ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+
+  <form (ngSubmit)="save()">
+
+    <input type="text" placeholder="Nombre" [(ngModel)]="model.name" name="name" required />
+
+    <input type="text" placeholder="Descripción" [(ngModel)]="model.description" name="description" />
+
+    <input type="number" placeholder="Precio" [(ngModel)]="model.price" name="price" required />
+
+    <input type="number" placeholder="Stock" [(ngModel)]="model.stock" name="stock" required />
+
+    <select [(ngModel)]="model.categoryId" name="categoryId" required>
+      <option *ngFor="let c of categories" [value]="c.id">
+        {{ c.name }}
+      </option>
+    </select>
+
+    <div class="form-buttons">
+      <button type="submit">
+        {{ model.id ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+      <button type="button" (click)="cancel()">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+
+</div>
