@@ -68,12 +68,12 @@ export class ProductListComponent implements OnInit {
 
     if (!confirm('¿Eliminar producto?')) return;
 
-    this.productService.delete(id).subscribe(() => {
-
-      this.products.update(list =>
-        list.filter(p => p.id !== id)
-      );
-
+    this.productService.delete(id).subscribe({
+      next: () => {
+        this.products.update(list =>
+          list.filter(p => p.id !== id)
+        );
+      }
     });
 
   }

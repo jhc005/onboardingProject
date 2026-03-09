@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Product } from '../../../domain/product';
 import { ProductService } from '../../../application/product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ CommonModule,FormsModule],
   templateUrl: './product.form-component.html',
   styleUrls: ['./product.form-component.css']
 })
@@ -39,12 +39,12 @@ export class ProductFormComponent {
   save() {
 
     if (this.model.id) {
-      this.productService.update(this.model.id, this.model).subscribe(p => {
-        this.saved.emit(p);
+      this.productService.update(this.model.id, this.model).subscribe({
+        next: p => this.saved.emit(p)
       });
     } else {
-      this.productService.create(this.model).subscribe(p => {
-        this.saved.emit(p);
+      this.productService.create(this.model).subscribe({
+        next: p => this.saved.emit(p)
       });
     }
 

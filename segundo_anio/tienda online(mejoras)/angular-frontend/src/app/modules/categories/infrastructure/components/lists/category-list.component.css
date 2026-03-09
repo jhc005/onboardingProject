@@ -5,7 +5,7 @@
   padding: 2rem;
   font-family: Arial, sans-serif;
   color: #fff;
-  background: linear-gradient(135deg, #111 0%, #222 100%);
+  background: #111;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,6 @@
   border-collapse: collapse;
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(145deg, #111 0%, #222 100%);
 }
 
 .category-table th,

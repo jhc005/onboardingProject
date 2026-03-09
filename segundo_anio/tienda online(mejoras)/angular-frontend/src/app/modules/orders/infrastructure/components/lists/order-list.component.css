@@ -1,11 +1,11 @@
 .order-container {
-  width: 100%;
+  width: 90%;
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 2rem auto; 
   padding: 2rem;
   font-family: Arial, sans-serif;
   color: #fff;
-  background: linear-gradient(135deg, #111 0%, #222 100%);
+  background: #111;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -19,11 +19,10 @@
   background: linear-gradient(45deg, #ff6600, #ff9a4d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1rem;
 }
 
 .btn-create {
- background: linear-gradient(45deg, #ff6600, #ff9a4d);
+  background: linear-gradient(45deg, #ff6600, #ff9a4d);
   color: #222;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -31,7 +30,7 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  align-self: center;
+  align-self: center; 
 }
 
 .btn-create:hover {
@@ -52,6 +51,7 @@
 
 .form-container input,
 .form-container select {
+  width: 100%;
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid #444;
@@ -61,7 +61,9 @@
 
 .form-buttons {
   display: flex;
+  justify-content: center; 
   gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .form-buttons button {
@@ -86,7 +88,7 @@
   border-collapse: collapse;
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(145deg, #111 0%, #222 100%);
+  background: transparent;
 }
 
 .order-table th,
@@ -114,8 +116,14 @@
   .form-container {
     flex-direction: column;
   }
+
   .form-container input,
   .form-container select {
     width: 100%;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

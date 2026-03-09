@@ -1,6 +1,8 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { successInterceptor } from './core/interceptors/success.interceptor';
 
 import { routes } from './app.routes';
 
@@ -13,12 +15,21 @@ import { PRODUCT_REPOSITORY } from './modules/products/infrastructure/config/pro
 import { CATEGORY_REPOSITORY } from './modules/categories/infrastructure/config/category.token';
 import { ORDER_REPOSITORY } from './modules/orders/infrastructure/config/order.token';
 import { CUSTOMER_REPOSITORY } from './modules/customers/infrastructure/config/customer.token';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
 
     provideRouter(routes),
-    provideHttpClient(),
+    provideAnimations(),
+    provideToastr({
+      positionClass: 'toast-top-right',
+      preventDuplicates:true,
+      progressBar:true,
+      timeOut:3000
+    }),
+    provideHttpClient(withInterceptors([errorInterceptor,successInterceptor])),
 
     {
       provide: PRODUCT_REPOSITORY,
