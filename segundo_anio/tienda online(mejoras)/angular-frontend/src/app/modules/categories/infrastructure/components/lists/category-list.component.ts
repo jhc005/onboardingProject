@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../../application/category.service';
 import { Category } from '../../../domain/category';
 import { CategoryFormComponent } from '../forms/category-form.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-category-list',
@@ -23,22 +24,17 @@ export class CategoryListComponent implements OnInit {
 
   fetchCategories() {
     this.loading.set(true);
-    this.categoryService.getAll().subscribe({
-      next: data => {
-        this.categories.set(data);
-        this.loading.set(false);
-      },
-      error: err => {
-        console.error(err);
-        this.loading.set(false);
-      }
-    });
+
+    this.categoryService.getAll()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: data => this.categories.set(data)
+      });
   }
 
   createCategory(name: string) {
     this.categoryService.create({ name }).subscribe({
       next: c => this.categories.update(list => [...list, c]),
-      error: err => console.error(err)
     });
   }
 }

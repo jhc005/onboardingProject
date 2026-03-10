@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OrderService } from '../../../application/order.service';
 import { Order } from '../../../domain/order';
 import { OrderFormComponent } from '../forms/order-form.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-order-list',
@@ -25,10 +26,12 @@ export class OrderListComponent implements OnInit {
 
   fetchOrders() {
     this.loading.set(true);
-    this.orderService.getAll().subscribe({
-      next: data => { this.orders.set(data); this.loading.set(false); },
-      error: err => { console.error(err); this.loading.set(false); }
-    });
+
+    this.orderService.getAll()
+      .pipe( finalize( () => this.loading.set(false)))
+      .subscribe({
+        next: data => this.orders.set(data)
+      });
   }
 
   openCreateForm() {

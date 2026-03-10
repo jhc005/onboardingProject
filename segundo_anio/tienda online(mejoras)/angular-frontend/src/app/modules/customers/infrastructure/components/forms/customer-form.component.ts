@@ -39,8 +39,7 @@ export class CustomerFormComponent implements OnChanges {
         next: (c: Customer) => {
           this.updated.emit(c);
           this.resetForm();
-        },
-        error: err => console.error('Error al actualizar cliente', err)
+        }
       });
     } else {
 
@@ -48,8 +47,7 @@ export class CustomerFormComponent implements OnChanges {
         next: (c: Customer) => {
           this.created.emit(c);
           this.resetForm();
-        },
-        error: err => console.error('Error al crear cliente', err)
+        }
       });
     }
   }

@@ -7,6 +7,7 @@ import { ProductService } from '../../../application/product.service';
 import { ProductFormComponent } from '../forms/product.form-component';
 
 import { CategoryService } from '../../../../categories/application/category.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -34,17 +35,15 @@ export class ProductListComponent implements OnInit {
 
   fetchProducts() {
 
-    this.loading.set(true);
+  this.loading.set(true);
 
-    this.productService.getAll().subscribe({
-      next: data => {
-        this.products.set(data);
-        this.loading.set(false);
-      },
-      error: () => this.loading.set(false)
+  this.productService.getAll()
+    .pipe( finalize( () => this.loading.set(false)))
+    .subscribe({
+      next: data => this.products.set(data)
     });
 
-  }
+}
 
   fetchCategories() {
 
@@ -85,11 +84,8 @@ export class ProductListComponent implements OnInit {
       this.products.update(list =>
         list.map(p => p.id === product.id ? product : p)
       );
-
     } else {
-
       this.products.update(list => [...list, product]);
-
     }
 
     this.showForm.set(false);

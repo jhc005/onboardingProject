@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../application/customer.service';
 import { Customer } from '../../../domain/customer';
 import { CustomerFormComponent } from "../forms/customer-form.component";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -51,15 +52,11 @@ export class CustomerListComponent implements OnInit {
 
   fetchCustomers() {
     this.loading.set(true);
-    this.customerService.getAll().subscribe({
-      next: data => {
-        this.customer.set(data);
-        this.loading.set(false);
-      },
-      error: err => {
-        console.error('Error al listar clientes:', err);
-        this.loading.set(false);
-      }
-    });
+
+    this.customerService.getAll()
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({ 
+        next: data => { this.customer.set(data)}
+      });
   }
 }

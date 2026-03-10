@@ -1,20 +1,20 @@
 <div class="order-container">
 
-    <h2>Pedidos</h2>
+    <h2>Order</h2>
 
-    <button class="btn-create" (click)="openCreateForm()">Crear pedido</button>
+    <button class="btn-create" (click)="openCreateForm()">Create Order</button>
 
     <app-order-form *ngIf="showForm()" (orderCreated)="handleOrderCreated($event)" (cancel)="closeForm()">
     </app-order-form>
 
-    <div *ngIf="loading()">Cargando pedidos...</div>
+    <div *ngIf="loading()">Loading Orders...</div>
 
     <table *ngIf="!loading() && orders().length > 0" class="order-table">
         <thead>
             <tr>
-                <th>Cliente</th>
-                <th>Fecha</th>
-                <th>Estado</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>State</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -29,7 +29,7 @@
     </table>
 
     <div *ngIf="!loading() && orders().length === 0">
-        No hay pedidos
+        There are no orders yet.
     </div>
 
 </div>

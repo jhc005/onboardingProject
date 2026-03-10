@@ -5,15 +5,15 @@
   <form (ngSubmit)="saveCustomer()">
 
     <div class="input-containers">
-      <input type="text" placeholder="Nombre" [(ngModel)]="newCustomer.firstName" name="firstName" required />
-      <input type="text" placeholder="Apellido" [(ngModel)]="newCustomer.lastName" name="lastName" required />
+      <input type="text" placeholder="Name" [(ngModel)]="newCustomer.firstName" name="firstName" required />
+      <input type="text" placeholder="Last Name" [(ngModel)]="newCustomer.lastName" name="lastName" required />
       <input type="email" placeholder="Email" [(ngModel)]="newCustomer.email" name="email" required />
-      <input type="text" placeholder="Teléfono" [(ngModel)]="newCustomer.phone" name="phone" required />
+      <input type="text" placeholder="Phone Number" [(ngModel)]="newCustomer.phone" name="phone" required />
     </div>
 
     <div class="form-buttons">
       <button type="submit">{{ customerToEdit ? 'Actualizar' : 'Guardar' }}</button>
-      <button type="button" (click)="cancelForm()">Cancelar</button>
+      <button type="button" (click)="cancelForm()">Cancel</button>
     </div>
 
   </form>

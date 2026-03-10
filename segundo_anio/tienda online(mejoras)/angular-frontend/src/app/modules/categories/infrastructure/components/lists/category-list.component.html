@@ -1,15 +1,15 @@
 <div class="category-container">
-  <h2>Categorías</h2>
+  <h2>Categories</h2>
 
   <app-category-form (create)="createCategory($event)"></app-category-form>
 
-  <div *ngIf="loading()">Cargando categorías...</div>
+  <div *ngIf="loading()">Loading Categories...</div>
 
   <table *ngIf="!loading()" class="category-table">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Nombre</th>
+        <th>Name</th>
       </tr>
     </thead>
     <tbody>

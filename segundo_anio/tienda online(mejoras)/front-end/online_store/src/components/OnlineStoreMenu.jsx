@@ -29,9 +29,9 @@ function OnlineStoreMenu() {
                             </div>
                         </Col>
                         <Col md={6} className="text-center">
-                            <img 
-                                src="https://images.unsplash.com/photo-1616941351479-0072624fca9a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                                alt="Dashboard Illustration" 
+                            <img
+                                src="https://images.unsplash.com/photo-1616941351479-0072624fca9a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Dashboard Illustration"
                                 className="hero-image"
                             />
                         </Col>
@@ -77,8 +77,8 @@ function OnlineStoreMenu() {
                 <Row className="justify-content-center">
                     {menuItems.map((item, index) => (
                         <Col xs={12} md={6} lg={3} key={index} className="mb-4">
-                            <Card 
-                                className="feature-card" 
+                            <Card
+                                className="feature-card"
                                 onClick={() => navigate(item.path)}
                             >
                                 <Card.Body className="text-center">
@@ -89,8 +89,8 @@ function OnlineStoreMenu() {
                                     <Card.Text>
                                         {item.description}
                                     </Card.Text>
-                                    <Button 
-                                        variant="outline-primary" 
+                                    <Button
+                                        variant="outline-primary"
                                         className="mt-3"
                                         onClick={() => navigate(item.path)}
                                     >

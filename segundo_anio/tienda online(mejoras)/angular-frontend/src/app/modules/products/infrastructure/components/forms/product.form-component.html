@@ -1,14 +1,14 @@
 <div class="form-container">
 
-  <h3>{{ model.id ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+  <h3>{{ model.id ? 'Edit Product' : 'New Product' }}</h3>
 
   <form (ngSubmit)="save()">
 
-    <input type="text" placeholder="Nombre" [(ngModel)]="model.name" name="name" required />
+    <input type="text" placeholder="Name" [(ngModel)]="model.name" name="name" required />
 
-    <input type="text" placeholder="Descripción" [(ngModel)]="model.description" name="description" />
+    <input type="text" placeholder="Description" [(ngModel)]="model.description" name="description" />
 
-    <input type="number" placeholder="Precio" [(ngModel)]="model.price" name="price" required />
+    <input type="number" placeholder="Price" [(ngModel)]="model.price" name="price" required />
 
     <input type="number" placeholder="Stock" [(ngModel)]="model.stock" name="stock" required />
 
@@ -20,11 +20,11 @@
 
     <div class="form-buttons">
       <button type="submit">
-        {{ model.id ? 'Actualizar' : 'Guardar' }}
+        {{ model.id ? 'Update' : 'Save' }}
       </button>
 
       <button type="button" (click)="cancel()">
-        Cancelar
+        Cancel
       </button>
     </div>
 

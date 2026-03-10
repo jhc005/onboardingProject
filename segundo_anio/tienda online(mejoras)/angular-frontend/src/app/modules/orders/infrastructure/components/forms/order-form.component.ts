@@ -37,15 +37,13 @@ export class OrderFormComponent implements OnInit {
 
   fetchCustomers() {
     this.customerService.getAll().subscribe({
-      next: data => this.customers.set(data),
-      error: err => console.error(err)
+      next: data => this.customers.set(data)
     });
   }
 
   fetchProducts() {
     this.productService.getAll().subscribe({
-      next: data => this.products.set(data),
-      error: err => console.error(err)
+      next: data => this.products.set(data)
     });
   }
 
@@ -64,8 +62,7 @@ export class OrderFormComponent implements OnInit {
       next: order => {
         this.orderCreated.emit(order);
         this.resetForm();
-      },
-      error: err => console.error(err)
+      }
     });
   }
 

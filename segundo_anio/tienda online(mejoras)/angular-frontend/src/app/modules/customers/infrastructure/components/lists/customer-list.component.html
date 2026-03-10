@@ -1,22 +1,22 @@
 <div class="customer-container">
 
-  <h2>Clientes</h2>
+  <h2>Customers</h2>
   <button class="btn-create" (click)="openCreateForm()">Crear Cliente</button>
 
   <app-customer-form *ngIf="showForm()" [customerToEdit]="editingCustomer()" (created)="handleCustomerCreated($event)"
     (updated)="handleCustomerUpdated($event)" (cancelled)="closeForm()">
   </app-customer-form>
 
-  <div *ngIf="loading()">Cargando clientes...</div>
+  <div *ngIf="loading()">Loading customers...</div>
 
   <table *ngIf="!loading() && customer().length > 0" class="customer-table">
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
+        <th>Name</th>
+        <th>Last Name</th>
         <th>Email</th>
-        <th>Teléfono</th>
-        <th>Acciones</th>
+        <th>Phone Number</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -26,14 +26,14 @@
         <td>{{ c.email }}</td>
         <td>{{ c.phone }}</td>
         <td>
-          <button class="btn-edit" (click)="openEditForm(c)">Editar</button>
+          <button class="btn-edit" (click)="openEditForm(c)">Edit</button>
         </td>
       </tr>
     </tbody>
   </table>
 
   <div *ngIf="!loading() && customer().length === 0">
-    No hay clientes
+    There are no customer yet.
   </div>
 
 </div>

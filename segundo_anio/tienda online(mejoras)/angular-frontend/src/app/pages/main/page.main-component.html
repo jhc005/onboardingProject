@@ -1,0 +1,99 @@
+<div class="dashboard-container">
+
+    <section class="hero-section">
+        <div class="hero-content">
+
+            <div class="hero-left">
+                <h1 class="hero-title">Online Store Management System</h1>
+
+                <p class="hero-description">
+                    Manage your online store efficiently and professionally.
+                    Control inventory, orders, customers and more from a single panel.
+                </p>
+
+                <div class="hero-stats">
+
+                    <div class="stat-item">
+                        <h3>Complete Management</h3>
+                        <p>Total control of your business</p>
+                    </div>
+
+                    <div class="stat-item">
+                        <h3>Real-Time Analysis</h3>
+                        <p>Detailed statistics</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <img src="https://images.unsplash.com/photo-1616941351479-0072624fca9a?q=80&w=2070" alt="Dashboard"
+                    class="hero-image" />
+            </div>
+
+        </div>
+    </section>
+
+    <section class="users-section">
+
+        <h2>Users</h2>
+
+        <div class="users-grid">
+
+            <div class="user-card">
+                <h3>Total Users</h3>
+                <div class="stat-number">15,847</div>
+                <p>Registered users</p>
+            </div>
+
+            <div class="user-card">
+                <h3>Current Users</h3>
+                <div class="stat-number">2,534</div>
+                <p>Users this month</p>
+            </div>
+
+            <div class="user-card">
+                <h3>Active Users</h3>
+                <div class="stat-number">892</div>
+                <p>Currently online</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="features-section">
+        <h2>Operation Panel</h2>
+
+        <div class="features-grid" *ngIf="menuItems.length > 0">
+            <div class="feature-card" *ngFor="let item of menuItems">
+
+                <div class="feature-icon">{{ item.icon }}</div>
+
+                <h3>{{ item.title }}</h3>
+                <p class="feature-description">{{ item.description }}</p>
+
+                <button class="btn-access" (click)="navigate(item.path)">
+                    Access
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bottom-section">
+
+        <h2>Need Help?</h2>
+
+        <p>
+            Our support team is available 24/7 to assist you with any issues
+            or questions you may have.
+        </p>
+
+        <button class="btn-support">
+            Support Contact
+        </button>
+
+    </section>
+
+</div>
