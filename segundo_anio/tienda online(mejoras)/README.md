@@ -1,178 +1,192 @@
-# Online Store Application
+# Tienda Online (Mejoras)
 
-A full-stack e-commerce application built with Spring Boot backend and React frontend, implementing complete CRUD operations for managing an online store.
+Aplicación completa de tienda online con backend en Spring Boot y dos frontends independientes: uno en Angular y otro en React + Vite. Permite la gestión de productos, categorías, clientes y pedidos, con operaciones CRUD completas y una interfaz moderna.
 
-## Project Structure
+---
 
-The project is divided into two main parts:
-- Backend (Spring Boot)
-- Frontend (React + Vite)
+## Tabla de Contenidos
+- [Descripción General](#descripción-general)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Backend (Spring Boot)](#backend-spring-boot)
+- [Frontend Angular](#frontend-angular)
+- [Frontend React + Vite](#frontend-react--vite)
+- [Instrucciones de Ejecución](#instrucciones-de-ejecución)
+- [Autores](#autores)
 
-## Backend
+---
 
-### Technology Stack
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- MySQL Database
-- Maven
-- MapStruct for DTO mapping
+## Descripción General
 
-### Features
-- RESTful API endpoints for all entities
-- DTO pattern implementation
-- Optimistic locking for concurrent operations
-- Service layer business logic
-- Repository pattern implementation
-- CORS configuration
-- Error handling and validation
+Este proyecto implementa una tienda online con arquitectura desacoplada. El backend expone una API RESTful y los frontends consumen estos servicios para ofrecer una experiencia de usuario moderna y responsiva. Incluye gestión de productos, categorías, clientes y pedidos, así como validaciones, manejo de errores y visualización de estadísticas.
 
-### Project Structure
+---
+
+## Estructura del Proyecto
+
 ```
-src/
-├── main/
-│   ├── java/com/tienda_online/
-│   │   ├── Main.java
-│   │   ├── application/
-│   │   │   └── services/
-│   │   ├── config/
-│   │   ├── domain/
-│   │   │   └── entities/
-│   │   ├── dto/
-│   │   ├── mappers/
-│   │   └── infrastructure/
-│   │       ├── controllers/
-│   │       └── repositories/
-│   └── resources/
-│       ├── application.yaml
-│       └── db.migration/
-└── test/
-    └── java/com/tienda_online/
+MEJORAS.md
+pom.xml
+README.md (este archivo)
+angular-frontend/        # Frontend Angular
+front-end/online_store/  # Frontend React + Vite
+src/                     # Backend Spring Boot
 ```
 
-### API Endpoints
+---
 
-#### Categories
-- GET /api/categories - List all categories
-- POST /api/categories - Create new category
-- PUT /api/categories/{id} - Update category
-- DELETE /api/categories/{id} - Delete category
+## Backend (Spring Boot)
 
-#### Products
-- GET /api/products - List all products
-- GET /api/products?categoryId={id} - List products by category
-- POST /api/products - Create new product
-- PUT /api/products/{id} - Update product
-- DELETE /api/products/{id} - Delete product
+- **Tecnologías:** Java 17, Spring Boot, Spring Data JPA, MySQL, Maven, MapStruct
+- **Características:**
+  - API RESTful para productos, categorías, clientes y pedidos
+  - DTOs y mapeo con MapStruct
+  - Validaciones y manejo de errores global
+  - Optimistic locking para concurrencia
+  - Migraciones de base de datos (db.migration)
+  - Arquitectura en capas: controllers, services, repositories, mappers, dtos
 
-// ...existing endpoints...
+### Estructura
+```
+src/main/java/com/tienda_online/
+  ├── application/services/
+  ├── config/
+  ├── domain/entities/
+  ├── dto/
+  ├── mappers/
+  ├── infrastructure/controllers/
+  └── infrastructure/repositories/
+src/main/resources/
+  ├── application.yaml
+  └── db.migration/online_store.sql
+```
 
-### Data Transfer Objects (DTOs)
-- ProductDTO: Simplified product representation
-- CategoryDTO: Category data without circular references
+### Endpoints Principales
+- **Categorías:**
+  - `GET /api/categories` — Listar categorías
+  - `POST /api/categories` — Crear categoría
+  - `PUT /api/categories/{id}` — Editar categoría
+  - `DELETE /api/categories/{id}` — Eliminar categoría
+- **Productos:**
+  - `GET /api/products` — Listar productos
+  - `GET /api/products?categoryId={id}` — Filtrar por categoría
+  - `POST /api/products` — Crear producto
+  - `PUT /api/products/{id}` — Editar producto
+  - `DELETE /api/products/{id}` — Eliminar producto
+- **Clientes y Pedidos:**
+  - Endpoints análogos para gestión completa
 
-### Mappers
-- ProductMapper: Product entity-DTO conversion
-- CategoryMapper: Category entity-DTO conversion
+---
 
-## Frontend
+## Frontend Angular
 
-### Technology Stack
-- React 18
-- Vite
-- React Router DOM
-- React Bootstrap
-- Axios for API calls
-- Custom hooks for data management
+- **Ubicación:** `angular-frontend/`
+- **Tecnologías:** Angular 16+, Angular CLI, TypeScript
+- **Características:**
+  - Interfaz SPA moderna y responsiva
+  - CRUD de productos, categorías, clientes y pedidos
+  - Ruteo y navegación modular
+  - Interceptores para manejo de errores y respuestas
+  - Formularios reactivos y validaciones
+  - Consumo de API REST del backend
 
-### Features
-- Responsive user interface
-- CRUD operations for all entities
-- Custom hooks for API interactions
-- Form validation and error handling
-- Loading states and error messages
-- Category-based product filtering
-- Modal forms for creating/editing
+### Estructura
+```
+angular-frontend/
+  ├── src/app/
+  │   ├── core/interceptors/
+  │   ├── modules/
+  │   │   ├── categories/
+  │   │   ├── customers/
+  │   │   ├── orders/
+  │   │   └── products/
+  │   └── pages/
+  │       ├── categories/
+  │       ├── customers/
+  │       ├── main/
+  │       ├── orders/
+  │       └── products/
+  ├── public/
+  └── ...
+```
 
-## Frontend Project Structure
+### Ejecución
+1. Instalar dependencias:
+   ```bash
+   cd angular-frontend
+   npm install
+   ```
+2. Levantar servidor de desarrollo:
+   ```bash
+   ng serve
+   ```
+3. Acceder a `http://localhost:4200/`
 
+---
+
+## Frontend React + Vite
+
+- **Ubicación:** `front-end/online_store/`
+- **Tecnologías:** React 18, Vite, React Router DOM, Axios, React Bootstrap
+- **Características:**
+  - Interfaz SPA rápida y ligera
+  - CRUD de productos, categorías, clientes y pedidos
+  - Hooks personalizados para gestión de datos
+  - Formularios modales y validaciones
+  - Visualización de estadísticas
+  - Consumo de API REST del backend
+
+### Estructura
 ```
 front-end/online_store/
-├── src/
-│   ├── components/
-│   │   ├── Category/
-│   │   │   ├── CategoryList.jsx
-│   │   │   ├── CategoryForm.jsx
-│   │   │   └── useCategories.jsx
-│   │   ├── Product/
-│   │   │   ├── ProductList.jsx
-│   │   │   ├── ProductForm.jsx
-│   │   │   └── useProducts.jsx
-│   │   ├── Customer/
-│   │   │   ├── CustomersList.jsx
-│   │   │   ├── CustomersForm.jsx
-│   │   │   └── useCustomers.jsx
-│   │   ├── Order/
-│   │   │   ├── OrderList.jsx
-│   │   │   ├── OrderForm.jsx
-│   │   │   └── useOrder.jsx
-│   │   ├── Statistics/
-│   │   │   └── StatisticsView.jsx
-│   │   └── OnlineStoreMenu.jsx
-│   ├── services/
-│   │   └── api.js
-│   ├── config/
-│   │   └── menuItems.js
-│   ├── styles/
-│   │   └── global.css
-│   ├── assets/
-│   │   └── fondo_ondas_gris.svg
-│   ├── OnlineStoreMenu.css
-│   ├── App.jsx
-│   └── main.jsx
-├── public/
-│   ├── index.html
-├── package.json
-└── vite.config.js
+  ├── src/components/
+  │   ├── Category/
+  │   ├── Product/
+  │   ├── Customer/
+  │   ├── Order/
+  │   └── Statistics/
+  ├── services/api.js
+  ├── config/menuItems.js
+  ├── styles/global.css
+  ├── App.jsx
+  └── main.jsx
 ```
 
-### Key Components Description
+### Ejecución
+1. Instalar dependencias:
+   ```bash
+   cd front-end/online_store
+   npm install
+   ```
+2. Levantar servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+3. Acceder a `http://localhost:5173/` (o el puerto indicado)
 
-- **Category**: Manages product categories CRUD operations
-- **Product**: Handles product listing and management
-- **Customer**: Customer information management system
-- **Order**: Order processing and tracking
-- **Statistics**: Data visualization and reporting
-- **OnlineStoreMenu**: Main navigation and dashboard
+---
 
-### Core Files
-
-- **api.js**: Centralized API service calls
-- **menuItems.js**: Navigation and menu configuration
-- **global.css**: Application-wide styling
-- **App.jsx**: Main application component
-- **main.jsx**: Application entry point
-
-### Custom Hooks
-- useProducts: Product management logic
-- useCategories: Category management logic
-- useCustomers: Customer management logic
-- useOrders: Order management logic
-
-// ...rest of existing content...
-
-## Recent Implementations
+## Instrucciones de Ejecución
 
 ### Backend
-- Added DTO pattern for data transfer
-- Implemented MapStruct for object mapping
-- Added optimistic locking for concurrent operations
-- Improved error handling and validation
-- Enhanced service layer logic
+1. Configura la base de datos en `src/main/resources/application.yaml`.
+2. Ejecuta las migraciones SQL si es necesario.
+3. Compila y ejecuta el backend:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+4. El backend estará disponible en `http://localhost:8080/`.
 
-### Frontend
-- Added custom hooks for state management
-- Implemented modal forms for CRUD operations
-- Enhanced error handling and validation
-- Added loading states
-- Improved UI/UX with React Bootstrap
+### Frontends
+- Sigue las instrucciones de cada frontend arriba descritas.
+
+---
+
+## Autores
+- Javier Herrera
+
+---
+
+## Notas
+- Puedes usar ambos frontends de forma independiente.
+- El backend debe estar corriendo para que los frontends funcionen correctamente.
+- Personaliza los archivos de configuración según tu entorno.
