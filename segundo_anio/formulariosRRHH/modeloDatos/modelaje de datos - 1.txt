@@ -1,0 +1,115 @@
++-----------------------+
+| Tables_in_forms_db    |
++-----------------------+
+| access_tokens         |
+| admin_users           |
+| candidates            |
+| data_answers          |
+| data_fields           |
+| document_requirements |
+| field_options         |
+| notifications         |
+| onboarding_processes  |
+| uploaded_documents    |
++-----------------------+
+
+admin_users
+-----------
+id (PK)
+email (UNIQUE)
+password_hash
+full_name
+created_at
+
+candidates
+----------
+id (PK)  UUID
+email (UNIQUE)
+first_name
+last_name
+created_at
+
+onboarding_processes
+--------------------
+id (PK)  UUID
+candidate_id (FK) -------- candidates (1) ---- (N) onboarding_processes
+status                      ------> PENDING_ACCESS, IN_PROGRESS, SUBMITTED, VALIDATED, REJECTED
+created_at
+submitted_at
+validated_at
+validated_by (FK) -------- admin_users (1) ---- (N) onboarding_processes
+
+access_tokens
+-------------
+id (PK)
+onboarding_process_id (FK) -------- onboarding_processes (1) ---- (N) access_tokens
+token_hash (UNIQUE)
+expires_at
+used_at
+is_used
+attempts
+created_at
+
+data_fields
+-----------
+id (PK)
+label
+field_type        -----> TEXT, NUMBER, SELECT, TEXTAREA
+validation_regex
+min_length
+max_length
+placeholder
+is_required
+display_order
+
+field_options
+-------------
+id (PK)
+data_field_id (FK) -------- data_fields (1) ---- (N) field_options
+option_label
+option_value
+display_order
+
+data_answers
+------------
+id (PK)
+onboarding_process_id (FK) -------- onboarding_processes (1) ---- (N) data_answers
+data_field_id (FK) -------- data_fields (1) ---- (N) data_answers
+answer_value
+field_option_id (FK) ------ field_options (1) ---- (N) data_answers
+created_at
+
+document_requirements
+---------------------
+id (PK)
+name
+description
+allowed_formats
+file_name_regex
+is_required
+display_order
+
+uploaded_documents
+------------------
+id (PK)
+onboarding_process_id (FK) -------- onboarding_processes (1) ---- (N) uploaded_documents
+document_requirement_id (FK) ------ document_requirements (1) ---- (N) uploaded_documents
+file_path
+original_filename
+mime_type
+file_size_bytes
+uploaded_at
+validation_status  ------> PENDING_VALIDATION, APPROVED, REJECTED
+validation_notes
+
+UNIQUE (onboarding_process_id, document_requirement_id)
+
+notifications
+-------------
+id (PK)
+onboarding_process_id (FK) -------- onboarding_processes (1) ---- (N) notifications
+type              ------> ACCESS_LINK, FORM_SUBMITTED, VALIDATED
+recipient_email
+sent_at
+status            ------> SENT, FAILED
+error_message
