@@ -9,6 +9,8 @@ import com.onboarding.candidates.mapper.CandidatesMapper;
 import com.onboarding.notifications.application.NotificationsService;
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
 import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +47,7 @@ public class CandidatesService {
 
         OnboardingProc process = new OnboardingProc();
         process.setCandidateId(candidate.getId());
-        process.setStatus(OnboardingProc.OnboardingStatus.PENDING_ACCESS);
+        process.setStatus(OnboardingStatus.PENDING_ACCESS);
         process = processPort.save(process);
 
         String rawToken = UUID.randomUUID().toString();

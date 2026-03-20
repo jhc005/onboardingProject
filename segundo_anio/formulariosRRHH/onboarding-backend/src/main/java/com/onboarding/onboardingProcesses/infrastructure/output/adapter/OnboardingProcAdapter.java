@@ -4,6 +4,7 @@ import com.onboarding.adminUsers.infrastructure.output.jpa.AdminUsersJpaReposito
 import com.onboarding.candidates.infrastructure.output.jpa.CandidatesJpaRepository;
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
 import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaEntity;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaRepository;
 import com.onboarding.onboardingProcesses.mapper.OnboardingProcMapper;
@@ -50,9 +51,9 @@ public class OnboardingProcAdapter implements OnboardingProcRepositoryPort {
     }
 
     @Override
-    public List<OnboardingProc> findByStatus(OnboardingProc.OnboardingStatus status) {
-        OnboardingProcJpaEntity.OnboardingStatus jpaStatus =
-                OnboardingProcJpaEntity.OnboardingStatus.valueOf(status.name());
+    public List<OnboardingProc> findByStatus(OnboardingStatus status) {
+        OnboardingStatus jpaStatus =
+                OnboardingStatus.valueOf(status.name());
         return repository.findByStatus(jpaStatus).stream().map(mapper::toDomain).toList();
     }
 

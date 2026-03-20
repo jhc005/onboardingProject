@@ -1,5 +1,7 @@
 package com.onboarding.dataFields.domain.model;
 
+import com.onboarding.dataFields.domain.valueobject.FieldType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +22,4 @@ public class DataFields {
     private String placeholder;
     private Boolean isRequired;
     private Integer displayOrder;
-
-    public enum FieldType {
-        TEXT, NUMBER, SELECT, TEXTAREA, RADIO
-    }
 }

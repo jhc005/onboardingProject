@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +23,4 @@ public class OnboardingProc {
     private LocalDateTime validatedAt;
     private Long validatedById;
 
-    public enum OnboardingStatus {
-        PENDING_ACCESS, IN_PROGRESS, SUBMITTED, VALIDATED, REJECTED
-    }
 }

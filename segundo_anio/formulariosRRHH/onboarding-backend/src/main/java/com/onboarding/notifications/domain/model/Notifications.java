@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import com.onboarding.notifications.domain.valueobject.NotificationStatus;
+import com.onboarding.notifications.domain.valueobject.NotificationType;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,12 +23,4 @@ public class Notifications {
     private LocalDateTime sentAt;
     private NotificationStatus status;
     private String errorMessage;
-
-    public enum NotificationType {
-        ACCESS_LINK, FORM_SUBMITTED, VALIDATED, REJECTED, DOCUMENT_REJECTED
-    }
-
-    public enum NotificationStatus {
-        SENT, FAILED
-    }
 }

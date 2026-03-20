@@ -2,6 +2,8 @@ package com.onboarding.onboardingProcesses.infrastructure.output.jpa;
 
 import com.onboarding.adminUsers.infrastructure.output.jpa.AdminUsersJpaEntity;
 import com.onboarding.candidates.infrastructure.output.jpa.CandidatesJpaEntity;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,8 +44,4 @@ public class OnboardingProcJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "validated_by")
     private AdminUsersJpaEntity validatedBy;
-
-    public enum OnboardingStatus {
-        PENDING_ACCESS, IN_PROGRESS, SUBMITTED, VALIDATED, REJECTED
-    }
 }

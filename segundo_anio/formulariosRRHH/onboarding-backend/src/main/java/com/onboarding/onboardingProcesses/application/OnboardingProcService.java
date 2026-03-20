@@ -6,6 +6,7 @@ import com.onboarding.notifications.application.NotificationsService;
 import com.onboarding.onboardingProcesses.application.dto.OnboardingProcDto;
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
 import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
 import com.onboarding.onboardingProcesses.mapper.OnboardingProcMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,11 +39,11 @@ public class OnboardingProcService {
         OnboardingProc process = processPort.findById(processId)
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 
-        if (process.getStatus() != OnboardingProc.OnboardingStatus.IN_PROGRESS) {
+        if (process.getStatus() != OnboardingStatus.IN_PROGRESS) {
             throw new IllegalStateException("El proceso no está en estado IN_PROGRESS.");
         }
 
-        process.setStatus(OnboardingProc.OnboardingStatus.SUBMITTED);
+        process.setStatus(OnboardingStatus.SUBMITTED);
         process.setSubmittedAt(LocalDateTime.now());
         processPort.save(process);
 
@@ -58,11 +59,11 @@ public class OnboardingProcService {
         OnboardingProc process = processPort.findById(processId)
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 
-        if (process.getStatus() != OnboardingProc.OnboardingStatus.SUBMITTED) {
+        if (process.getStatus() != OnboardingStatus.SUBMITTED) {
             throw new IllegalStateException("El proceso no está en estado SUBMITTED.");
         }
 
-        process.setStatus(OnboardingProc.OnboardingStatus.VALIDATED);
+        process.setStatus(OnboardingStatus.VALIDATED);
         process.setValidatedAt(LocalDateTime.now());
         process.setValidatedById(adminId);
         processPort.save(process);
@@ -79,7 +80,7 @@ public class OnboardingProcService {
         OnboardingProc process = processPort.findById(processId)
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 
-        process.setStatus(OnboardingProc.OnboardingStatus.REJECTED);
+        process.setStatus(OnboardingStatus.REJECTED);
         process.setValidatedAt(LocalDateTime.now());
         process.setValidatedById(adminId);
         processPort.save(process);

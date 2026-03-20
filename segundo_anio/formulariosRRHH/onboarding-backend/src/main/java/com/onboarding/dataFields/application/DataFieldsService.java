@@ -3,6 +3,7 @@ package com.onboarding.dataFields.application;
 import com.onboarding.dataFields.application.dto.DataFieldsDto;
 import com.onboarding.dataFields.domain.model.DataFields;
 import com.onboarding.dataFields.domain.outport.DataFieldsRepositoryPort;
+import com.onboarding.dataFields.domain.valueobject.FieldType;
 import com.onboarding.dataFields.mapper.DataFieldsMapper;
 import com.onboarding.fieldOptions.domain.outport.FieldOptionsRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class DataFieldsService {
 
     private void fillFromRequest(DataFields field, DataFieldsDto.Request request) {
         field.setLabel(request.getLabel());
-        field.setFieldType(DataFields.FieldType.valueOf(request.getFieldType()));
+        field.setFieldType(FieldType.valueOf(request.getFieldType()));
         field.setValidationRegex(request.getValidationRegex());
         field.setMinLength(request.getMinLength());
         field.setMaxLength(request.getMaxLength());

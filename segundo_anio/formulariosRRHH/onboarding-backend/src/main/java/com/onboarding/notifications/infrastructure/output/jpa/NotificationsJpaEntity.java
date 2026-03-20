@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.onboarding.notifications.domain.valueobject.NotificationStatus;
+import com.onboarding.notifications.domain.valueobject.NotificationType;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaEntity;
 
 import java.time.LocalDateTime;
@@ -41,11 +43,4 @@ public class NotificationsJpaEntity {
     @Column(name = "error_message", length = 500)
     private String errorMessage;
 
-    public enum NotificationType {
-        ACCESS_LINK, FORM_SUBMITTED, VALIDATED, REJECTED, DOCUMENT_REJECTED
-    }
-
-    public enum NotificationStatus {
-        SENT, FAILED
-    }
 }

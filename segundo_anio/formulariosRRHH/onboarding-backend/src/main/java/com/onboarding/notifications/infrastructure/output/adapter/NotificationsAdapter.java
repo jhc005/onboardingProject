@@ -1,6 +1,7 @@
 package com.onboarding.notifications.infrastructure.output.adapter;
 
 import com.onboarding.notifications.domain.model.Notifications;
+import com.onboarding.notifications.domain.valueobject.NotificationType;
 import com.onboarding.notifications.domain.outport.NotificationsRepositoryPort;
 import com.onboarding.notifications.infrastructure.output.jpa.NotificationsJpaEntity;
 import com.onboarding.notifications.infrastructure.output.jpa.NotificationsJpaRepository;
@@ -23,22 +24,31 @@ public class NotificationsAdapter implements NotificationsRepositoryPort {
     @Override
     public Notifications save(Notifications notification) {
         NotificationsJpaEntity entity = mapper.toEntity(notification);
+
         if (notification.getOnboardingProcessId() != null) {
-            processRepository.findById(notification.getOnboardingProcessId()).ifPresent(entity::setOnboardingProcess);
+            processRepository
+                    .findById(notification.getOnboardingProcessId())
+                    .ifPresent(entity::setOnboardingProcess);
         }
+
         return mapper.toDomain(repository.save(entity));
     }
 
     @Override
     public List<Notifications> findByOnboardingProcessId(String processId) {
-        return repository.findByOnboardingProcess_Id(processId).stream().map(mapper::toDomain).toList();
+        return repository.findByOnboardingProcess_Id(processId)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 
     @Override
-    public List<Notifications> findByOnboardingProcessIdAndType(String processId, Notifications.NotificationType type) {
-        NotificationsJpaEntity.NotificationType jpaType =
-                NotificationsJpaEntity.NotificationType.valueOf(type.name());
-        return repository.findByOnboardingProcess_IdAndType(processId, jpaType)
-                .stream().map(mapper::toDomain).toList();
+    public List<Notifications> findByOnboardingProcessIdAndType(String processId,NotificationType type) {
+
+        return repository
+                .findByOnboardingProcess_IdAndType(processId, type)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }

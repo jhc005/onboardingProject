@@ -1,5 +1,7 @@
 package com.onboarding.dataFields.infrastructure.output.jpa;
 
+import com.onboarding.dataFields.domain.valueobject.FieldType;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,7 +41,4 @@ public class DataFieldsJpaEntity {
     @Column(name = "display_order", nullable = false)
     private Integer displayOrder;
 
-    public enum FieldType {
-        TEXT, NUMBER, SELECT, TEXTAREA, RADIO
-    }
 }

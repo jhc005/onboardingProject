@@ -4,6 +4,7 @@ import com.onboarding.candidates.domain.model.Candidates;
 import com.onboarding.candidates.domain.outport.CandidatesRepositoryPort;
 import com.onboarding.onboardingProcesses.application.dto.OnboardingProcDto;
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class OnboardingProcMapper {
         domain.setId(entity.getId());
         domain.setCandidateId(entity.getCandidate() != null ? entity.getCandidate().getId() : null);
         domain.setStatus(entity.getStatus() != null
-                ? OnboardingProc.OnboardingStatus.valueOf(entity.getStatus().name()) : null);
+                ? OnboardingStatus.valueOf(entity.getStatus().name()) : null);
         domain.setCreatedAt(entity.getCreatedAt());
         domain.setSubmittedAt(entity.getSubmittedAt());
         domain.setValidatedAt(entity.getValidatedAt());
@@ -31,7 +32,7 @@ public class OnboardingProcMapper {
         OnboardingProcJpaEntity entity = new OnboardingProcJpaEntity();
         entity.setId(domain.getId());
         entity.setStatus(domain.getStatus() != null
-                ? OnboardingProcJpaEntity.OnboardingStatus.valueOf(domain.getStatus().name()) : null);
+                ? OnboardingStatus.valueOf(domain.getStatus().name()) : null);
         entity.setSubmittedAt(domain.getSubmittedAt());
         entity.setValidatedAt(domain.getValidatedAt());
         return entity;

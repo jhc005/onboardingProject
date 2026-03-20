@@ -2,10 +2,13 @@ spring:
   application:
     name: onboarding-backend
 
+  config:
+    import: optional:classpath:application-secret.properties
+
   datasource:
-    url: jdbc:mysql://localhost:3307/forms_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: MiPasswordSeguro123
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3307}/${DB_NAME:forms_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -26,8 +29,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: javiheco005@gmail.com
-    password: teuopwfpaiuobquy
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -37,14 +40,14 @@ spring:
 
 app:
   frontend:
-    url: http://localhost:4200
+    url: ${FRONTEND_URL:http://localhost:4200}
   mail:
-    admin: javiheco005@gmail.com
+    admin: ${MAIL_USERNAME}
   storage:
-    path: ./uploads
+    path: ${STORAGE_PATH:./uploads}
 
 jwt:
-  secret: 404D6351666B58703273357638792F423F4528482B4D6251655468576D5A7134
-  expiration: 28800000
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:28800000}
 
 

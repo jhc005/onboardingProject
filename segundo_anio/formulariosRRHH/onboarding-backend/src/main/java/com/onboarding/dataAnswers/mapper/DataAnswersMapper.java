@@ -14,45 +14,50 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DataAnswersMapper {
 
-    private final DataFieldsRepositoryPort dataFieldsPort;
-    private final FieldOptionsRepositoryPort fieldOptionsPort;
+        private final DataFieldsRepositoryPort dataFieldsPort;
+        private final FieldOptionsRepositoryPort fieldOptionsPort;
 
-    public DataAnswers toDomain(DataAnswersJpaEntity entity) {
-        DataAnswers domain = new DataAnswers();
-        domain.setId(entity.getId());
-        domain.setOnboardingProcessId(entity.getOnboardingProcess() != null
-                ? entity.getOnboardingProcess().getId() : null);
-        domain.setDataFieldId(entity.getDataField() != null
-                ? entity.getDataField().getId() : null);
-        domain.setAnswerValue(entity.getAnswerValue());
-        domain.setFieldOptionId(entity.getFieldOption() != null
-                ? entity.getFieldOption().getId() : null);
-        domain.setCreatedAt(entity.getCreatedAt());
-        return domain;
-    }
+        public DataAnswers toDomain(DataAnswersJpaEntity entity) {
+                DataAnswers domain = new DataAnswers();
+                domain.setId(entity.getId());
+                domain.setOnboardingProcessId(entity.getOnboardingProcess() != null
+                                ? entity.getOnboardingProcess().getId()
+                                : null);
+                domain.setDataFieldId(entity.getDataField() != null
+                                ? entity.getDataField().getId()
+                                : null);
+                domain.setAnswerValue(entity.getAnswerValue());
+                domain.setFieldOptionId(entity.getFieldOption() != null
+                                ? entity.getFieldOption().getId()
+                                : null);
+                domain.setCreatedAt(entity.getCreatedAt());
+                return domain;
+        }
 
-    public DataAnswersJpaEntity toEntity(DataAnswers domain) {
-        DataAnswersJpaEntity entity = new DataAnswersJpaEntity();
-        entity.setId(domain.getId());
-        entity.setAnswerValue(domain.getAnswerValue());
-        return entity;
-    }
+        public DataAnswersJpaEntity toEntity(DataAnswers domain) {
+                DataAnswersJpaEntity entity = new DataAnswersJpaEntity();
+                entity.setId(domain.getId());
+                entity.setAnswerValue(domain.getAnswerValue());
+                return entity;
+        }
 
-    public DataAnswersDto.Response toResponse(DataAnswers answer) {
-        DataFields field = answer.getDataFieldId() != null
-                ? dataFieldsPort.findById(answer.getDataFieldId()).orElse(null) : null;
-        FieldOptions option = answer.getFieldOptionId() != null
-                ? fieldOptionsPort.findById(answer.getFieldOptionId()).orElse(null) : null;
+        public DataAnswersDto.Response toResponse(DataAnswers answer) {
+                DataFields field = answer.getDataFieldId() != null
+                                ? dataFieldsPort.findById(answer.getDataFieldId()).orElse(null)
+                                : null;
+                FieldOptions option = answer.getFieldOptionId() != null
+                                ? fieldOptionsPort.findById(answer.getFieldOptionId()).orElse(null)
+                                : null;
 
-        return DataAnswersDto.Response.builder()
-                .id(answer.getId())
-                .onboardingProcessId(answer.getOnboardingProcessId())
-                .dataFieldId(answer.getDataFieldId())
-                .fieldLabel(field != null ? field.getLabel() : null)
-                .answerValue(answer.getAnswerValue())
-                .fieldOptionId(answer.getFieldOptionId())
-                .optionLabel(option != null ? option.getOptionLabel() : null)
-                .createdAt(answer.getCreatedAt())
-                .build();
-    }
+                return DataAnswersDto.Response.builder()
+                                .id(answer.getId())
+                                .onboardingProcessId(answer.getOnboardingProcessId())
+                                .dataFieldId(answer.getDataFieldId())
+                                .fieldLabel(field != null ? field.getLabel() : null)
+                                .answerValue(answer.getAnswerValue())
+                                .fieldOptionId(answer.getFieldOptionId())
+                                .optionLabel(option != null ? option.getOptionLabel() : null)
+                                .createdAt(answer.getCreatedAt())
+                                .build();
+        }
 }

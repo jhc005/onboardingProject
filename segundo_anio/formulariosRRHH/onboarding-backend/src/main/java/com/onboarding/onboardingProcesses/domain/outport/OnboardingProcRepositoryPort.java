@@ -1,7 +1,7 @@
 package com.onboarding.onboardingProcesses.domain.outport;
 
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
-import com.onboarding.onboardingProcesses.domain.model.OnboardingProc.OnboardingStatus;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
 
 import java.util.List;
 import java.util.Optional;

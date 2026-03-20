@@ -18,7 +18,8 @@ public class DataAnswersService {
     private final DataAnswersMapper mapper;
 
     @Transactional
-    public List<DataAnswersDto.Response> saveAnswers(String processId, DataAnswersDto.SaveRequest request) {
+    public List<DataAnswersDto.Response> saveAnswers(String processId, 
+        DataAnswersDto.SaveRequest request) {
         return request.getAnswers().stream().map(item -> {
             DataAnswers existing = answersPort
                     .findByOnboardingProcessIdAndDataFieldId(processId, item.getDataFieldId())

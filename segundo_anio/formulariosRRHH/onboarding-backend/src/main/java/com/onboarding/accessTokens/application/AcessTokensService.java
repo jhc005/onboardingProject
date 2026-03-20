@@ -8,6 +8,8 @@ import com.onboarding.candidates.domain.model.Candidates;
 import com.onboarding.candidates.domain.outport.CandidatesRepositoryPort;
 import com.onboarding.onboardingProcesses.domain.model.OnboardingProc;
 import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
+import com.onboarding.onboardingProcesses.domain.valueobject.OnboardingStatus;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +45,8 @@ public class AcessTokensService {
         OnboardingProc process = processPort.findById(token.getOnboardingProcessId())
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 
-        if (process.getStatus() == OnboardingProc.OnboardingStatus.PENDING_ACCESS) {
-            process.setStatus(OnboardingProc.OnboardingStatus.IN_PROGRESS);
+        if (process.getStatus() == OnboardingStatus.PENDING_ACCESS) {
+            process.setStatus(OnboardingStatus.IN_PROGRESS);
             processPort.save(process);
         }
 
