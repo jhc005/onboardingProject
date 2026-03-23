@@ -3,7 +3,7 @@
     <h1 class="page-title">Requisitos de documentos</h1>
     <p class="page-subtitle">Define los documentos que el candidato deberá adjuntar durante el onboarding</p>
   </div>
-  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo requisito</button>
+  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo documento</button>
 </div>
 
 <div class="card">
@@ -66,8 +66,7 @@
     <form [formGroup]="form">
       <div class="form-group">
         <label>Nombre del documento <span class="required-mark">*</span></label>
-        <input type="text" class="form-control" formControlName="name"
-          placeholder="Ej. DNI escaneado" />
+        <input type="text" class="form-control" formControlName="name" placeholder="Ej. DNI escaneado" />
         @if (form.get('name')?.invalid && form.get('name')?.touched) {
         <span class="field-error">Campo obligatorio</span>
         }
@@ -90,7 +89,8 @@
         @if (editingReq()?.hasTemplate) {
         <div class="template-current">
           <span class="template-filename">📎 {{ editingReq()?.templateOriginalFilename }}</span>
-          <a [href]="svc.getTemplateDownloadUrl(editingId()!)" target="_blank" class="btn btn-sm btn-secondary">Descargar</a>
+          <a [href]="svc.getTemplateDownloadUrl(editingId()!)" target="_blank"
+            class="btn btn-sm btn-secondary">Descargar</a>
         </div>
         }
         @if (editingId()) {
@@ -100,8 +100,8 @@
           } @else {
           📤 {{ editingReq()?.hasTemplate ? 'Reemplazar plantilla' : 'Subir plantilla (PDF/imagen)' }}
           }
-          <input type="file" hidden accept=".pdf,.jpg,.jpeg,.png"
-            (change)="onTemplateSelected($event)" [disabled]="uploadingTemplate()" />
+          <input type="file" hidden accept=".pdf,.jpg,.jpeg,.png" (change)="onTemplateSelected($event)"
+            [disabled]="uploadingTemplate()" />
         </label>
         } @else {
         <p class="form-hint form-hint--muted">Guarda el requisito primero para poder subir una plantilla.</p>

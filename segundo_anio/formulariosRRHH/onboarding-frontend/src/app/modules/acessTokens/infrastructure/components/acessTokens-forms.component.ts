@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AcessTokensService } from '../../application/acessTokens.service';
 import { DataFieldsService } from '../../../dataFields/application/dataFields.service';
 import { DataAnswersService } from '../../../dataAnswers/application/dataAnswers.service';
@@ -11,10 +11,11 @@ import { DataField } from '../../../dataFields/domain/dataFields';
 import { ValidateTokenResponse } from '../../domain/acessTokens';
 import { DocumentRequirement } from '../../../documentRequirements/domain/documentRequirements';
 import { UploadedDocumentsFormsComponent } from '../../../uploadedDocuments/infrastructure/components/uploadedDocuments-forms.component';
+import { DataAnswersFormsComponent } from '../../../dataAnswers/infrastructure/components/forms/dataAnswers-forms.component';
 
 @Component({
   selector: 'app-access-tokens-form',
-  imports: [ReactiveFormsModule, UploadedDocumentsFormsComponent],
+  imports: [UploadedDocumentsFormsComponent, DataAnswersFormsComponent],
   templateUrl: './acessTokens-forms.component.html',
   styleUrl: './acessTokens-forms.component.css',
 })
@@ -72,13 +73,12 @@ export class AcessTokensFormsComponent implements OnInit {
   buildForm(fields: DataField[]): void {
     const controls: Record<string, any> = {};
     for (const f of fields) {
-      controls[`field_${f.id}`] = ['', f.isRequired ? Validators.required : []];
+      const validators = [];
+      if (f.isRequired) validators.push(Validators.required);
+      if (f.fieldType === 'NUMBER') validators.push(Validators.pattern(/^\d+$/));
+      controls[`field_${f.id}`] = ['', validators];
     }
     this.form = this.fb.group(controls);
-  }
-
-  getFieldControl(id: number) {
-    return this.form?.get(`field_${id}`);
   }
 
   saveProgress(): void {

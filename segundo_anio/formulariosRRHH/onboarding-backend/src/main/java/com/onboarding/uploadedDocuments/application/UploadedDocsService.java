@@ -9,6 +9,8 @@ import com.onboarding.uploadedDocuments.mapper.UploadedDocsMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,6 +85,19 @@ public class UploadedDocsService {
         doc.setValidationNotes(notes);
 
         return mapper.toResponse(uploadedDocsPort.save(doc));
+    }
+
+    public Resource downloadDocument(Long docId) throws IOException {
+        UploadedDocs doc = uploadedDocsPort.findById(docId)
+                .orElseThrow(() -> new IllegalArgumentException("Documento no encontrado."));
+        Path path = Paths.get(doc.getFilePath());
+        return new UrlResource(path.toUri());
+    }
+
+    public String getDocumentOriginalFilename(Long docId) {
+        return uploadedDocsPort.findById(docId)
+                .orElseThrow(() -> new IllegalArgumentException("Documento no encontrado."))
+                .getOriginalFilename();
     }
 
     private void validateFile(MultipartFile file, DocumentsReq requirement) {

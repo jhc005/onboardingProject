@@ -1,0 +1,45 @@
+<form [formGroup]="form" class="onboarding-form">
+  @for (field of fields; track field.id) {
+  <div class="form-group">
+    <label [for]="'field_' + field.id">
+      {{ field.label }}
+      @if (field.isRequired) { <span class="required-mark">*</span> }
+    </label>
+
+    @if (field.fieldType === 'TEXTAREA') {
+    <textarea [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+      [placeholder]="field.placeholder || ''" rows="3"></textarea>
+    } @else if (field.fieldType === 'SELECT') {
+    <select [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id">
+      <option value="">-- Selecciona una opción --</option>
+      @for (opt of field.options; track opt.id) {
+      <option [value]="opt.optionValue">{{ opt.optionLabel }}</option>
+      }
+    </select>
+    } @else if (field.fieldType === 'RADIO') {
+    <div class="radio-group">
+      @for (opt of field.options; track opt.id) {
+      <label class="radio-label">
+        <input type="radio" [formControlName]="'field_' + field.id" [value]="opt.optionValue" />
+        {{ opt.optionLabel }}
+      </label>
+      }
+    </div>
+    } @else if (field.fieldType === 'NUMBER') {
+    <input type="number" [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+      [placeholder]="field.placeholder || ''" />
+    } @else {
+    <input type="text" [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+      [placeholder]="field.placeholder || ''" />
+    }
+
+    @if (getFieldControl(field.id)?.touched) {
+      @if (getFieldControl(field.id)?.hasError('required')) {
+      <span class="field-error">Este campo es obligatorio</span>
+      } @else if (getFieldControl(field.id)?.hasError('pattern')) {
+      <span class="field-error">Solo se permiten números enteros</span>
+      }
+    }
+  </div>
+  }
+</form>

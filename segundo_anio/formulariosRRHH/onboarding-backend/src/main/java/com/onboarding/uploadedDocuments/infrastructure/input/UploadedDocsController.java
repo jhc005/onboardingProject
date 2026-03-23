@@ -3,6 +3,9 @@ package com.onboarding.uploadedDocuments.infrastructure.input;
 import com.onboarding.uploadedDocuments.application.UploadedDocsService;
 import com.onboarding.uploadedDocuments.application.dto.UploadedDocsDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +35,16 @@ public class UploadedDocsController {
     @GetMapping("/api/admin/processes/{processId}/documents")
     public ResponseEntity<List<UploadedDocsDto.Response>> findByProcessAdmin(@PathVariable String processId) {
         return ResponseEntity.ok(uploadedDocsService.findByProcessId(processId));
+    }
+
+    @GetMapping("/api/admin/documents/{docId}/download")
+    public ResponseEntity<Resource> download(@PathVariable Long docId) throws IOException {
+        Resource resource = uploadedDocsService.downloadDocument(docId);
+        String filename = uploadedDocsService.getDocumentOriginalFilename(docId);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
     }
 
     @PatchMapping("/api/admin/documents/{docId}/approve")

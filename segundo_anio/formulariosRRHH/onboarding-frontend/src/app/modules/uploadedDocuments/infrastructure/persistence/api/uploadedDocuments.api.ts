@@ -8,6 +8,7 @@ import { UploadedDocument } from '../../../domain/uploadedDocuments';
 export class UploadedDocumentsApi {
   private readonly http = inject(HttpClient);
   private readonly base = `${environment.apiUrl}/api/candidate/form`;
+  private readonly adminBase = `${environment.apiUrl}/api/admin`;
 
   upload(processId: string, requirementId: number, file: File): Observable<UploadedDocument> {
     const formData = new FormData();
@@ -20,5 +21,21 @@ export class UploadedDocumentsApi {
 
   findByProcessId(processId: string): Observable<UploadedDocument[]> {
     return this.http.get<UploadedDocument[]>(`${this.base}/${processId}/documents`);
+  }
+
+  findByProcessAdmin(processId: string): Observable<UploadedDocument[]> {
+    return this.http.get<UploadedDocument[]>(`${this.adminBase}/processes/${processId}/documents`);
+  }
+
+  approve(docId: number): Observable<UploadedDocument> {
+    return this.http.patch<UploadedDocument>(`${this.adminBase}/documents/${docId}/approve`, {});
+  }
+
+  reject(docId: number, notes: string): Observable<UploadedDocument> {
+    return this.http.patch<UploadedDocument>(`${this.adminBase}/documents/${docId}/reject`, { notes });
+  }
+
+  getDownloadUrl(docId: number): string {
+    return `${this.adminBase}/documents/${docId}/download`;
   }
 }

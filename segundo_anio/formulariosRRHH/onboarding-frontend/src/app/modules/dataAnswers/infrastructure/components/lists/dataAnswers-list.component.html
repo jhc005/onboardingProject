@@ -1,0 +1,8 @@
+<div class="answers-grid">
+  @for (a of answers; track a.id) {
+  <div class="answer-item">
+    <span class="answer-label">{{ a.fieldLabel }}</span>
+    <span class="answer-value">{{ a.optionLabel || a.answerValue || '—' }}</span>
+  </div>
+  }
+</div>

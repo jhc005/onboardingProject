@@ -3,17 +3,9 @@
 
   @for (opt of drafts(); track $index) {
   <div class="option-row">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Etiqueta (visible)"
-      [value]="opt.optionLabel"
+    <input type="text" class="form-control" placeholder="Etiqueta (visible)" [value]="opt.optionLabel"
       (input)="update($index, 'optionLabel', $any($event.target).value)" />
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Valor (interno)"
-      [value]="opt.optionValue"
+    <input type="text" class="form-control" placeholder="Valor (interno)" [value]="opt.optionValue"
       (input)="update($index, 'optionValue', $any($event.target).value)" />
     <button type="button" class="btn-remove" (click)="remove($index)" title="Eliminar opción">✕</button>
   </div>

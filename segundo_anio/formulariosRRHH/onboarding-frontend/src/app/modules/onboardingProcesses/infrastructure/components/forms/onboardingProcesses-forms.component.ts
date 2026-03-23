@@ -1,15 +1,18 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { Location, DatePipe, NgClass } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DataAnswersListComponent } from '../../../../dataAnswers/infrastructure/components/lists/dataAnswers-list.component';
 import { OnboardingProcessesService } from '../../../application/onboardingProcesses.service';
 import { DataAnswersService } from '../../../../dataAnswers/application/dataAnswers.service';
+import { UploadedDocumentsService } from '../../../../uploadedDocuments/application/uploadedDocuments.service';
 import { ToastService } from '../../../../../core/services/toast.service';
 import { OnboardingProcess, OnboardingStatus } from '../../../domain/onboardingProcesses';
 import { DataAnswer } from '../../../../dataAnswers/domain/dataAnswers';
+import { UploadedDocument } from '../../../../uploadedDocuments/domain/uploadedDocuments';
 
 @Component({
   selector: 'app-onboarding-processes-form',
-  imports: [DatePipe, NgClass, ReactiveFormsModule],
+  imports: [DatePipe, NgClass, ReactiveFormsModule, DataAnswersListComponent],
   templateUrl: './onboardingProcesses-forms.component.html',
   styleUrl: './onboardingProcesses-forms.component.css',
 })
@@ -18,12 +21,14 @@ export class OnboardingProcessesFormsComponent implements OnInit {
 
   private readonly processSvc = inject(OnboardingProcessesService);
   private readonly answersSvc = inject(DataAnswersService);
+  readonly docsSvc = inject(UploadedDocumentsService);
   private readonly toast = inject(ToastService);
   private readonly location = inject(Location);
   private readonly fb = inject(FormBuilder);
 
   process = signal<OnboardingProcess | null>(null);
   answers = signal<DataAnswer[]>([]);
+  documents = signal<UploadedDocument[]>([]);
   loading = signal(true);
   showRejectModal = signal(false);
   actionLoading = signal(false);
@@ -44,6 +49,7 @@ export class OnboardingProcessesFormsComponent implements OnInit {
         this.loading.set(false);
         if (p.status === 'SUBMITTED' || p.status === 'VALIDATED' || p.status === 'REJECTED') {
           this.loadAnswers();
+          this.loadDocuments();
         }
       },
       error: () => this.loading.set(false),
@@ -53,6 +59,12 @@ export class OnboardingProcessesFormsComponent implements OnInit {
   loadAnswers(): void {
     this.answersSvc.findByProcessAdmin(this.id).subscribe({
       next: (data) => this.answers.set(data),
+    });
+  }
+
+  loadDocuments(): void {
+    this.docsSvc.findByProcessAdmin(this.id).subscribe({
+      next: (data) => this.documents.set(data),
     });
   }
 
@@ -98,6 +110,12 @@ export class OnboardingProcessesFormsComponent implements OnInit {
       SUBMITTED: 'Enviado', VALIDATED: 'Validado', REJECTED: 'Rechazado',
     };
     return map[s];
+  }
+
+  formatFileSize(bytes: number): string {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   }
 
   statusClass(s: OnboardingStatus): string {

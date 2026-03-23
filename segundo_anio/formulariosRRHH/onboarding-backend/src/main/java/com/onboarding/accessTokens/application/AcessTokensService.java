@@ -31,19 +31,26 @@ public class AcessTokensService {
         AcessTokens token = tokenPort.findByTokenHash(tokenHash)
                 .orElseThrow(() -> new IllegalArgumentException("Token no válido."));
 
-        if (token.getIsUsed()) {
-            throw new IllegalArgumentException("Este enlace ya ha sido utilizado.");
-        }
         if (token.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("Este enlace ha caducado. Contacta con RRHH.");
         }
 
-        token.setIsUsed(true);
-        token.setUsedAt(LocalDateTime.now());
-        tokenPort.save(token);
-
         OnboardingProc process = processPort.findById(token.getOnboardingProcessId())
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
+
+        boolean alreadyFinished = process.getStatus() == OnboardingStatus.SUBMITTED
+                || process.getStatus() == OnboardingStatus.VALIDATED
+                || process.getStatus() == OnboardingStatus.REJECTED;
+
+        if (token.getIsUsed() && alreadyFinished) {
+            throw new IllegalArgumentException("Este enlace ya ha sido utilizado.");
+        }
+
+        if (!token.getIsUsed()) {
+            token.setIsUsed(true);
+            token.setUsedAt(LocalDateTime.now());
+            tokenPort.save(token);
+        }
 
         if (process.getStatus() == OnboardingStatus.PENDING_ACCESS) {
             process.setStatus(OnboardingStatus.IN_PROGRESS);
