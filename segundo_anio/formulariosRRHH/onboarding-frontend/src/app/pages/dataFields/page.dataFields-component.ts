@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataFieldsListComponent } from '../../modules/dataFields/infrastructure/components/lists/dataFields-list.component';
+import { DataFieldsListComponent } from '../../modules/dataFields/infrastructure/components/dataFields-list.component';
 
 @Component({
   selector: 'app-fields-page',

@@ -13,4 +13,5 @@ public interface DataAnswersRepositoryPort {
     List<DataAnswers> findByOnboardingProcessId(String onboardingProcessId);
     Optional<DataAnswers> findByOnboardingProcessIdAndDataFieldId(String onboardingProcessId, Long dataFieldId);
     void deleteByOnboardingProcessId(String onboardingProcessId);
+    void deleteByDataFieldId(Long dataFieldId);
 }

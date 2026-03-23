@@ -5,13 +5,16 @@ import { AcessTokensService } from '../../application/acessTokens.service';
 import { DataFieldsService } from '../../../dataFields/application/dataFields.service';
 import { DataAnswersService } from '../../../dataAnswers/application/dataAnswers.service';
 import { OnboardingProcessesService } from '../../../onboardingProcesses/application/onboardingProcesses.service';
+import { DocumentRequirementsService } from '../../../documentRequirements/application/documentRequirements.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { DataField } from '../../../dataFields/domain/dataFields';
 import { ValidateTokenResponse } from '../../domain/acessTokens';
+import { DocumentRequirement } from '../../../documentRequirements/domain/documentRequirements';
+import { UploadedDocumentsFormsComponent } from '../../../uploadedDocuments/infrastructure/components/uploadedDocuments-forms.component';
 
 @Component({
   selector: 'app-access-tokens-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, UploadedDocumentsFormsComponent],
   templateUrl: './acessTokens-forms.component.html',
   styleUrl: './acessTokens-forms.component.css',
 })
@@ -21,12 +24,14 @@ export class AcessTokensFormsComponent implements OnInit {
   private readonly fieldsSvc = inject(DataFieldsService);
   private readonly answersSvc = inject(DataAnswersService);
   private readonly processSvc = inject(OnboardingProcessesService);
+  private readonly docReqSvc = inject(DocumentRequirementsService);
   private readonly toast = inject(ToastService);
   private readonly fb = inject(FormBuilder);
 
   step = signal<'validating' | 'form' | 'submitted' | 'error'>('validating');
   candidate = signal<ValidateTokenResponse | null>(null);
   fields = signal<DataField[]>([]);
+  documentRequirements = signal<DocumentRequirement[]>([]);
   form!: FormGroup;
   saving = signal(false);
   submitting = signal(false);
@@ -52,7 +57,13 @@ export class AcessTokensFormsComponent implements OnInit {
       next: (fields) => {
         this.fields.set(fields.sort((a, b) => a.displayOrder - b.displayOrder));
         this.buildForm(fields);
-        this.step.set('form');
+        this.docReqSvc.findAllForCandidate().subscribe({
+          next: (reqs) => {
+            this.documentRequirements.set(reqs.sort((a, b) => a.displayOrder - b.displayOrder));
+            this.step.set('form');
+          },
+          error: () => this.step.set('form'),
+        });
       },
       error: () => this.step.set('error'),
     });

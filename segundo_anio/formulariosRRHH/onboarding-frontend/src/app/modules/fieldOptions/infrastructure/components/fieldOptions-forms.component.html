@@ -1,0 +1,27 @@
+<div class="options-section">
+  <label class="options-label">Opciones <span class="required-mark">*</span></label>
+
+  @for (opt of drafts(); track $index) {
+  <div class="option-row">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Etiqueta (visible)"
+      [value]="opt.optionLabel"
+      (input)="update($index, 'optionLabel', $any($event.target).value)" />
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Valor (interno)"
+      [value]="opt.optionValue"
+      (input)="update($index, 'optionValue', $any($event.target).value)" />
+    <button type="button" class="btn-remove" (click)="remove($index)" title="Eliminar opción">✕</button>
+  </div>
+  }
+
+  @if (drafts().length === 0) {
+  <p class="options-empty">No hay opciones. Añade al menos una.</p>
+  }
+
+  <button type="button" class="btn-add-option" (click)="add()">+ Añadir opción</button>
+</div>

@@ -1,0 +1,59 @@
+<div class="docs-section">
+  <h2 class="docs-title">Documentación requerida</h2>
+  <p class="docs-subtitle">Adjunta los documentos solicitados en los formatos indicados.</p>
+
+  <div class="docs-list">
+    @for (req of requirements; track req.id) {
+    <div class="doc-card" [ngClass]="{ 'doc-card--uploaded': getUploaded(req.id) }">
+      <div class="doc-info">
+        <div class="doc-name">
+          {{ req.name }}
+          @if (req.isRequired) { <span class="required-mark">*</span> }
+        </div>
+        @if (req.description) {
+        <div class="doc-desc">{{ req.description }}</div>
+        }
+        <div class="doc-formats">Formatos: <strong>{{ req.allowedFormats }}</strong></div>
+        @if (req.hasTemplate) {
+        <a [href]="getTemplateDownloadUrl(req.id)" target="_blank" class="btn-download-template">
+          📥 Descargar plantilla
+        </a>
+        }
+      </div>
+
+      <div class="doc-action">
+        @if (getUploaded(req.id); as uploaded) {
+        <div class="doc-uploaded">
+          <div class="doc-status" [ngClass]="{
+            'status-pending': uploaded.validationStatus === 'PENDING_VALIDATION',
+            'status-approved': uploaded.validationStatus === 'APPROVED',
+            'status-rejected': uploaded.validationStatus === 'REJECTED'
+          }">
+            @if (uploaded.validationStatus === 'PENDING_VALIDATION') { Pendiente de revisión }
+            @else if (uploaded.validationStatus === 'APPROVED') { Aprobado }
+            @else { Rechazado }
+          </div>
+          <div class="doc-filename">{{ uploaded.originalFilename }}</div>
+          <div class="doc-size">{{ formatFileSize(uploaded.fileSizeBytes) }}</div>
+          <label class="btn-reupload">
+            Reemplazar
+            <input type="file" hidden [accept]="'.' + req.allowedFormats.split(',').join(',.')"
+              (change)="onFileSelected(req.id, $event)" [disabled]="uploadingId() === req.id" />
+          </label>
+        </div>
+        } @else {
+        <label class="btn-upload" [class.btn-upload--loading]="uploadingId() === req.id">
+          @if (uploadingId() === req.id) {
+          <span class="spinner-sm"></span> Subiendo...
+          } @else {
+          Seleccionar archivo
+          }
+          <input type="file" hidden [accept]="'.' + req.allowedFormats.split(',').join(',.')"
+            (change)="onFileSelected(req.id, $event)" [disabled]="uploadingId() === req.id" />
+        </label>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

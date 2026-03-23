@@ -20,4 +20,6 @@ public class DocumentsReq {
     private Boolean isConditional;
     private String conditionDescription;
     private Integer displayOrder;
+    private String templateFilePath;
+    private String templateOriginalFilename;
 }

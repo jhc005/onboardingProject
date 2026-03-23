@@ -37,4 +37,10 @@ public class DocumentsReqJpaEntity {
 
     @Column(name = "display_order", nullable = false)
     private Integer displayOrder;
+
+    @Column(name = "template_file_path", length = 512)
+    private String templateFilePath;
+
+    @Column(name = "template_original_filename", length = 255)
+    private String templateOriginalFilename;
 }

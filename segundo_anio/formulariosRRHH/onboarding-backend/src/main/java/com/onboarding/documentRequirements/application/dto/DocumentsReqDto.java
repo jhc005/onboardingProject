@@ -35,5 +35,7 @@ public class DocumentsReqDto {
         private Boolean isConditional;
         private String conditionDescription;
         private Integer displayOrder;
+        private String templateOriginalFilename;
+        private Boolean hasTemplate;
     }
 }

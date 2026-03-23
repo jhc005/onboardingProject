@@ -19,6 +19,8 @@ public class DocumentsReqMapper {
         domain.setIsConditional(entity.getIsConditional());
         domain.setConditionDescription(entity.getConditionDescription());
         domain.setDisplayOrder(entity.getDisplayOrder());
+        domain.setTemplateFilePath(entity.getTemplateFilePath());
+        domain.setTemplateOriginalFilename(entity.getTemplateOriginalFilename());
         return domain;
     }
 
@@ -33,6 +35,8 @@ public class DocumentsReqMapper {
         entity.setIsConditional(domain.getIsConditional());
         entity.setConditionDescription(domain.getConditionDescription());
         entity.setDisplayOrder(domain.getDisplayOrder());
+        entity.setTemplateFilePath(domain.getTemplateFilePath());
+        entity.setTemplateOriginalFilename(domain.getTemplateOriginalFilename());
         return entity;
     }
 
@@ -47,6 +51,8 @@ public class DocumentsReqMapper {
                 .isConditional(req.getIsConditional())
                 .conditionDescription(req.getConditionDescription())
                 .displayOrder(req.getDisplayOrder())
+                .templateOriginalFilename(req.getTemplateOriginalFilename())
+                .hasTemplate(req.getTemplateFilePath() != null)
                 .build();
     }
 }

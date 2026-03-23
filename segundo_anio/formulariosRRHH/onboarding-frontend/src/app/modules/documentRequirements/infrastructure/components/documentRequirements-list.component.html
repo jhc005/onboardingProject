@@ -1,0 +1,128 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Requisitos de documentos</h1>
+    <p class="page-subtitle">Define los documentos que el candidato deberá adjuntar durante el onboarding</p>
+  </div>
+  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo requisito</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando requisitos...
+  </div>
+  } @else if (requirements().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">📄</div>
+    <p>No hay requisitos de documentos. Crea el primero para que el candidato sepa qué adjuntar.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Formatos permitidos</th>
+          <th>Obligatorio</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of requirements(); track r.id) {
+        <tr>
+          <td>{{ r.displayOrder }}</td>
+          <td><strong>{{ r.name }}</strong></td>
+          <td><span class="format-badge">{{ r.allowedFormats }}</span></td>
+          <td>
+            <span [ngClass]="r.isRequired ? 'req-yes' : 'req-no'">
+              {{ r.isRequired ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td>{{ r.description || '—' }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-sm btn-secondary" (click)="openEdit(r)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="delete(r.id)"
+                [disabled]="deletingId() === r.id">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+<div class="modal-overlay" (click)="showModal.set(false)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">{{ editingId() ? 'Editar requisito' : 'Nuevo requisito' }}</h3>
+      <button class="modal-close" (click)="showModal.set(false)">✕</button>
+    </div>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label>Nombre del documento <span class="required-mark">*</span></label>
+        <input type="text" class="form-control" formControlName="name"
+          placeholder="Ej. DNI escaneado" />
+        @if (form.get('name')?.invalid && form.get('name')?.touched) {
+        <span class="field-error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea class="form-control" formControlName="description" rows="2"
+          placeholder="Instrucciones para el candidato"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Formatos permitidos <span class="required-mark">*</span></label>
+        <select class="form-control" formControlName="allowedFormats">
+          @for (f of formatOptions; track f) {
+          <option [value]="f">{{ f }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Plantilla descargable para el candidato</label>
+        @if (editingReq()?.hasTemplate) {
+        <div class="template-current">
+          <span class="template-filename">📎 {{ editingReq()?.templateOriginalFilename }}</span>
+          <a [href]="svc.getTemplateDownloadUrl(editingId()!)" target="_blank" class="btn btn-sm btn-secondary">Descargar</a>
+        </div>
+        }
+        @if (editingId()) {
+        <label class="btn-upload-template" [class.loading]="uploadingTemplate()">
+          @if (uploadingTemplate()) {
+          <span class="spinner-sm"></span> Subiendo...
+          } @else {
+          📤 {{ editingReq()?.hasTemplate ? 'Reemplazar plantilla' : 'Subir plantilla (PDF/imagen)' }}
+          }
+          <input type="file" hidden accept=".pdf,.jpg,.jpeg,.png"
+            (change)="onTemplateSelected($event)" [disabled]="uploadingTemplate()" />
+        </label>
+        } @else {
+        <p class="form-hint form-hint--muted">Guarda el requisito primero para poder subir una plantilla.</p>
+        }
+        <small class="form-hint">El candidato podrá descargar esta plantilla para rellenarla y adjuntarla.</small>
+      </div>
+      <div class="form-group">
+        <label>Orden de visualización <span class="required-mark">*</span></label>
+        <input type="number" class="form-control" formControlName="displayOrder" min="1" />
+      </div>
+      <div class="form-group" style="flex-direction:row; align-items:center; gap:10px">
+        <input type="checkbox" id="isRequired" formControlName="isRequired" />
+        <label for="isRequired" style="margin:0">Documento obligatorio</label>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showModal.set(false)">Salir</button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="saving()">
+        @if (saving()) { Guardando... } @else { Guardar }
+      </button>
+    </div>
+  </div>
+</div>
+}

@@ -87,7 +87,11 @@ CREATE TABLE document_requirements (
     allowed_formats VARCHAR(255) NOT NULL,
     file_name_regex VARCHAR(255),
     is_required BOOLEAN DEFAULT TRUE,
-    display_order INT NOT NULL
+    is_conditional BOOLEAN DEFAULT FALSE,
+    condition_description VARCHAR(255),
+    display_order INT NOT NULL,
+    template_file_path VARCHAR(512),
+    template_original_filename VARCHAR(255)
 );
 
 CREATE TABLE uploaded_documents (

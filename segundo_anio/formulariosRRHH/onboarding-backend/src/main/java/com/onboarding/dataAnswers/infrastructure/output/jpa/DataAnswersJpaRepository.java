@@ -10,4 +10,5 @@ public interface DataAnswersJpaRepository extends JpaRepository<DataAnswersJpaEn
     List<DataAnswersJpaEntity> findByOnboardingProcess_Id(String onboardingProcessId);
     Optional<DataAnswersJpaEntity> findByOnboardingProcess_IdAndDataField_Id(String processId, Long dataFieldId);
     void deleteByOnboardingProcess_Id(String onboardingProcessId);
+    void deleteByDataField_Id(Long dataFieldId);
 }

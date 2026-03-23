@@ -1,0 +1,24 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../../../environments/environment';
+import { UploadedDocument } from '../../../domain/uploadedDocuments';
+
+@Injectable({ providedIn: 'root' })
+export class UploadedDocumentsApi {
+  private readonly http = inject(HttpClient);
+  private readonly base = `${environment.apiUrl}/api/candidate/form`;
+
+  upload(processId: string, requirementId: number, file: File): Observable<UploadedDocument> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<UploadedDocument>(
+      `${this.base}/${processId}/documents/${requirementId}/upload`,
+      formData
+    );
+  }
+
+  findByProcessId(processId: string): Observable<UploadedDocument[]> {
+    return this.http.get<UploadedDocument[]>(`${this.base}/${processId}/documents`);
+  }
+}

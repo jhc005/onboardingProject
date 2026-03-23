@@ -1,5 +1,6 @@
 package com.onboarding.dataFields.application;
 
+import com.onboarding.dataAnswers.domain.outport.DataAnswersRepositoryPort;
 import com.onboarding.dataFields.application.dto.DataFieldsDto;
 import com.onboarding.dataFields.domain.model.DataFields;
 import com.onboarding.dataFields.domain.outport.DataFieldsRepositoryPort;
@@ -8,6 +9,7 @@ import com.onboarding.dataFields.mapper.DataFieldsMapper;
 import com.onboarding.fieldOptions.domain.outport.FieldOptionsRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class DataFieldsService {
 
     private final DataFieldsRepositoryPort dataFieldsPort;
     private final FieldOptionsRepositoryPort fieldOptionsPort;
+    private final DataAnswersRepositoryPort dataAnswersPort;
     private final DataFieldsMapper mapper;
 
     public List<DataFieldsDto.Response> findAll() {
@@ -44,7 +47,9 @@ public class DataFieldsService {
         return mapper.toResponse(dataFieldsPort.save(field));
     }
 
+    @Transactional
     public void delete(Long id) {
+        dataAnswersPort.deleteByDataFieldId(id);
         fieldOptionsPort.deleteByDataFieldId(id);
         dataFieldsPort.deleteById(id);
     }

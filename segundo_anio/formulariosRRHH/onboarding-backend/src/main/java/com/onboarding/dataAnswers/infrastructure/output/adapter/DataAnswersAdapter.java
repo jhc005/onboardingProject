@@ -66,4 +66,9 @@ public class DataAnswersAdapter implements DataAnswersRepositoryPort {
     public void deleteByOnboardingProcessId(String onboardingProcessId) {
         repository.deleteByOnboardingProcess_Id(onboardingProcessId);
     }
+
+    @Override
+    public void deleteByDataFieldId(Long dataFieldId) {
+        repository.deleteByDataField_Id(dataFieldId);
+    }
 }

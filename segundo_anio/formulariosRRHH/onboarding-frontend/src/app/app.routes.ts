@@ -48,6 +48,13 @@ export const routes: Routes = [
             (m) => m.FieldsPageComponent
           ),
       },
+      {
+        path: 'document-requirements',
+        loadComponent: () =>
+          import('./pages/documentRequirements/page.documentRequirements-component').then(
+            (m) => m.DocumentRequirementsPageComponent
+          ),
+      },
     ],
   },
   {
