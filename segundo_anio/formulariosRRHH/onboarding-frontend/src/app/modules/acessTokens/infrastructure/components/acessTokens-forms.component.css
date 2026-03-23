@@ -1,0 +1,137 @@
+.onboarding-center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff8f5 0%, #fff0e8 100%);
+  padding: 16px;
+}
+
+.onboarding-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ob-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f05a28;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.onboarding-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff8f5 0%, #fff0e8 100%);
+}
+
+.onboarding-header {
+  background: #fff;
+  padding: 16px 32px;
+  border-bottom: 2px solid #f05a28;
+  display: flex;
+  align-items: center;
+}
+
+.ob-logo-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-circle-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f05a28;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-brand-sm {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.onboarding-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.welcome-banner {
+  background: linear-gradient(135deg, #f05a28, #d04820);
+  color: #fff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+
+.welcome-banner h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.welcome-banner p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.onboarding-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}

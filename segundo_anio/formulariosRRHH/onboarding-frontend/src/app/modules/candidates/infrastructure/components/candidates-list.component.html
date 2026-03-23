@@ -1,0 +1,91 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Candidatos</h1>
+    <p class="page-subtitle">Gestión de nuevas incorporaciones</p>
+  </div>
+  <button class="btn btn-primary" (click)="openModal()">+ Nuevo candidato</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando candidatos...
+  </div>
+  } @else if (candidates().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">👥</div>
+    <p>No hay candidatos registrados. Crea el primero.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Fecha de alta</th>
+          <th>Proceso</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of candidates(); track c.id) {
+        <tr>
+          <td><strong>{{ c.firstName }} {{ c.lastName }}</strong></td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <a [routerLink]="['/admin/processes']" class="btn btn-sm btn-secondary">Ver proceso</a>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">Nuevo candidato</h3>
+      <button class="modal-close" (click)="closeModal()">✕</button>
+    </div>
+
+    <p style="font-size:13px; color:#777; margin-bottom:16px;">
+      Se enviará un correo electrónico con el enlace de acceso al formulario de onboarding.
+    </p>
+
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label>Nombre <span class="required-mark">*</span></label>
+        <input type="text" class="form-control" formControlName="firstName" placeholder="Ej. María" />
+        @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {
+        <span class="field-error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Apellidos <span class="required-mark">*</span></label>
+        <input type="text" class="form-control" formControlName="lastName" placeholder="Ej. García López" />
+        @if (form.get('lastName')?.invalid && form.get('lastName')?.touched) {
+        <span class="field-error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Email personal <span class="required-mark">*</span></label>
+        <input type="email" class="form-control" formControlName="email" placeholder="candidato@email.com" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <span class="field-error">Introduce un email válido</span>
+        }
+      </div>
+    </form>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="saving()">
+        @if (saving()) { Creando... } @else { Crear candidato }
+      </button>
+    </div>
+  </div>
+</div>
+}

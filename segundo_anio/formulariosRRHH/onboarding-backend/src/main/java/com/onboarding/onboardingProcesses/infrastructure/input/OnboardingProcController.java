@@ -4,6 +4,7 @@ import com.onboarding.onboardingProcesses.application.OnboardingProcService;
 import com.onboarding.onboardingProcesses.application.dto.OnboardingProcDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,16 +28,16 @@ public class OnboardingProcController {
     @PatchMapping("/api/admin/processes/{id}/validate")
     public ResponseEntity<OnboardingProcDto.Response> validate(
             @PathVariable String id,
-            @RequestParam Long adminId) {
-        return ResponseEntity.ok(processService.validate(id, adminId));
+            Authentication authentication) {
+        return ResponseEntity.ok(processService.validate(id, authentication.getName()));
     }
 
     @PatchMapping("/api/admin/processes/{id}/reject")
     public ResponseEntity<OnboardingProcDto.Response> reject(
             @PathVariable String id,
-            @RequestParam Long adminId,
+            Authentication authentication,
             @RequestBody OnboardingProcDto.RejectRequest request) {
-        return ResponseEntity.ok(processService.reject(id, adminId, request.getNotes()));
+        return ResponseEntity.ok(processService.reject(id, authentication.getName(), request.getNotes()));
     }
 
     @PostMapping("/api/candidate/form/{processId}/submit")

@@ -1,5 +1,6 @@
 package com.onboarding.onboardingProcesses.application;
 
+import com.onboarding.adminUsers.domain.outport.AdminUsersRepositoryPort;
 import com.onboarding.candidates.domain.model.Candidates;
 import com.onboarding.candidates.domain.outport.CandidatesRepositoryPort;
 import com.onboarding.notifications.application.NotificationsService;
@@ -21,6 +22,7 @@ public class OnboardingProcService {
 
     private final OnboardingProcRepositoryPort processPort;
     private final CandidatesRepositoryPort candidatesPort;
+    private final AdminUsersRepositoryPort adminUsersPort;
     private final NotificationsService notificationsService;
     private final OnboardingProcMapper mapper;
 
@@ -55,7 +57,11 @@ public class OnboardingProcService {
     }
 
     @Transactional
-    public OnboardingProcDto.Response validate(String processId, Long adminId) {
+    public OnboardingProcDto.Response validate(String processId, String adminEmail) {
+        Long adminId = adminUsersPort.findByEmail(adminEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Admin no encontrado."))
+                .getId();
+
         OnboardingProc process = processPort.findById(processId)
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 
@@ -76,7 +82,11 @@ public class OnboardingProcService {
     }
 
     @Transactional
-    public OnboardingProcDto.Response reject(String processId, Long adminId, String notes) {
+    public OnboardingProcDto.Response reject(String processId, String adminEmail, String notes) {
+        Long adminId = adminUsersPort.findByEmail(adminEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Admin no encontrado."))
+                .getId();
+
         OnboardingProc process = processPort.findById(processId)
                 .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
 

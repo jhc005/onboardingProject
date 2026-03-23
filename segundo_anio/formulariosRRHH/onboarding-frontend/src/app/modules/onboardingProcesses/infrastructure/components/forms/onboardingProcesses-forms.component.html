@@ -1,0 +1,107 @@
+@if (loading()) {
+  <div class="loading-wrapper"><div class="spinner"></div> Cargando proceso...</div>
+} @else if (process(); as p) {
+  <div class="page-header">
+    <div>
+      <button class="btn btn-secondary btn-sm" (click)="goBack()">← Volver</button>
+      <h1 class="page-title" style="margin-top:8px">
+        {{ p.candidateFirstName }} {{ p.candidateLastName }}
+      </h1>
+      <p class="page-subtitle">{{ p.candidateEmail }}</p>
+    </div>
+    <span class="badge" [ngClass]="statusClass(p.status)">{{ statusLabel(p.status) }}</span>
+  </div>
+
+  <div class="card mb-2">
+    <div class="card-header">
+      <h3 class="card-title">Información del proceso</h3>
+      @if (p.status === 'SUBMITTED') {
+        <div style="display:flex; gap:10px">
+          <button class="btn btn-success" (click)="validate()" [disabled]="actionLoading()">
+            ✓ Validar
+          </button>
+          <button class="btn btn-danger" (click)="openReject()" [disabled]="actionLoading()">
+            ✗ Rechazar
+          </button>
+        </div>
+      }
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Estado</span>
+        <span class="badge" [ngClass]="statusClass(p.status)">{{ statusLabel(p.status) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Creado</span>
+        <span>{{ p.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Enviado</span>
+        <span>{{ p.submittedAt ? (p.submittedAt | date:'dd/MM/yyyy HH:mm') : '—' }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Validado / Gestionado</span>
+        <span>{{ p.validatedAt ? (p.validatedAt | date:'dd/MM/yyyy HH:mm') : '—' }}</span>
+      </div>
+      @if (p.notes) {
+        <div class="info-item" style="grid-column: 1 / -1">
+          <span class="info-label">Notas de rechazo</span>
+          <span style="color:#b71c1c">{{ p.notes }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (answers().length > 0) {
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Datos del formulario</h3>
+      </div>
+      <div class="answers-grid">
+        @for (a of answers(); track a.id) {
+          <div class="answer-item">
+            <span class="answer-label">{{ a.fieldLabel }}</span>
+            <span class="answer-value">{{ a.optionLabel || a.answerValue || '—' }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  } @else if (p.status === 'PENDING_ACCESS' || p.status === 'IN_PROGRESS') {
+    <div class="card">
+      <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <p>El candidato aún no ha completado el formulario.</p>
+      </div>
+    </div>
+  }
+}
+
+@if (showRejectModal()) {
+  <div class="modal-overlay" (click)="showRejectModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title">Rechazar proceso</h3>
+        <button class="modal-close" (click)="showRejectModal.set(false)">✕</button>
+      </div>
+      <p style="font-size:13px;color:#777;margin-bottom:16px">
+        Explica el motivo del rechazo. El candidato recibirá una notificación por email.
+      </p>
+      <form [formGroup]="rejectForm">
+        <div class="form-group">
+          <label>Motivo del rechazo <span class="required-mark">*</span></label>
+          <textarea class="form-control" formControlName="notes" rows="4"
+            placeholder="Describe el motivo del rechazo..."></textarea>
+          @if (rejectForm.get('notes')?.invalid && rejectForm.get('notes')?.touched) {
+            <span class="field-error">El motivo es obligatorio</span>
+          }
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="showRejectModal.set(false)">Cancelar</button>
+        <button class="btn btn-danger" (click)="confirmReject()" [disabled]="actionLoading()">
+          @if (actionLoading()) { Rechazando... } @else { Confirmar rechazo }
+        </button>
+      </div>
+    </div>
+  </div>
+}

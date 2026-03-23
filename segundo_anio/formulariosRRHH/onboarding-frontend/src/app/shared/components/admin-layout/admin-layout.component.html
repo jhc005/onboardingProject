@@ -1,0 +1,38 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-text">civica</span>
+      <span class="logo-sub">onboarding</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/candidates" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span>Candidatos</span>
+      </a>
+      <a routerLink="/admin/processes" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">📋</span>
+        <span>Procesos</span>
+      </a>
+      <a routerLink="/admin/fields" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Campos del formulario</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <span class="user-avatar">{{ (auth.currentUser()?.fullName || 'A')[0].toUpperCase() }}</span>
+        <div class="user-details">
+          <span class="user-name">{{ auth.currentUser()?.fullName }}</span>
+          <span class="user-email">{{ auth.currentUser()?.email }}</span>
+        </div>
+      </div>
+      <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

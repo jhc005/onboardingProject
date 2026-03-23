@@ -1,0 +1,10 @@
+.type-badge {
+  background: #fff0e8;
+  color: #f05a28;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.req-yes { color: #2e7d32; font-weight: 600; }
+.req-no { color: #777; }

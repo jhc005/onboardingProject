@@ -1,0 +1,114 @@
+@if (step() === 'validating') {
+<div class="onboarding-center">
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Verificando acceso...
+  </div>
+</div>
+}
+
+@if (step() === 'error') {
+<div class="onboarding-center">
+  <div class="onboarding-card">
+    <div class="ob-logo">
+      <div class="logo-circle">C</div>
+      <div class="logo-brand">civica software</div>
+    </div>
+    <div style="text-align:center; padding: 24px 0">
+      <div style="font-size:48px">❌</div>
+      <h2 style="color:#b71c1c; margin:12px 0 8px">Enlace no válido</h2>
+      <p style="color:#777">El enlace de acceso ha caducado o ya ha sido utilizado. Contacta con RRHH.</p>
+    </div>
+  </div>
+</div>
+}
+
+@if (step() === 'submitted') {
+<div class="onboarding-center">
+  <div class="onboarding-card">
+    <div class="ob-logo">
+      <div class="logo-circle">C</div>
+      <div class="logo-brand">civica software</div>
+    </div>
+    <div style="text-align:center; padding: 24px 0">
+      <div style="font-size:48px">✅</div>
+      <h2 style="color:#2e7d32; margin:12px 0 8px">Formulario enviado</h2>
+      <p style="color:#777">Tu documentación ha sido recibida. El equipo de RRHH la revisará y recibirás una
+        confirmación por email.</p>
+      @if (candidate(); as c) {
+      <p style="margin-top:16px; font-weight:600; color:#2c2c2c">¡Gracias, {{ c.candidateFirstName }}!</p>
+      }
+    </div>
+  </div>
+</div>
+}
+
+@if (step() === 'form' && candidate(); as c) {
+<div class="onboarding-wrapper">
+  <div class="onboarding-header">
+    <div class="ob-logo-inline">
+      <div class="logo-circle-sm">C</div>
+      <span class="logo-brand-sm">civica software</span>
+    </div>
+  </div>
+
+  <div class="onboarding-body">
+    <div class="welcome-banner">
+      <h1>¡Hola, {{ c.candidateFirstName }}!</h1>
+      <p>Bienvenido/a al proceso de incorporación. Por favor, completa el formulario a continuación.</p>
+    </div>
+
+    @if (form) {
+    <form [formGroup]="form" class="onboarding-form">
+      @for (field of fields(); track field.id) {
+      <div class="form-group">
+        <label [for]="'field_' + field.id">
+          {{ field.label }}
+          @if (field.isRequired) { <span class="required-mark">*</span> }
+        </label>
+
+        @if (field.fieldType === 'TEXTAREA') {
+        <textarea [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+          [placeholder]="field.placeholder || ''" rows="3"></textarea>
+        } @else if (field.fieldType === 'SELECT') {
+        <select [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id">
+          <option value="">-- Selecciona una opción --</option>
+          @for (opt of field.options; track opt.id) {
+          <option [value]="opt.optionValue">{{ opt.optionLabel }}</option>
+          }
+        </select>
+        } @else if (field.fieldType === 'RADIO') {
+        <div class="radio-group">
+          @for (opt of field.options; track opt.id) {
+          <label class="radio-label">
+            <input type="radio" [formControlName]="'field_' + field.id" [value]="opt.optionValue" />
+            {{ opt.optionLabel }}
+          </label>
+          }
+        </div>
+        } @else if (field.fieldType === 'NUMBER') {
+        <input type="number" [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+          [placeholder]="field.placeholder || ''" />
+        } @else {
+        <input type="text" [id]="'field_' + field.id" class="form-control" [formControlName]="'field_' + field.id"
+          [placeholder]="field.placeholder || ''" />
+        }
+
+        @if (getFieldControl(field.id)?.invalid && getFieldControl(field.id)?.touched) {
+        <span class="field-error">Este campo es obligatorio</span>
+        }
+      </div>
+      }
+    </form>
+
+    <div class="form-actions">
+      <button class="btn btn-secondary" (click)="saveProgress()" [disabled]="saving()">
+        @if (saving()) { Guardando... } @else { Guardar progreso }
+      </button>
+      <button class="btn btn-primary" (click)="submitForm()" [disabled]="submitting()">
+        @if (submitting()) { Enviando... } @else { Enviar formulario }
+      </button>
+    </div>
+    }
+  </div>
+</div>
+}
