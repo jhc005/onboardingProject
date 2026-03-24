@@ -8,5 +8,6 @@ export interface IDocumentRequirementsRepository {
   update(id: number, request: CreateDocumentRequirementRequest): Observable<DocumentRequirement>;
   delete(id: number): Observable<void>;
   uploadTemplate(id: number, file: File): Observable<DocumentRequirement>;
-  getTemplateDownloadUrl(id: number): string;
+  downloadTemplate(id: number): Observable<Blob>;
+  downloadTemplateForCandidate(id: number): Observable<Blob>;
 }

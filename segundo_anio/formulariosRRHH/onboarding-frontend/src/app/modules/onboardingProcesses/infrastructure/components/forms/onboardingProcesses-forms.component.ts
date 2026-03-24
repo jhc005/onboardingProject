@@ -124,6 +124,17 @@ export class OnboardingProcessesFormsComponent implements OnInit {
     return map[s];
   }
 
+  downloadDoc(docId: number, filename: string): void {
+    this.docsSvc.download(docId).subscribe(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  }
+
   formatFileSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;

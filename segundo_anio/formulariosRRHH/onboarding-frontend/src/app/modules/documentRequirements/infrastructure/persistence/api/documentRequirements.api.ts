@@ -36,7 +36,11 @@ export class DocumentRequirementsApi {
     return this.http.post<DocumentRequirement>(`${this.adminUrl}/${id}/template`, formData);
   }
 
-  getTemplateDownloadUrl(id: number): string {
-    return `${this.adminUrl}/${id}/template/download`;
+  downloadTemplate(id: number): Observable<Blob> {
+    return this.http.get(`${this.adminUrl}/${id}/template/download`, { responseType: 'blob' });
+  }
+
+  downloadTemplateForCandidate(id: number): Observable<Blob> {
+    return this.http.get(`${this.candidateUrl}/${id}/template/download`, { responseType: 'blob' });
   }
 }

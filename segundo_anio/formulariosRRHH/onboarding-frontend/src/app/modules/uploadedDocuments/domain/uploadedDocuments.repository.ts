@@ -7,5 +7,5 @@ export interface IUploadedDocumentsRepository {
   findByProcessAdmin(processId: string): Observable<UploadedDocument[]>;
   approve(docId: number): Observable<UploadedDocument>;
   reject(docId: number, notes: string): Observable<UploadedDocument>;
-  getDownloadUrl(docId: number): string;
+  download(docId: number): Observable<Blob>;
 }

@@ -32,5 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-datos.env
 src/main/resources/application-secret.properties

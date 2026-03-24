@@ -69,7 +69,7 @@
     <div class="doc-admin-card">
       <div class="doc-admin-name">{{ doc.requirementName }}</div>
       <div class="doc-admin-file">
-        <a [href]="docsSvc.getDownloadUrl(doc.id)" target="_blank" class="doc-download-link">
+        <a (click)="downloadDoc(doc.id, doc.originalFilename)" class="doc-download-link" style="cursor:pointer">
           📥 {{ doc.originalFilename }}
         </a>
         <span class="doc-size">{{ formatFileSize(doc.fileSizeBytes) }}</span>

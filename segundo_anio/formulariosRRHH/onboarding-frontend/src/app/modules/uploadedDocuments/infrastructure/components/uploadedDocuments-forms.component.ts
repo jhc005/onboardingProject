@@ -62,8 +62,15 @@ export class UploadedDocumentsFormsComponent implements OnInit {
     });
   }
 
-  getTemplateDownloadUrl(id: number): string {
-    return this.docReqSvc.getTemplateDownloadUrl(id);
+  downloadTemplate(id: number, name: string): void {
+    this.docReqSvc.downloadTemplateForCandidate(id).subscribe(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
   }
 
   formatFileSize(bytes: number): string {

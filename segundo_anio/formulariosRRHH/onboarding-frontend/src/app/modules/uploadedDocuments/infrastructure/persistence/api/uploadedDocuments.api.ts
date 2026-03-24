@@ -35,7 +35,7 @@ export class UploadedDocumentsApi {
     return this.http.patch<UploadedDocument>(`${this.adminBase}/documents/${docId}/reject`, { notes });
   }
 
-  getDownloadUrl(docId: number): string {
-    return `${this.adminBase}/documents/${docId}/download`;
+  download(docId: number): Observable<Blob> {
+    return this.http.get(`${this.adminBase}/documents/${docId}/download`, { responseType: 'blob' });
   }
 }

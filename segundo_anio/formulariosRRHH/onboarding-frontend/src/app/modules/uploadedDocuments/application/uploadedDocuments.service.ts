@@ -27,7 +27,7 @@ export class UploadedDocumentsService {
     return this.repository.reject(docId, notes);
   }
 
-  getDownloadUrl(docId: number): string {
-    return this.repository.getDownloadUrl(docId);
+  download(docId: number): Observable<Blob> {
+    return this.repository.download(docId);
   }
 }

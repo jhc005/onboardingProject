@@ -80,6 +80,17 @@ export class DocumentRequirementsFormsComponent implements OnInit {
     });
   }
 
+  downloadTemplate(id: number, filename: string): void {
+    this.svc.downloadTemplate(id).subscribe(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  }
+
   onTemplateSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];

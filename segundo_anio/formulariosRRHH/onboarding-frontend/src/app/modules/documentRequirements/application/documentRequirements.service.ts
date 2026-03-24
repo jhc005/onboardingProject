@@ -31,7 +31,11 @@ export class DocumentRequirementsService {
     return this.repository.uploadTemplate(id, file);
   }
 
-  getTemplateDownloadUrl(id: number): string {
-    return this.repository.getTemplateDownloadUrl(id);
+  downloadTemplate(id: number): Observable<Blob> {
+    return this.repository.downloadTemplate(id);
+  }
+
+  downloadTemplateForCandidate(id: number): Observable<Blob> {
+    return this.repository.downloadTemplateForCandidate(id);
   }
 }
