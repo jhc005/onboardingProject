@@ -34,11 +34,11 @@
     }
 
     @if (getFieldControl(field.id)?.touched) {
-      @if (getFieldControl(field.id)?.hasError('required')) {
-      <span class="field-error">Este campo es obligatorio</span>
-      } @else if (getFieldControl(field.id)?.hasError('pattern')) {
-      <span class="field-error">Solo se permiten números enteros</span>
-      }
+    @if (getFieldControl(field.id)?.hasError('required')) {
+    <span class="field-error">Este campo es obligatorio</span>
+    } @else if (getFieldControl(field.id)?.hasError('pattern')) {
+    <span class="field-error">Solo se permiten números enteros</span>
+    }
     }
   </div>
   }

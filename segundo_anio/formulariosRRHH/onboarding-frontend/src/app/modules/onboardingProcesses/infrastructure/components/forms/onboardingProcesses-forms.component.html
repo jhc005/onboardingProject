@@ -19,17 +19,17 @@
     <h3 class="card-title">Información del proceso</h3>
     <div style="display:flex; gap:10px">
       @if (p.status === 'SUBMITTED') {
-        <button class="btn btn-success" (click)="validate()" [disabled]="actionLoading()">
-          ✓ Validar
-        </button>
-        <button class="btn btn-danger" (click)="openReject()" [disabled]="actionLoading()">
-          ✗ Rechazar
-        </button>
+      <button class="btn btn-success" (click)="validate()" [disabled]="actionLoading()">
+        ✓ Validar
+      </button>
+      <button class="btn btn-danger" (click)="openReject()" [disabled]="actionLoading()">
+        ✗ Rechazar
+      </button>
       }
       @if (p.status === 'PENDING_ACCESS' || p.status === 'IN_PROGRESS' || p.status === 'REJECTED') {
-        <button class="btn btn-secondary" (click)="resendAccessLink()" [disabled]="resendLoading()">
-          @if (resendLoading()) { Reenviando... } @else { ✉ Reenviar enlace }
-        </button>
+      <button class="btn btn-secondary" (click)="resendAccessLink()" [disabled]="resendLoading()">
+        @if (resendLoading()) { Reenviando... } @else { ✉ Reenviar enlace }
+      </button>
       }
     </div>
   </div>

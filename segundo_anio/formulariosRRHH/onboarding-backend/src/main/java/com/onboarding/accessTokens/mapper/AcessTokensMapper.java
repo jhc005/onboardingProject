@@ -24,7 +24,6 @@ public class AcessTokensMapper {
     public AcessTokensJpaEntity toEntity(AcessTokens domain) {
         AcessTokensJpaEntity entity = new AcessTokensJpaEntity();
         entity.setId(domain.getId());
-        // onboardingProcess is set in the adapter
         entity.setTokenHash(domain.getTokenHash());
         entity.setExpiresAt(domain.getExpiresAt());
         entity.setUsedAt(domain.getUsedAt());

@@ -7,52 +7,50 @@
 
 <div class="filters">
   @for (opt of statusOptions; track opt.value) {
-    <button
-      class="filter-btn"
-      [class.active]="filterStatus() === opt.value"
-      (click)="filterStatus.set(opt.value)"
-    >
-      {{ opt.label }}
-    </button>
+  <button class="filter-btn" [class.active]="filterStatus() === opt.value" (click)="filterStatus.set(opt.value)">
+    {{ opt.label }}
+  </button>
   }
 </div>
 
 <div class="card">
   @if (loading()) {
-    <div class="loading-wrapper"><div class="spinner"></div> Cargando procesos...</div>
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando procesos...
+  </div>
   } @else if (filtered().length === 0) {
-    <div class="empty-state">
-      <div class="empty-state-icon">📋</div>
-      <p>No hay procesos con este estado.</p>
-    </div>
+  <div class="empty-state">
+    <div class="empty-state-icon">📋</div>
+    <p>No hay procesos con este estado.</p>
+  </div>
   } @else {
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Candidato</th>
-            <th>Email</th>
-            <th>Estado</th>
-            <th>Creado</th>
-            <th>Enviado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (p of filtered(); track p.id) {
-            <tr>
-              <td><strong>{{ p.candidateFirstName }} {{ p.candidateLastName }}</strong></td>
-              <td>{{ p.candidateEmail }}</td>
-              <td><span class="badge" [ngClass]="statusClass(p.status)">{{ statusLabel(p.status) }}</span></td>
-              <td>{{ p.createdAt | date:'dd/MM/yyyy' }}</td>
-              <td>{{ p.submittedAt ? (p.submittedAt | date:'dd/MM/yyyy') : '—' }}</td>
-              <td>
-                <a [routerLink]="['/admin/processes', p.id]" class="btn btn-sm btn-secondary">Ver detalle</a>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Candidato</th>
+          <th>Email</th>
+          <th>Estado</th>
+          <th>Creado</th>
+          <th>Enviado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of filtered(); track p.id) {
+        <tr>
+          <td><strong>{{ p.candidateFirstName }} {{ p.candidateLastName }}</strong></td>
+          <td>{{ p.candidateEmail }}</td>
+          <td><span class="badge" [ngClass]="statusClass(p.status)">{{ statusLabel(p.status) }}</span></td>
+          <td>{{ p.createdAt | date:'dd/MM/yyyy' }}</td>
+          <td>{{ p.submittedAt ? (p.submittedAt | date:'dd/MM/yyyy') : '—' }}</td>
+          <td>
+            <a [routerLink]="['/admin/processes', p.id]" class="btn btn-sm btn-secondary">Ver detalle</a>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
   }
 </div>

@@ -59,9 +59,6 @@
 </div>
 
 @if (showModal()) {
-  <app-data-fields-form
-    [field]="editingField()"
-    [nextOrder]="fields().length + 1"
-    (saved)="onSaved()"
-    (cancelled)="showModal.set(false)" />
+<app-data-fields-form [field]="editingField()" [nextOrder]="fields().length + 1" (saved)="onSaved()"
+  (cancelled)="showModal.set(false)" />
 }

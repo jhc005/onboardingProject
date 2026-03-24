@@ -57,9 +57,6 @@
 </div>
 
 @if (showModal()) {
-  <app-document-requirements-form
-    [requirement]="editingRequirement()"
-    [nextOrder]="requirements().length + 1"
-    (saved)="load()"
-    (cancelled)="showModal.set(false)" />
+<app-document-requirements-form [requirement]="editingRequirement()" [nextOrder]="requirements().length + 1"
+  (saved)="load()" (cancelled)="showModal.set(false)" />
 }
