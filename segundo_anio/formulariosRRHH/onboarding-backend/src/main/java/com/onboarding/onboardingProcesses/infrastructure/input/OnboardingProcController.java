@@ -32,6 +32,12 @@ public class OnboardingProcController {
         return ResponseEntity.ok(processService.validate(id, authentication.getName()));
     }
 
+    @PostMapping("/api/admin/processes/{id}/resend-access-link")
+    public ResponseEntity<Void> resendAccessLink(@PathVariable String id) {
+        processService.resendAccessLink(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PatchMapping("/api/admin/processes/{id}/reject")
     public ResponseEntity<OnboardingProcDto.Response> reject(
             @PathVariable String id,

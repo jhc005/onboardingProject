@@ -32,6 +32,7 @@ export class OnboardingProcessesFormsComponent implements OnInit {
   loading = signal(true);
   showRejectModal = signal(false);
   actionLoading = signal(false);
+  resendLoading = signal(false);
 
   rejectForm = this.fb.group({
     notes: ['', Validators.required],
@@ -97,6 +98,17 @@ export class OnboardingProcessesFormsComponent implements OnInit {
         this.actionLoading.set(false);
       },
       error: () => this.actionLoading.set(false),
+    });
+  }
+
+  resendAccessLink(): void {
+    this.resendLoading.set(true);
+    this.processSvc.resendAccessLink(this.id).subscribe({
+      next: () => {
+        this.toast.success('Enlace reenviado al candidato correctamente.');
+        this.resendLoading.set(false);
+      },
+      error: () => this.resendLoading.set(false),
     });
   }
 

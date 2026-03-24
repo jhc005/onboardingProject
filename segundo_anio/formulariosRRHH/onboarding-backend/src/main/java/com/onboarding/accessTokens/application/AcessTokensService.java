@@ -52,7 +52,8 @@ public class AcessTokensService {
             tokenPort.save(token);
         }
 
-        if (process.getStatus() == OnboardingStatus.PENDING_ACCESS) {
+        if (process.getStatus() == OnboardingStatus.PENDING_ACCESS
+                || process.getStatus() == OnboardingStatus.REJECTED) {
             process.setStatus(OnboardingStatus.IN_PROGRESS);
             processPort.save(process);
         }

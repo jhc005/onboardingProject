@@ -41,7 +41,7 @@ export class AcessTokensFormsComponent implements OnInit {
     const token = this.route.snapshot.queryParamMap.get('token')!;
     this.tokenSvc.validateToken(token).subscribe({
       next: (res) => {
-        if (res.status === 'SUBMITTED' || res.status === 'VALIDATED' || res.status === 'REJECTED') {
+        if (res.status === 'SUBMITTED' || res.status === 'VALIDATED') {
           this.candidate.set(res);
           this.step.set('submitted');
           return;
@@ -54,10 +54,18 @@ export class AcessTokensFormsComponent implements OnInit {
   }
 
   loadFields(): void {
+    const processId = this.candidate()!.processId;
     this.fieldsSvc.findAllForCandidate().subscribe({
       next: (fields) => {
         this.fields.set(fields.sort((a, b) => a.displayOrder - b.displayOrder));
         this.buildForm(fields);
+        this.answersSvc.findByProcess(processId).subscribe({
+          next: (answers) => {
+            const patch: Record<string, string> = {};
+            answers.forEach(a => { patch[`field_${a.dataFieldId}`] = a.answerValue; });
+            this.form.patchValue(patch);
+          },
+        });
         this.docReqSvc.findAllForCandidate().subscribe({
           next: (reqs) => {
             this.documentRequirements.set(reqs.sort((a, b) => a.displayOrder - b.displayOrder));

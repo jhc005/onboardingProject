@@ -1,6 +1,9 @@
 package com.onboarding.onboardingProcesses.application;
 
+import com.onboarding.accessTokens.domain.model.AcessTokens;
+import com.onboarding.accessTokens.domain.outport.AccessTokensRepositoryPort;
 import com.onboarding.adminUsers.domain.outport.AdminUsersRepositoryPort;
+import com.onboarding.candidates.application.CandidatesService;
 import com.onboarding.candidates.domain.model.Candidates;
 import com.onboarding.candidates.domain.outport.CandidatesRepositoryPort;
 import com.onboarding.notifications.application.NotificationsService;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +27,7 @@ public class OnboardingProcService {
     private final OnboardingProcRepositoryPort processPort;
     private final CandidatesRepositoryPort candidatesPort;
     private final AdminUsersRepositoryPort adminUsersPort;
+    private final AccessTokensRepositoryPort tokenPort;
     private final NotificationsService notificationsService;
     private final OnboardingProcMapper mapper;
 
@@ -82,6 +87,25 @@ public class OnboardingProcService {
     }
 
     @Transactional
+    public void resendAccessLink(String processId) {
+        OnboardingProc process = processPort.findById(processId)
+                .orElseThrow(() -> new IllegalArgumentException("Proceso no encontrado."));
+
+        Candidates candidate = candidatesPort.findById(process.getCandidateId()).orElseThrow();
+
+        String rawToken = UUID.randomUUID().toString();
+        AcessTokens newToken = new AcessTokens();
+        newToken.setOnboardingProcessId(processId);
+        newToken.setTokenHash(CandidatesService.hashToken(rawToken));
+        newToken.setExpiresAt(LocalDateTime.now().plusDays(30));
+        newToken.setIsUsed(false);
+        newToken.setAttempts(0);
+        tokenPort.save(newToken);
+
+        notificationsService.sendAccessLink(processId, candidate, rawToken);
+    }
+
+    @Transactional
     public OnboardingProcDto.Response reject(String processId, String adminEmail, String notes) {
         Long adminId = adminUsersPort.findByEmail(adminEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Admin no encontrado."))
@@ -97,7 +121,17 @@ public class OnboardingProcService {
 
         Candidates candidate = candidatesPort.findById(process.getCandidateId()).orElseThrow();
         String fullName = candidate.getFirstName() + " " + candidate.getLastName();
-        notificationsService.sendRejected(processId, candidate.getEmail(), fullName, notes);
+
+        String rawToken = UUID.randomUUID().toString();
+        AcessTokens newToken = new AcessTokens();
+        newToken.setOnboardingProcessId(processId);
+        newToken.setTokenHash(CandidatesService.hashToken(rawToken));
+        newToken.setExpiresAt(LocalDateTime.now().plusDays(30));
+        newToken.setIsUsed(false);
+        newToken.setAttempts(0);
+        tokenPort.save(newToken);
+
+        notificationsService.sendRejected(processId, candidate.getEmail(), fullName, notes, rawToken);
 
         return mapper.toResponse(process);
     }
