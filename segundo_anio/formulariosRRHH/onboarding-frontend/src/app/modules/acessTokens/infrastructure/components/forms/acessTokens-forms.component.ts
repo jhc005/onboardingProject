@@ -1,17 +1,17 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AcessTokensService } from '../../application/acessTokens.service';
-import { DataFieldsService } from '../../../dataFields/application/dataFields.service';
-import { DataAnswersService } from '../../../dataAnswers/application/dataAnswers.service';
-import { OnboardingProcessesService } from '../../../onboardingProcesses/application/onboardingProcesses.service';
-import { DocumentRequirementsService } from '../../../documentRequirements/application/documentRequirements.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { DataField } from '../../../dataFields/domain/dataFields';
-import { ValidateTokenResponse } from '../../domain/acessTokens';
-import { DocumentRequirement } from '../../../documentRequirements/domain/documentRequirements';
-import { UploadedDocumentsFormsComponent } from '../../../uploadedDocuments/infrastructure/components/uploadedDocuments-forms.component';
-import { DataAnswersFormsComponent } from '../../../dataAnswers/infrastructure/components/forms/dataAnswers-forms.component';
+import { AcessTokensService } from '../../../application/acessTokens.service';
+import { DataFieldsService } from '../../../../dataFields/application/dataFields.service';
+import { DataAnswersService } from '../../../../dataAnswers/application/dataAnswers.service';
+import { OnboardingProcessesService } from '../../../../onboardingProcesses/application/onboardingProcesses.service';
+import { DocumentRequirementsService } from '../../../../documentRequirements/application/documentRequirements.service';
+import { ToastService } from '../../../../../core/services/toast.service';
+import { DataField } from '../../../../dataFields/domain/dataFields';
+import { ValidateTokenResponse } from '../../../domain/acessTokens';
+import { DocumentRequirement } from '../../../../documentRequirements/domain/documentRequirements';
+import { UploadedDocumentsFormsComponent } from '../../../../uploadedDocuments/infrastructure/components/uploadedDocuments-forms.component';
+import { DataAnswersFormsComponent } from '../../../../dataAnswers/infrastructure/components/forms/dataAnswers-forms.component';
 
 @Component({
   selector: 'app-access-tokens-form',

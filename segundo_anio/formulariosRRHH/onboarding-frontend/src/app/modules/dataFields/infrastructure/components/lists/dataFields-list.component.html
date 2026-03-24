@@ -1,0 +1,67 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Campos del formulario</h1>
+    <p class="page-subtitle">Define los campos que verá el candidato al completar el onboarding</p>
+  </div>
+  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo campo</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando campos...
+  </div>
+  } @else if (fields().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">⚙️</div>
+    <p>No hay campos configurados. Crea el primero para que aparezca en el formulario.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Etiqueta</th>
+          <th>Tipo</th>
+          <th>Obligatorio</th>
+          <th>Placeholder</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (f of fields(); track f.id) {
+        <tr>
+          <td>{{ f.displayOrder }}</td>
+          <td><strong>{{ f.label }}</strong></td>
+          <td>
+            <span class="type-badge">{{ fieldTypeLabels[f.fieldType] }}</span>
+          </td>
+          <td>
+            <span [ngClass]="f.isRequired ? 'req-yes' : 'req-no'">
+              {{ f.isRequired ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td>{{ f.placeholder || '—' }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-sm btn-secondary" (click)="openEdit(f)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="delete(f.id)"
+                [disabled]="deletingId() === f.id">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+  <app-data-fields-form
+    [field]="editingField()"
+    [nextOrder]="fields().length + 1"
+    (saved)="onSaved()"
+    (cancelled)="showModal.set(false)" />
+}

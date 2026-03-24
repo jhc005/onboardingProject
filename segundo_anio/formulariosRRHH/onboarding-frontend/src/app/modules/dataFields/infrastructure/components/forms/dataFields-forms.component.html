@@ -1,0 +1,49 @@
+<div class="modal-overlay" (click)="cancelled.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">{{ field ? 'Editar campo' : 'Nuevo campo' }}</h3>
+      <button class="modal-close" (click)="cancelled.emit()">✕</button>
+    </div>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label>Etiqueta del campo <span class="required-mark">*</span></label>
+        <input type="text" class="form-control" formControlName="label" placeholder="Ej. Número de DNI" />
+        @if (form.get('label')?.invalid && form.get('label')?.touched) {
+        <span class="field-error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Tipo de campo <span class="required-mark">*</span></label>
+        <select class="form-control" formControlName="fieldType">
+          @for (t of fieldTypes; track t) {
+          <option [value]="t">{{ fieldTypeLabels[t] }}</option>
+          }
+        </select>
+      </div>
+      @if (isSelectType) {
+      <div class="form-group">
+        <app-field-options-form [options]="currentOptions()" (optionsChange)="currentOptions.set($event)" />
+      </div>
+      }
+      <div class="form-group">
+        <label>Placeholder (texto de ayuda)</label>
+        <input type="text" class="form-control" formControlName="placeholder"
+          placeholder="Ej. Introduce tu DNI sin espacios" />
+      </div>
+      <div class="form-group">
+        <label>Orden de visualización <span class="required-mark">*</span></label>
+        <input type="number" class="form-control" formControlName="displayOrder" min="1" />
+      </div>
+      <div class="form-group" style="flex-direction:row; align-items:center; gap:10px">
+        <input type="checkbox" id="isRequired" formControlName="isRequired" />
+        <label for="isRequired" style="margin:0">Campo obligatorio</label>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelled.emit()">Cancelar</button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="saving()">
+        @if (saving()) { Guardando... } @else { Guardar }
+      </button>
+    </div>
+  </div>
+</div>

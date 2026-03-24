@@ -1,0 +1,49 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Candidatos</h1>
+    <p class="page-subtitle">Gestión de nuevas incorporaciones</p>
+  </div>
+  <button class="btn btn-primary" (click)="showModal.set(true)">+ Nuevo candidato</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando candidatos...
+  </div>
+  } @else if (candidates().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">👥</div>
+    <p>No hay candidatos registrados. Crea el primero.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Fecha de alta</th>
+          <th>Proceso</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of candidates(); track c.id) {
+        <tr>
+          <td><strong>{{ c.firstName }} {{ c.lastName }}</strong></td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <a [routerLink]="['/admin/processes']" class="btn btn-sm btn-secondary">Ver proceso</a>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+  <app-candidates-form (saved)="onSaved()" (cancelled)="showModal.set(false)" />
+}

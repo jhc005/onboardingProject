@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CandidatesListComponent } from '../../modules/candidates/infrastructure/components/candidates-list.component';
+import { CandidatesListComponent } from '../../modules/candidates/infrastructure/components/lists/candidates-list.component';
 
 @Component({
   selector: 'app-candidates-page',

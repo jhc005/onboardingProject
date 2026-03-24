@@ -1,67 +1,8 @@
-<div class="page-header">
-  <div>
-    <h1 class="page-title">Requisitos de documentos</h1>
-    <p class="page-subtitle">Define los documentos que el candidato deberá adjuntar durante el onboarding</p>
-  </div>
-  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo documento</button>
-</div>
-
-<div class="card">
-  @if (loading()) {
-  <div class="loading-wrapper">
-    <div class="spinner"></div> Cargando requisitos...
-  </div>
-  } @else if (requirements().length === 0) {
-  <div class="empty-state">
-    <div class="empty-state-icon">📄</div>
-    <p>No hay requisitos de documentos. Crea el primero para que el candidato sepa qué adjuntar.</p>
-  </div>
-  } @else {
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Formatos permitidos</th>
-          <th>Obligatorio</th>
-          <th>Descripción</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (r of requirements(); track r.id) {
-        <tr>
-          <td>{{ r.displayOrder }}</td>
-          <td><strong>{{ r.name }}</strong></td>
-          <td><span class="format-badge">{{ r.allowedFormats }}</span></td>
-          <td>
-            <span [ngClass]="r.isRequired ? 'req-yes' : 'req-no'">
-              {{ r.isRequired ? 'Sí' : 'No' }}
-            </span>
-          </td>
-          <td>{{ r.description || '—' }}</td>
-          <td>
-            <div class="table-actions">
-              <button class="btn btn-sm btn-secondary" (click)="openEdit(r)">Editar</button>
-              <button class="btn btn-sm btn-danger" (click)="delete(r.id)"
-                [disabled]="deletingId() === r.id">Eliminar</button>
-            </div>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  }
-</div>
-
-@if (showModal()) {
-<div class="modal-overlay" (click)="showModal.set(false)">
+<div class="modal-overlay" (click)="cancelled.emit()">
   <div class="modal" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h3 class="modal-title">{{ editingId() ? 'Editar requisito' : 'Nuevo requisito' }}</h3>
-      <button class="modal-close" (click)="showModal.set(false)">✕</button>
+      <h3 class="modal-title">{{ requirement ? 'Editar requisito' : 'Nuevo requisito' }}</h3>
+      <button class="modal-close" (click)="cancelled.emit()">✕</button>
     </div>
     <form [formGroup]="form">
       <div class="form-group">
@@ -118,11 +59,10 @@
       </div>
     </form>
     <div class="modal-footer">
-      <button class="btn btn-secondary" (click)="showModal.set(false)">Salir</button>
+      <button class="btn btn-secondary" (click)="cancelled.emit()">Salir</button>
       <button class="btn btn-primary" (click)="save()" [disabled]="saving()">
         @if (saving()) { Guardando... } @else { Guardar }
       </button>
     </div>
   </div>
 </div>
-}

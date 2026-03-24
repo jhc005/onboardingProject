@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentRequirementsListComponent } from '../../modules/documentRequirements/infrastructure/components/documentRequirements-list.component';
+import { DocumentRequirementsListComponent } from '../../modules/documentRequirements/infrastructure/components/lists/documentRequirements-list.component';
 
 @Component({
   selector: 'app-document-requirements-page',

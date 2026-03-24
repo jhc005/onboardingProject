@@ -1,0 +1,65 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Requisitos de documentos</h1>
+    <p class="page-subtitle">Define los documentos que el candidato deberá adjuntar durante el onboarding</p>
+  </div>
+  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo documento</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando requisitos...
+  </div>
+  } @else if (requirements().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">📄</div>
+    <p>No hay requisitos de documentos. Crea el primero para que el candidato sepa qué adjuntar.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Formatos permitidos</th>
+          <th>Obligatorio</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of requirements(); track r.id) {
+        <tr>
+          <td>{{ r.displayOrder }}</td>
+          <td><strong>{{ r.name }}</strong></td>
+          <td><span class="format-badge">{{ r.allowedFormats }}</span></td>
+          <td>
+            <span [ngClass]="r.isRequired ? 'req-yes' : 'req-no'">
+              {{ r.isRequired ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td>{{ r.description || '—' }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-sm btn-secondary" (click)="openEdit(r)">Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="delete(r.id)"
+                [disabled]="deletingId() === r.id">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+  <app-document-requirements-form
+    [requirement]="editingRequirement()"
+    [nextOrder]="requirements().length + 1"
+    (saved)="load()"
+    (cancelled)="showModal.set(false)" />
+}
