@@ -13,14 +13,6 @@ import java.util.List;
 public class DataAnswersController {
 
     private final DataAnswersService dataAnswersService;
-
-    @PostMapping("/api/candidate/form/{processId}/answers")
-    public ResponseEntity<List<DataAnswersDto.Response>> saveAnswers(
-            @PathVariable String processId,
-            @RequestBody DataAnswersDto.SaveRequest request) {
-        return ResponseEntity.ok(dataAnswersService.saveAnswers(processId, request));
-    }
-
     @GetMapping("/api/candidate/form/{processId}/answers")
     public ResponseEntity<List<DataAnswersDto.Response>> findByProcess(@PathVariable String processId) {
         return ResponseEntity.ok(dataAnswersService.findByProcessId(processId));
@@ -30,4 +22,13 @@ public class DataAnswersController {
     public ResponseEntity<List<DataAnswersDto.Response>> findByProcessAdmin(@PathVariable String processId) {
         return ResponseEntity.ok(dataAnswersService.findByProcessId(processId));
     }
+    
+    @PostMapping("/api/candidate/form/{processId}/answers")
+    public ResponseEntity<List<DataAnswersDto.Response>> saveAnswers(
+            @PathVariable String processId,
+            @RequestBody DataAnswersDto.SaveRequest request) {
+        return ResponseEntity.ok(dataAnswersService.saveAnswers(processId, request));
+    }
+
+    
 }

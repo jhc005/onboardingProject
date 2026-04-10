@@ -18,6 +18,10 @@ export class DocumentRequirementsApi {
     return this.http.get<DocumentRequirement[]>(this.candidateUrl);
   }
 
+  canModify(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.adminUrl}/can-modify`);
+  }
+
   create(request: CreateDocumentRequirementRequest): Observable<DocumentRequirement> {
     return this.http.post<DocumentRequirement>(this.adminUrl, request);
   }

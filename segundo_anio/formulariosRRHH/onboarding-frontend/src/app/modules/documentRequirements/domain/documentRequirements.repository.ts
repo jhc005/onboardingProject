@@ -4,6 +4,7 @@ import { DocumentRequirement, CreateDocumentRequirementRequest } from './documen
 export interface IDocumentRequirementsRepository {
   findAll(): Observable<DocumentRequirement[]>;
   findAllForCandidate(): Observable<DocumentRequirement[]>;
+  canModify(): Observable<boolean>;
   create(request: CreateDocumentRequirementRequest): Observable<DocumentRequirement>;
   update(id: number, request: CreateDocumentRequirementRequest): Observable<DocumentRequirement>;
   delete(id: number): Observable<void>;

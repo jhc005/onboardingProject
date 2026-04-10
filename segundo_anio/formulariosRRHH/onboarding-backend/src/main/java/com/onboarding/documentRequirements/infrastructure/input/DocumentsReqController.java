@@ -25,6 +25,11 @@ public class DocumentsReqController {
         return ResponseEntity.ok(documentsReqService.findAll());
     }
 
+    @GetMapping("/api/admin/document-requirements/can-modify")
+    public ResponseEntity<Boolean> canModify() {
+        return ResponseEntity.ok(documentsReqService.canModify());
+    }
+
     @PostMapping("/api/admin/document-requirements")
     public ResponseEntity<DocumentsReqDto.Response> create(@RequestBody DocumentsReqDto.Request request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(documentsReqService.create(request));

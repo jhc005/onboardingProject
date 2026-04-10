@@ -14,6 +14,7 @@
         <div class="doc-desc">{{ req.description }}</div>
         }
         <div class="doc-formats">Formatos: <strong>{{ req.allowedFormats }}</strong></div>
+        <div class="doc-filename-hint">Nombre del archivo: <strong>[{{ req.name }}] Apellido Apellido, Nombre</strong></div>
         @if (req.hasTemplate) {
         <button (click)="downloadTemplate(req.id, req.templateOriginalFilename || req.name)"
           class="btn-download-template">

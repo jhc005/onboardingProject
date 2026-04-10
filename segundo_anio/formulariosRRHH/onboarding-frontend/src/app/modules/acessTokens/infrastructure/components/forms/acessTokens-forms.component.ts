@@ -12,6 +12,7 @@ import { ValidateTokenResponse } from '../../../domain/acessTokens';
 import { DocumentRequirement } from '../../../../documentRequirements/domain/documentRequirements';
 import { UploadedDocumentsFormsComponent } from '../../../../uploadedDocuments/infrastructure/components/uploadedDocuments-forms.component';
 import { DataAnswersFormsComponent } from '../../../../dataAnswers/infrastructure/components/forms/dataAnswers-forms.component';
+import { UploadedDocumentsService } from '../../../../uploadedDocuments/application/uploadedDocuments.service';
 
 @Component({
   selector: 'app-access-tokens-form',
@@ -27,6 +28,7 @@ export class AcessTokensFormsComponent implements OnInit {
   private readonly processSvc = inject(OnboardingProcessesService);
   private readonly docReqSvc = inject(DocumentRequirementsService);
   private readonly toast = inject(ToastService);
+  private readonly uploadedDocsSvc = inject(UploadedDocumentsService)
   private readonly fb = inject(FormBuilder);
 
   step = signal<'validating' | 'form' | 'submitted' | 'error'>('validating');
@@ -103,12 +105,27 @@ export class AcessTokensFormsComponent implements OnInit {
   submitForm(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); this.toast.warning('Por favor, completa todos los campos obligatorios.'); return; }
     const processId = this.candidate()!.processId;
-    const answers = this.buildAnswers();
-    this.submitting.set(true);
-    this.answersSvc.save(processId, { answers }).subscribe({
-      next: () => {
-        this.processSvc.submit(processId).subscribe({
-          next: () => { this.toast.success('Formulario enviado correctamente. ¡Gracias!'); this.step.set('submitted'); this.submitting.set(false); },
+
+    this.uploadedDocsSvc.findByProcessId(processId).subscribe({
+      next: (uploadedDocs) => {
+        const uploadedReqIds = new Set(uploadedDocs.map(d => d.documentRequirementId));
+        const missing = this.documentRequirements()
+          .filter(r => r.isRequired && !uploadedReqIds.has(r.id));
+
+        if (missing.length > 0) {
+          this.toast.warning(`Faltan documentos obligatorios: ${missing.map(r => r.name).join(', ')}`);
+          return;
+        }
+
+        const answers = this.buildAnswers();
+        this.submitting.set(true);
+        this.answersSvc.save(processId, { answers }).subscribe({
+          next: () => {
+            this.processSvc.submit(processId).subscribe({
+              next: () => { this.toast.success('Formulario enviado correctamente. ¡Gracias!'); this.step.set('submitted'); this.submitting.set(false); },
+              error: () => this.submitting.set(false),
+            });
+          },
           error: () => this.submitting.set(false),
         });
       },

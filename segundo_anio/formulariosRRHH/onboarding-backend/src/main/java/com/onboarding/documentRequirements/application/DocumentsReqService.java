@@ -4,6 +4,7 @@ import com.onboarding.documentRequirements.application.dto.DocumentsReqDto;
 import com.onboarding.documentRequirements.domain.model.DocumentsReq;
 import com.onboarding.documentRequirements.domain.outport.DocumentsReqRepository;
 import com.onboarding.documentRequirements.mapper.DocumentsReqMapper;
+import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import java.util.UUID;
 public class DocumentsReqService {
 
     private final DocumentsReqRepository documentsReqPort;
+    private final OnboardingProcRepositoryPort onboardingProcPort;
     private final DocumentsReqMapper mapper;
 
     @Value("${app.storage.path}")
@@ -38,13 +40,27 @@ public class DocumentsReqService {
                 .orElseThrow(() -> new IllegalArgumentException("Requisito de documento no encontrado."));
     }
 
+    public boolean canModify() {
+        return !onboardingProcPort.existsActiveProcesses();
+    }
+
     public DocumentsReqDto.Response create(DocumentsReqDto.Request request) {
+        if (onboardingProcPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+                "No se pueden crear requisitos de documentos mientras haya procesos de onboarding activos."
+            );
+        }
         DocumentsReq req = new DocumentsReq();
         fillFromRequest(req, request);
         return mapper.toResponse(documentsReqPort.save(req));
     }
 
     public DocumentsReqDto.Response update(Long id, DocumentsReqDto.Request request) {
+        if (onboardingProcPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+                "No se pueden modificar requisitos de documentos mientras haya procesos de onboarding activos."
+            );
+        }
         DocumentsReq req = documentsReqPort.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Requisito no encontrado."));
         fillFromRequest(req, request);
@@ -52,6 +68,11 @@ public class DocumentsReqService {
     }
 
     public void delete(Long id) {
+        if (onboardingProcPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+                "No se pueden eliminar requisitos de documentos mientras haya procesos de onboarding activos."
+            );
+        }
         documentsReqPort.deleteById(id);
     }
 

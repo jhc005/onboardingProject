@@ -23,6 +23,9 @@ export class UploadedDocumentsFormsComponent implements OnInit {
   uploadedMap = signal<Map<number, UploadedDocument>>(new Map());
   uploadingId = signal<number | null>(null);
 
+  private readonly FILENAME_REGEX =
+    /^\[.+\] [A-Za-z\u00C0-\u024F]+(?: [A-Za-z\u00C0-\u024F]+)?, [A-Za-z\u00C0-\u024F]+(?:\s[A-Za-z\u00C0-\u024F]+)*$/;
+
   ngOnInit(): void {
     this.svc.findByProcessId(this.processId).subscribe({
       next: (docs) => {
@@ -41,6 +44,16 @@ export class UploadedDocumentsFormsComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
+
+    const nameWithoutExt = file.name.includes('.')
+      ? file.name.substring(0, file.name.lastIndexOf('.'))
+      : file.name;
+
+    if (!this.FILENAME_REGEX.test(nameWithoutExt)) {
+      this.toast.error('El nombre del archivo debe seguir el formato: [Nombre del documento] Apellido Apellido, Nombre');
+      input.value = '';
+      return;
+    }
 
     this.uploadingId.set(requirementId);
     this.svc.upload(this.processId, requirementId, file).subscribe({

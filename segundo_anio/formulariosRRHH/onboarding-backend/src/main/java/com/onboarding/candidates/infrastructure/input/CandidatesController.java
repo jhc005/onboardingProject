@@ -15,12 +15,6 @@ import java.util.List;
 public class CandidatesController {
 
     private final CandidatesService candidatesService;
-
-    @PostMapping
-    public ResponseEntity<CandidatesDto.Response> create(@RequestBody CandidatesDto.CreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidatesService.createCandidate(request));
-    }
-
     @GetMapping
     public ResponseEntity<List<CandidatesDto.Response>> findAll() {
         return ResponseEntity.ok(candidatesService.findAll());
@@ -30,4 +24,10 @@ public class CandidatesController {
     public ResponseEntity<CandidatesDto.Response> findById(@PathVariable String id) {
         return ResponseEntity.ok(candidatesService.findById(id));
     }
+    @PostMapping
+    public ResponseEntity<CandidatesDto.Response> create(@RequestBody CandidatesDto.CreateRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(candidatesService.createCandidate(request));
+    }
+
+    
 }

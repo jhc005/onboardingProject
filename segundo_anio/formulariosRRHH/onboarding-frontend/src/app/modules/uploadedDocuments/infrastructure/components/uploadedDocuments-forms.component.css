@@ -64,6 +64,12 @@
   color: #9ca3af;
 }
 
+.doc-filename-hint {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
 .doc-action {
   flex-shrink: 0;
 }

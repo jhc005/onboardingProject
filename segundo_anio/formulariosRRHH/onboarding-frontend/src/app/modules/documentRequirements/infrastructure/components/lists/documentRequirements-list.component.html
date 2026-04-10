@@ -3,8 +3,17 @@
     <h1 class="page-title">Requisitos de documentos</h1>
     <p class="page-subtitle">Define los documentos que el candidato deberá adjuntar durante el onboarding</p>
   </div>
-  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo documento</button>
+  <button class="btn btn-primary" (click)="openCreate()" [disabled]="!canModify()"
+    [title]="canModify() ? '' : 'No se pueden añadir documentos mientras haya procesos activos'">
+    + Nuevo documento
+  </button>
 </div>
+
+@if (!canModify()) {
+<div class="alert-warning">
+  ⚠️ Hay procesos de onboarding activos. No se pueden crear, editar ni eliminar requisitos de documentos hasta que todos finalicen.
+</div>
+}
 
 <div class="card">
   @if (loading()) {
@@ -43,9 +52,16 @@
           <td>{{ r.description || '—' }}</td>
           <td>
             <div class="table-actions">
-              <button class="btn btn-sm btn-secondary" (click)="openEdit(r)">Editar</button>
+              <button class="btn btn-sm btn-secondary" (click)="openEdit(r)"
+                [disabled]="!canModify()"
+                [title]="canModify() ? '' : 'No se pueden editar requisitos mientras haya procesos activos'">
+                Editar
+              </button>
               <button class="btn btn-sm btn-danger" (click)="delete(r.id)"
-                [disabled]="deletingId() === r.id">Eliminar</button>
+                [disabled]="deletingId() === r.id || !canModify()"
+                [title]="canModify() ? '' : 'No se pueden eliminar requisitos mientras haya procesos activos'">
+                Eliminar
+              </button>
             </div>
           </td>
         </tr>

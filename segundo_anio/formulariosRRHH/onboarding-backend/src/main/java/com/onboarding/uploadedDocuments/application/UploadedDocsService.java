@@ -100,6 +100,9 @@ public class UploadedDocsService {
                 .getOriginalFilename();
     }
 
+    private static final String FILENAME_FORMAT_REGEX =
+            "^\\[.+\\] [A-Za-z\\u00C0-\\u024F]+(?: [A-Za-z\\u00C0-\\u024F]+)?, [A-Za-z\\u00C0-\\u024F]+(?:\\s[A-Za-z\\u00C0-\\u024F]+)*$";
+
     private void validateFile(MultipartFile file, DocumentsReq requirement) {
         String originalName = file.getOriginalFilename();
         if (originalName == null || originalName.isBlank()) {
@@ -121,11 +124,9 @@ public class UploadedDocsService {
         String nameWithoutExt = originalName.contains(".")
                 ? originalName.substring(0, originalName.lastIndexOf('.'))
                 : originalName;
-        if (requirement.getFileNameRegex() != null && !requirement.getFileNameRegex().isBlank()) {
-            if (!nameWithoutExt.matches(requirement.getFileNameRegex())) {
-                throw new IllegalArgumentException(
-                        "El nombre del archivo no cumple el formato requerido: " + requirement.getFileNameRegex());
-            }
+        if (!nameWithoutExt.matches(FILENAME_FORMAT_REGEX)) {
+            throw new IllegalArgumentException(
+                    "El nombre del archivo debe seguir el formato: [Nombre del documento] Apellido Apellido, Nombre");
         }
     }
 }

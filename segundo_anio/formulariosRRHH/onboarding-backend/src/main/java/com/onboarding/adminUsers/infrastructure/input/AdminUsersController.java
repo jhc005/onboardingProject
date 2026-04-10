@@ -15,7 +15,11 @@ import java.util.List;
 public class AdminUsersController {
 
     private final AdminUsersService adminUsersService;
-
+    @GetMapping("/users")
+    public ResponseEntity<List<AdminUsersDto.Response>> findAll() {
+        return ResponseEntity.ok(adminUsersService.findAll());
+    }
+    
     @PostMapping("/auth/login")
     public ResponseEntity<AdminUsersDto.LoginResponse> login(@RequestBody AdminUsersDto.LoginRequest request) {
         return ResponseEntity.ok(adminUsersService.login(request));
@@ -26,8 +30,5 @@ public class AdminUsersController {
         return ResponseEntity.status(HttpStatus.CREATED).body(adminUsersService.create(request));
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<AdminUsersDto.Response>> findAll() {
-        return ResponseEntity.ok(adminUsersService.findAll());
-    }
+    
 }

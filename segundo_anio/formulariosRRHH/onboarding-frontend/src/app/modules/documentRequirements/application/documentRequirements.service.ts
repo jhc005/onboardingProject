@@ -15,6 +15,10 @@ export class DocumentRequirementsService {
     return this.repository.findAllForCandidate();
   }
 
+  canModify(): Observable<boolean> {
+    return this.repository.canModify();
+  }
+
   create(request: CreateDocumentRequirementRequest): Observable<DocumentRequirement> {
     return this.repository.create(request);
   }
