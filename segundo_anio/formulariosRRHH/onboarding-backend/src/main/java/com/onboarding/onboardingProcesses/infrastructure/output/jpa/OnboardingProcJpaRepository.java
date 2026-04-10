@@ -11,4 +11,5 @@ public interface OnboardingProcJpaRepository extends JpaRepository<OnboardingPro
 
     Optional<OnboardingProcJpaEntity> findByCandidate_Id(String candidateId);
     List<OnboardingProcJpaEntity> findByStatus(OnboardingStatus status);
+    boolean existsByStatusIn(List<OnboardingStatus> statuses);
 }

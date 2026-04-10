@@ -31,6 +31,10 @@ MAIL_PASSWORD=tu_app_password_de_gmail
 ADMIN_EMAIL=tu@email.com
 ADMIN_PASSWORD=tu_password_segura
 ADMIN_FULLNAME=Tu Nombre Completo
+
+# Usuario administrador que se genera automaticamente(solo para pruebas posteriormente se borrara)
+ADMIN_EMAIL=admin@civica.com
+ADMIN_PASSWORD=admin123
 ```
 
 > **Nota sobre `MAIL_PASSWORD`:** Gmail requiere una *contraseña de aplicación*, no tu contraseña normal.

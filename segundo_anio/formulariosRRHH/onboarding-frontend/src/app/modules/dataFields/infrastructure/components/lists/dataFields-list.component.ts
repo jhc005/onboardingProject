@@ -17,6 +17,7 @@ export class DataFieldsListComponent implements OnInit {
 
   fields = signal<DataField[]>([]);
   loading = signal(false);
+  canModify = signal(true);
   showModal = signal(false);
   editingField = signal<DataField | null>(null);
   deletingId = signal<number | null>(null);
@@ -29,6 +30,10 @@ export class DataFieldsListComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
+    this.svc.canModify().subscribe({
+      next: (can) => this.canModify.set(can),
+      error: () => this.canModify.set(false),
+    });
     this.svc.findAll().subscribe({
       next: (data) => { this.fields.set(data.sort((a, b) => a.displayOrder - b.displayOrder)); this.loading.set(false); },
       error: () => this.loading.set(false),

@@ -58,6 +58,16 @@ public class OnboardingProcAdapter implements OnboardingProcRepositoryPort {
     }
 
     @Override
+    public boolean existsActiveProcesses() {
+        return repository.existsByStatusIn(List.of(
+                OnboardingStatus.PENDING_ACCESS,
+                OnboardingStatus.IN_PROGRESS,
+                OnboardingStatus.SUBMITTED,
+                OnboardingStatus.REJECTED
+        ));
+    }
+
+    @Override
     public void deleteById(String id) {
         repository.deleteById(id);
     }

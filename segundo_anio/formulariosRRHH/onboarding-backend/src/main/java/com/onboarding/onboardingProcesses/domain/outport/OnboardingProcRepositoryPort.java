@@ -13,5 +13,6 @@ public interface OnboardingProcRepositoryPort {
     Optional<OnboardingProc> findByCandidateId(String candidateId);
     List<OnboardingProc> findAll();
     List<OnboardingProc> findByStatus(OnboardingStatus status);
+    boolean existsActiveProcesses();
     void deleteById(String id);
 }

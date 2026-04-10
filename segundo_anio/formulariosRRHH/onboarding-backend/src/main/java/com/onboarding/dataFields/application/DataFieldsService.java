@@ -7,6 +7,8 @@ import com.onboarding.dataFields.domain.outport.DataFieldsRepositoryPort;
 import com.onboarding.dataFields.domain.valueobject.FieldType;
 import com.onboarding.dataFields.mapper.DataFieldsMapper;
 import com.onboarding.fieldOptions.domain.outport.FieldOptionsRepositoryPort;
+import com.onboarding.onboardingProcesses.domain.outport.OnboardingProcRepositoryPort;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class DataFieldsService {
     private final DataFieldsRepositoryPort dataFieldsPort;
     private final FieldOptionsRepositoryPort fieldOptionsPort;
     private final DataAnswersRepositoryPort dataAnswersPort;
+    private final OnboardingProcRepositoryPort onboardingProcRepositoryPort;
     private final DataFieldsMapper mapper;
 
     public List<DataFieldsDto.Response> findAll() {
@@ -35,12 +38,26 @@ public class DataFieldsService {
     }
 
     public DataFieldsDto.Response create(DataFieldsDto.Request request) {
+        if (onboardingProcRepositoryPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+            "No se pueden crear campos mientras haya procesos onboarding activos."
+        );
+        }
         DataFields field = new DataFields();
         fillFromRequest(field, request);
         return mapper.toResponse(dataFieldsPort.save(field));
     }
 
+    public boolean canModify() {
+        return !onboardingProcRepositoryPort.existsActiveProcesses();
+    }
+
     public DataFieldsDto.Response update(Long id, DataFieldsDto.Request request) {
+        if (onboardingProcRepositoryPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+                "No se pueden modificar campos mientras haya procesos onboarding activos."
+            );
+        }
         DataFields field = dataFieldsPort.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Campo no encontrado."));
         fillFromRequest(field, request);
@@ -49,6 +66,11 @@ public class DataFieldsService {
 
     @Transactional
     public void delete(Long id) {
+        if (onboardingProcRepositoryPort.existsActiveProcesses()) {
+            throw new IllegalStateException(
+                "No se pueden eliminar campos mientras haya procesos onboarding activos."
+            );
+        }
         dataAnswersPort.deleteByDataFieldId(id);
         fieldOptionsPort.deleteByDataFieldId(id);
         dataFieldsPort.deleteById(id);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequiredArgsConstructor
 public class DataFieldsController {
@@ -19,6 +20,17 @@ public class DataFieldsController {
     public ResponseEntity<List<DataFieldsDto.Response>> findAll() {
         return ResponseEntity.ok(dataFieldsService.findAll());
     }
+
+    @GetMapping("/api/candidate/form/fields")
+    public ResponseEntity<List<DataFieldsDto.Response>> findAllForCandidate() {
+        return ResponseEntity.ok(dataFieldsService.findAll());
+    }
+
+    @GetMapping("/api/admin/fields/can-modify")
+    public ResponseEntity<Boolean> canModify() {
+        return ResponseEntity.ok(dataFieldsService.canModify());
+    }
+    
 
     @PostMapping("/api/admin/fields")
     public ResponseEntity<DataFieldsDto.Response> create(@RequestBody DataFieldsDto.Request request) {
@@ -37,8 +49,4 @@ public class DataFieldsController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/api/candidate/form/fields")
-    public ResponseEntity<List<DataFieldsDto.Response>> findAllForCandidate() {
-        return ResponseEntity.ok(dataFieldsService.findAll());
-    }
 }

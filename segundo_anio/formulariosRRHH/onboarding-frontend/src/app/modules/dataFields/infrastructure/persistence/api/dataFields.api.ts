@@ -18,6 +18,10 @@ export class DataFieldsApi {
     return this.http.get<DataField[]>(this.candidateUrl);
   }
 
+  canModify(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.adminUrl}/can-modify`);
+  }
+
   create(request: CreateDataFieldRequest): Observable<DataField> {
     return this.http.post<DataField>(this.adminUrl, request);
   }

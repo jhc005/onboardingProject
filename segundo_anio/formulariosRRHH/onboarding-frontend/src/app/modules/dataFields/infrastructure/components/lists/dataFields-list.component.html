@@ -3,8 +3,17 @@
     <h1 class="page-title">Campos del formulario</h1>
     <p class="page-subtitle">Define los campos que verá el candidato al completar el onboarding</p>
   </div>
-  <button class="btn btn-primary" (click)="openCreate()">+ Nuevo campo</button>
+  <button class="btn btn-primary" (click)="openCreate()" [disabled]="!canModify()"
+    [title]="canModify() ? '' : 'No se pueden añadir campos mientras haya procesos activos'">
+    + Nuevo campo
+  </button>
 </div>
+
+@if (!canModify()) {
+<div class="alert-warning">
+  ⚠️ Hay procesos de onboarding activos. No se pueden crear, editar ni eliminar campos hasta que todos finalicen.
+</div>
+}
 
 <div class="card">
   @if (loading()) {
@@ -45,9 +54,16 @@
           <td>{{ f.placeholder || '—' }}</td>
           <td>
             <div class="table-actions">
-              <button class="btn btn-sm btn-secondary" (click)="openEdit(f)">Editar</button>
+              <button class="btn btn-sm btn-secondary" (click)="openEdit(f)"
+                [disabled]="!canModify()"
+                [title]="canModify() ? '' : 'No se pueden editar campos mientras haya procesos activos'">
+                Editar
+              </button>
               <button class="btn btn-sm btn-danger" (click)="delete(f.id)"
-                [disabled]="deletingId() === f.id">Eliminar</button>
+                [disabled]="deletingId() === f.id || !canModify()"
+                [title]="canModify() ? '' : 'No se pueden eliminar campos mientras haya procesos activos'">
+                Eliminar
+              </button>
             </div>
           </td>
         </tr>
