@@ -1,5 +1,6 @@
 package com.onboarding.notifications.mapper;
 
+import com.onboarding.notifications.application.dto.NotificationsDto;
 import com.onboarding.notifications.domain.model.Notifications;
 import com.onboarding.notifications.infrastructure.output.jpa.NotificationsJpaEntity;
 import org.springframework.stereotype.Component;
@@ -31,11 +32,23 @@ public class NotificationsMapper {
 
                 NotificationsJpaEntity entity = new NotificationsJpaEntity();
                 entity.setId(domain.getId());
-                entity.setType(domain.getType()); 
+                entity.setType(domain.getType());
                 entity.setRecipientEmail(domain.getRecipientEmail());
-                entity.setStatus(domain.getStatus()); 
+                entity.setStatus(domain.getStatus());
                 entity.setErrorMessage(domain.getErrorMessage());
 
                 return entity;
+        }
+
+        public NotificationsDto.Response toResponse(Notifications n) {
+                return NotificationsDto.Response.builder()
+                        .id(n.getId())
+                        .onboardingProcessId(n.getOnboardingProcessId())
+                        .type(n.getType() != null ? n.getType().name() : null)
+                        .recipientEmail(n.getRecipientEmail())
+                        .sentAt(n.getSentAt())
+                        .status(n.getStatus() != null ? n.getStatus().name() : null)
+                        .errorMessage(n.getErrorMessage())
+                        .build();
         }
 }

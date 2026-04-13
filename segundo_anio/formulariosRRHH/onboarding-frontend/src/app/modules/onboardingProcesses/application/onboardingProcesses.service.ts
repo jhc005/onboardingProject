@@ -27,10 +27,6 @@ export class OnboardingProcessesService {
     return this.repository.submit(processId);
   }
 
-  getStatus(processId: string): Observable<{ status: string }> {
-    return this.repository.getStatus(processId);
-  }
-
   resendAccessLink(id: string): Observable<void> {
     return this.repository.resendAccessLink(id);
   }

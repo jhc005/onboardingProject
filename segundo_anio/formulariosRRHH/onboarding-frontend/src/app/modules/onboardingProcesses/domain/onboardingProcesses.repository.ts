@@ -7,6 +7,5 @@ export interface IOnboardingProcessesRepository {
   validate(id: string): Observable<OnboardingProcess>;
   reject(id: string, request: RejectRequest): Observable<OnboardingProcess>;
   submit(processId: string): Observable<OnboardingProcess>;
-  getStatus(processId: string): Observable<{ status: string }>;
   resendAccessLink(id: string): Observable<void>;
 }

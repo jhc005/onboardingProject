@@ -14,8 +14,4 @@ export class CandidatesService {
   findAll(): Observable<Candidate[]> {
     return this.repository.findAll();
   }
-
-  findById(id: string): Observable<Candidate> {
-    return this.repository.findById(id);
-  }
 }

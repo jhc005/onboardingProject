@@ -30,10 +30,6 @@ export class OnboardingProcessesApi {
     return this.http.post<OnboardingProcess>(`${this.candidateUrl}/${processId}/submit`, {});
   }
 
-  getStatus(processId: string): Observable<{ status: string }> {
-    return this.http.get<{ status: string }>(`${this.candidateUrl}/${processId}/status`);
-  }
-
   resendAccessLink(id: string): Observable<void> {
     return this.http.post<void>(`${this.adminUrl}/${id}/resend-access-link`, {});
   }

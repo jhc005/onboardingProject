@@ -16,8 +16,4 @@ export class CandidatesApi {
   findAll(): Observable<Candidate[]> {
     return this.http.get<Candidate[]>(this.url);
   }
-
-  findById(id: string): Observable<Candidate> {
-    return this.http.get<Candidate>(`${this.url}/${id}`);
-  }
 }

@@ -27,14 +27,6 @@ export class UploadedDocumentsApi {
     return this.http.get<UploadedDocument[]>(`${this.adminBase}/processes/${processId}/documents`);
   }
 
-  approve(docId: number): Observable<UploadedDocument> {
-    return this.http.patch<UploadedDocument>(`${this.adminBase}/documents/${docId}/approve`, {});
-  }
-
-  reject(docId: number, notes: string): Observable<UploadedDocument> {
-    return this.http.patch<UploadedDocument>(`${this.adminBase}/documents/${docId}/reject`, { notes });
-  }
-
   download(docId: number): Observable<Blob> {
     return this.http.get(`${this.adminBase}/documents/${docId}/download`, { responseType: 'blob' });
   }

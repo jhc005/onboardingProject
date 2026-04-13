@@ -19,14 +19,6 @@ export class UploadedDocumentsService {
     return this.repository.findByProcessAdmin(processId);
   }
 
-  approve(docId: number): Observable<UploadedDocument> {
-    return this.repository.approve(docId);
-  }
-
-  reject(docId: number, notes: string): Observable<UploadedDocument> {
-    return this.repository.reject(docId, notes);
-  }
-
   download(docId: number): Observable<Blob> {
     return this.repository.download(docId);
   }
