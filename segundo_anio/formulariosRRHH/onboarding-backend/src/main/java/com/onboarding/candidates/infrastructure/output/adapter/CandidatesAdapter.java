@@ -5,6 +5,7 @@ import com.onboarding.candidates.domain.outport.CandidatesRepositoryPort;
 import com.onboarding.candidates.infrastructure.output.jpa.CandidatesJpaRepository;
 import com.onboarding.candidates.mapper.CandidatesMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class CandidatesAdapter implements CandidatesRepositoryPort {
 
     @Override
     public List<Candidates> findAll() {
-        return repository.findAll().stream().map(mapper::toDomain).toList();
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
+                .stream().map(mapper::toDomain).toList();
     }
 
     @Override
