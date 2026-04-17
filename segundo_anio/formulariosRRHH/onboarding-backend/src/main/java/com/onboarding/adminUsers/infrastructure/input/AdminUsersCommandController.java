@@ -1,6 +1,7 @@
 package com.onboarding.adminUsers.infrastructure.input;
 
 import com.onboarding.adminUsers.application.commands.CreateAdminUserCommand;
+import com.onboarding.adminUsers.application.commands.DeleteAdminUserCommand;
 import com.onboarding.adminUsers.application.commands.LoginCommand;
 import com.onboarding.adminUsers.application.dto.AdminUsersDto;
 import com.onboarding.shared.cqrs.CommandBus;
@@ -27,4 +28,10 @@ public class AdminUsersCommandController {
                 commandBus.dispatch(new CreateAdminUserCommand(request.getEmail(), request.getPassword(), request.getFullName()))
         );
     }
+
+    @DeleteMapping("users/{userId}")
+    public ResponseEntity<Void> delete(@PathVariable Long userId) {
+        commandBus.dispatch(new DeleteAdminUserCommand(userId));
+        return ResponseEntity.noContent().build();
+    }    
 }

@@ -1,7 +1,6 @@
 package com.onboarding.dataAnswers.infrastructure.output.jpa;
 
 import com.onboarding.dataFields.infrastructure.output.jpa.DataFieldsJpaEntity;
-import com.onboarding.fieldOptions.infrastructure.output.jpa.FieldOptionsJpaEntity;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaEntity;
 
 import jakarta.persistence.*;
@@ -31,10 +30,6 @@ public class DataAnswersJpaEntity {
 
     @Column(name = "answer_value", columnDefinition = "TEXT")
     private String answerValue;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "field_option_id")
-    private FieldOptionsJpaEntity fieldOption;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

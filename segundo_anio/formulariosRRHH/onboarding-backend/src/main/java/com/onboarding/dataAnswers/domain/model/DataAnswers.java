@@ -17,6 +17,5 @@ public class DataAnswers {
     private String onboardingProcessId;
     private Long dataFieldId;
     private String answerValue;
-    private Long fieldOptionId;
     private LocalDateTime createdAt;
 }

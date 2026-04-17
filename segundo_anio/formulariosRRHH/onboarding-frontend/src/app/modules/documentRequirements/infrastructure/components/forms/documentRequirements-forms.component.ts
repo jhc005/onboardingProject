@@ -63,7 +63,6 @@ export class DocumentRequirementsFormsComponent implements OnInit {
       description: val.description || undefined,
       allowedFormats: val.allowedFormats!,
       isRequired: val.isRequired!,
-      isConditional: false,
       displayOrder: val.displayOrder!,
     };
     const id = this.editingId();

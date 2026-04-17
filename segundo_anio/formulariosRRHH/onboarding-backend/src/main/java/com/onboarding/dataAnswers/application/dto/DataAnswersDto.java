@@ -16,7 +16,6 @@ public class DataAnswersDto {
     public static class AnswerItem {
         private Long dataFieldId;
         private String answerValue;
-        private Long fieldOptionId;
     }
 
     @Data
@@ -36,8 +35,6 @@ public class DataAnswersDto {
         private Long dataFieldId;
         private String fieldLabel;
         private String answerValue;
-        private Long fieldOptionId;
-        private String optionLabel;
         private LocalDateTime createdAt;
     }
 }

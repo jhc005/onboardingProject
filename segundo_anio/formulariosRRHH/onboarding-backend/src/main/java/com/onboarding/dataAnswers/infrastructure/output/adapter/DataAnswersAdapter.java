@@ -6,7 +6,6 @@ import com.onboarding.dataAnswers.infrastructure.output.jpa.DataAnswersJpaEntity
 import com.onboarding.dataAnswers.infrastructure.output.jpa.DataAnswersJpaRepository;
 import com.onboarding.dataAnswers.mapper.DataAnswersMapper;
 import com.onboarding.dataFields.infrastructure.output.jpa.DataFieldsJpaRepository;
-import com.onboarding.fieldOptions.infrastructure.output.jpa.FieldOptionsJpaRepository;
 import com.onboarding.onboardingProcesses.infrastructure.output.jpa.OnboardingProcJpaRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ public class DataAnswersAdapter implements DataAnswersRepositoryPort {
     private final DataAnswersJpaRepository repository;
     private final OnboardingProcJpaRepository processRepository;
     private final DataFieldsJpaRepository dataFieldsRepository;
-    private final FieldOptionsJpaRepository fieldOptionsRepository;
     private final DataAnswersMapper mapper;
 
     @Override
@@ -33,9 +31,6 @@ public class DataAnswersAdapter implements DataAnswersRepositoryPort {
         }
         if (answer.getDataFieldId() != null) {
             dataFieldsRepository.findById(answer.getDataFieldId()).ifPresent(entity::setDataField);
-        }
-        if (answer.getFieldOptionId() != null) {
-            fieldOptionsRepository.findById(answer.getFieldOptionId()).ifPresent(entity::setFieldOption);
         }
         return mapper.toDomain(repository.save(entity));
     }

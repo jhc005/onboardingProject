@@ -11,9 +11,6 @@ export interface DataField {
   id: number;
   label: string;
   fieldType: FieldType;
-  validationRegex: string | null;
-  minLength: number | null;
-  maxLength: number | null;
   placeholder: string | null;
   isRequired: boolean;
   displayOrder: number;
@@ -23,9 +20,6 @@ export interface DataField {
 export interface CreateDataFieldRequest {
   label: string;
   fieldType: FieldType;
-  validationRegex?: string;
-  minLength?: number;
-  maxLength?: number;
   placeholder?: string;
   isRequired: boolean;
   displayOrder: number;

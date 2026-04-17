@@ -16,9 +16,6 @@ public class DataFields {
     private Long id;
     private String label;
     private FieldType fieldType;
-    private String validationRegex;
-    private Integer minLength;
-    private Integer maxLength;
     private String placeholder;
     private Boolean isRequired;
     private Integer displayOrder;

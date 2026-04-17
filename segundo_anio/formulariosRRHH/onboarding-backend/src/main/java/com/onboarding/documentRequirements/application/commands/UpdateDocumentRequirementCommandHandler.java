@@ -32,10 +32,7 @@ public class UpdateDocumentRequirementCommandHandler implements CommandHandler<U
         req.setName(request.getName());
         req.setDescription(request.getDescription());
         req.setAllowedFormats(request.getAllowedFormats());
-        req.setFileNameRegex(request.getFileNameRegex());
         req.setIsRequired(request.getIsRequired() != null ? request.getIsRequired() : true);
-        req.setIsConditional(request.getIsConditional() != null ? request.getIsConditional() : false);
-        req.setConditionDescription(request.getConditionDescription());
         req.setDisplayOrder(request.getDisplayOrder());
     }
 }

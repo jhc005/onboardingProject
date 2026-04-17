@@ -14,10 +14,7 @@ public class DocumentsReqDto {
         private String name;
         private String description;
         private String allowedFormats;
-        private String fileNameRegex;
         private Boolean isRequired;
-        private Boolean isConditional;
-        private String conditionDescription;
         private Integer displayOrder;
     }
 
@@ -30,10 +27,7 @@ public class DocumentsReqDto {
         private String name;
         private String description;
         private String allowedFormats;
-        private String fileNameRegex;
         private Boolean isRequired;
-        private Boolean isConditional;
-        private String conditionDescription;
         private Integer displayOrder;
         private String templateOriginalFilename;
         private Boolean hasTemplate;

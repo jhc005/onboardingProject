@@ -1,7 +1,6 @@
 export interface AnswerItem {
   dataFieldId: number;
   answerValue: string;
-  fieldOptionId?: number;
 }
 
 export interface SaveAnswersRequest {
@@ -14,7 +13,5 @@ export interface DataAnswer {
   dataFieldId: number;
   fieldLabel: string;
   answerValue: string;
-  fieldOptionId: number | null;
-  optionLabel: string | null;
   createdAt: string;
 }

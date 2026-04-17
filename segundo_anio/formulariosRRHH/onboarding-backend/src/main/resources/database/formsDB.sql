@@ -70,12 +70,10 @@ CREATE TABLE data_answers (
     onboarding_process_id CHAR(36) NOT NULL,
     data_field_id BIGINT NOT NULL,
     answer_value TEXT,
-    field_option_id BIGINT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (onboarding_process_id) REFERENCES onboarding_processes(id),
-    FOREIGN KEY (data_field_id) REFERENCES data_fields(id),
-    FOREIGN KEY (field_option_id) REFERENCES field_options(id)
-);
+    FOREIGN KEY (data_field_id) REFERENCES data_fields(id)
+    );
 
 -- ============================================
 -- 5. DOCUMENTOS REQUERIDOS
@@ -85,10 +83,7 @@ CREATE TABLE document_requirements (
     name VARCHAR(255) NOT NULL,
     description TEXT,
     allowed_formats VARCHAR(255) NOT NULL,
-    file_name_regex VARCHAR(255),
     is_required BOOLEAN DEFAULT TRUE,
-    is_conditional BOOLEAN DEFAULT FALSE,
-    condition_description VARCHAR(255),
     display_order INT NOT NULL,
     template_file_path VARCHAR(512),
     template_original_filename VARCHAR(255)

@@ -29,7 +29,6 @@ public class SaveAnswersCommandHandler implements CommandHandler<SaveAnswersComm
             existing.setOnboardingProcessId(command.getProcessId());
             existing.setDataFieldId(item.getDataFieldId());
             existing.setAnswerValue(item.getAnswerValue());
-            existing.setFieldOptionId(item.getFieldOptionId());
 
             return mapper.toResponse(answersPort.save(existing));
         }).toList();

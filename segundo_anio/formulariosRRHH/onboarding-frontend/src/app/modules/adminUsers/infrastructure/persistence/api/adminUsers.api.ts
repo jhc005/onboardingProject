@@ -20,4 +20,8 @@ export class AdminUsersApi {
   findAll(): Observable<AdminUser[]> {
     return this.http.get<AdminUser[]>(`${this.url}/users`);
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/users/${id}`);
+  }
 }

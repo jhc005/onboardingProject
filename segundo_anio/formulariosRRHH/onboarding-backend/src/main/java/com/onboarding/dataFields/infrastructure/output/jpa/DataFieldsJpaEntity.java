@@ -23,15 +23,6 @@ public class DataFieldsJpaEntity {
     @Column(name = "field_type", nullable = false)
     private FieldType fieldType;
 
-    @Column(name = "validation_regex", length = 255)
-    private String validationRegex;
-
-    @Column(name = "min_length")
-    private Integer minLength;
-
-    @Column(name = "max_length")
-    private Integer maxLength;
-
     @Column(length = 255)
     private String placeholder;
 

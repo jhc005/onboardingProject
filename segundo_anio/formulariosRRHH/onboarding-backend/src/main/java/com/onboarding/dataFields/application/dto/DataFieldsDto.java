@@ -15,9 +15,6 @@ public class DataFieldsDto {
     public static class Request {
         private String label;
         private String fieldType;
-        private String validationRegex;
-        private Integer minLength;
-        private Integer maxLength;
         private String placeholder;
         private Boolean isRequired;
         private Integer displayOrder;
@@ -31,9 +28,6 @@ public class DataFieldsDto {
         private Long id;
         private String label;
         private String fieldType;
-        private String validationRegex;
-        private Integer minLength;
-        private Integer maxLength;
         private String placeholder;
         private Boolean isRequired;
         private Integer displayOrder;

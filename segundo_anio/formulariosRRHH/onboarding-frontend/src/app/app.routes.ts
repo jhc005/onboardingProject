@@ -55,6 +55,13 @@ export const routes: Routes = [
             (m) => m.DocumentRequirementsPageComponent
           ),
       },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./pages/adminPanel/page.admin-users-component').then(
+            (m) => m.AdminUsersPageComponent
+          ),
+      },
     ],
   },
   {

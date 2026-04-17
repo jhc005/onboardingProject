@@ -1,0 +1,43 @@
+<div class="modal-overlay" (click)="cancelled.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">Nuevo administrador</h3>
+      <button class="modal-close" (click)="cancelled.emit()">✕</button>
+    </div>
+
+    <p style="font-size:13px; color:#777; margin-bottom:16px;">
+      El nuevo administrador podrá acceder al panel con las credenciales que indiques.
+    </p>
+
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label>Nombre completo <span class="required-mark">*</span></label>
+        <input type="text" class="form-control" formControlName="fullName" placeholder="Ej. Ana Martínez" />
+        @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
+        <span class="field-error">Campo obligatorio</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Email <span class="required-mark">*</span></label>
+        <input type="email" class="form-control" formControlName="email" placeholder="admin@civicasoftware.com" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <span class="field-error">Introduce un email válido</span>
+        }
+      </div>
+      <div class="form-group">
+        <label>Contraseña <span class="required-mark">*</span></label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Mínimo 6 caracteres" />
+        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        <span class="field-error">La contraseña debe tener al menos 6 caracteres</span>
+        }
+      </div>
+    </form>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelled.emit()">Cancelar</button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="saving()">
+        @if (saving()) { Creando... } @else { Crear administrador }
+      </button>
+    </div>
+  </div>
+</div>

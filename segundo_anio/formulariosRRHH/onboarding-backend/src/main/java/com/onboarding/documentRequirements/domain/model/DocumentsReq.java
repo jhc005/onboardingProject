@@ -15,10 +15,7 @@ public class DocumentsReq {
     private String name;
     private String description;
     private String allowedFormats;
-    private String fileNameRegex;
     private Boolean isRequired;
-    private Boolean isConditional;
-    private String conditionDescription;
     private Integer displayOrder;
     private String templateFilePath;
     private String templateOriginalFilename;

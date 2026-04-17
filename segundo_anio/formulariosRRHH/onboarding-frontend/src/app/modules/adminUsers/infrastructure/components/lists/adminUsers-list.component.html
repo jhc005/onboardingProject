@@ -1,0 +1,73 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Administradores</h1>
+    <p class="page-subtitle">Gestión de usuarios con acceso al panel</p>
+  </div>
+  <button class="btn btn-primary" (click)="showModal.set(true)">+ Nuevo administrador</button>
+</div>
+
+<div class="card">
+  @if (loading()) {
+  <div class="loading-wrapper">
+    <div class="spinner"></div> Cargando administradores...
+  </div>
+  } @else if (admins().length === 0) {
+  <div class="empty-state">
+    <div class="empty-state-icon">🔐</div>
+    <p>No hay administradores registrados. Crea el primero.</p>
+  </div>
+  } @else {
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Fecha de alta</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (admin of admins(); track admin.id) {
+        <tr>
+          <td><strong>{{ admin.fullName }}</strong></td>
+          <td>{{ admin.email }}</td>
+          <td>{{ admin.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-sm btn-danger" (click)="confirmDelete(admin.id)">
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+
+@if (showModal()) {
+<app-admin-users-create-form (saved)="onSaved()" (cancelled)="showModal.set(false)" />
+}
+
+@if (confirmDeleteId() !== null) {
+<div class="modal-overlay" (click)="cancelDelete()">
+  <div class="modal" style="max-width: 420px;" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="modal-title">Eliminar administrador</h3>
+      <button class="modal-close" (click)="cancelDelete()">✕</button>
+    </div>
+    <p style="font-size:14px; color:#555; margin-bottom:24px;">
+      ¿Estás seguro de que quieres eliminar este administrador? Esta acción no se puede deshacer.
+    </p>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+      <button class="btn btn-danger" (click)="delete(confirmDeleteId()!)" [disabled]="deleting() !== null">
+        @if (deleting() !== null) { Eliminando... } @else { Sí, eliminar }
+      </button>
+    </div>
+  </div>
+</div>
+}

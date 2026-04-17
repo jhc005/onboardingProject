@@ -24,4 +24,8 @@ export class AdminUsersService {
   findAll(): Observable<AdminUser[]> {
     return this.repository.findAll();
   }
+
+  delete(id: number): Observable<void> {
+    return this.repository.delete(id);
+  }
 }

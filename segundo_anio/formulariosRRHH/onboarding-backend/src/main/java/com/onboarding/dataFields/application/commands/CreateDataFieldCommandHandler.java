@@ -31,9 +31,6 @@ public class CreateDataFieldCommandHandler implements CommandHandler<CreateDataF
     private void fillFromRequest(DataFields field, DataFieldsDto.Request request) {
         field.setLabel(request.getLabel());
         field.setFieldType(FieldType.valueOf(request.getFieldType()));
-        field.setValidationRegex(request.getValidationRegex());
-        field.setMinLength(request.getMinLength());
-        field.setMaxLength(request.getMaxLength());
         field.setPlaceholder(request.getPlaceholder());
         field.setIsRequired(request.getIsRequired() != null ? request.getIsRequired() : true);
         field.setDisplayOrder(request.getDisplayOrder());
