@@ -15,6 +15,8 @@ public class AdminUsersMapper {
         domain.setPasswordHash(entity.getPasswordHash());
         domain.setFullName(entity.getFullName());
         domain.setCreatedAt(entity.getCreatedAt());
+        domain.setResetToken(entity.getResetToken());
+        domain.setResetTokenExpiresAt(entity.getResetTokenExpiresAt());
         return domain;
     }
 
@@ -24,6 +26,8 @@ public class AdminUsersMapper {
         entity.setEmail(domain.getEmail());
         entity.setPasswordHash(domain.getPasswordHash());
         entity.setFullName(domain.getFullName());
+        entity.setResetToken(domain.getResetToken());
+        entity.setResetTokenExpiresAt(domain.getResetTokenExpiresAt());
         return entity;
     }
 

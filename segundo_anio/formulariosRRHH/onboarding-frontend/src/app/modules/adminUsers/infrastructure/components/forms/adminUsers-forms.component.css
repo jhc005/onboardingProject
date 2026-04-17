@@ -89,3 +89,19 @@
     transform: rotate(360deg);
   }
 }
+
+.forgot-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.forgot-link a {
+  color: #f05a28;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-link a:hover {
+  text-decoration: underline;
+}

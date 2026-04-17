@@ -12,6 +12,20 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./pages/adminUsers/page.forgot-password-component').then(
+        (m) => m.ForgotPasswordPageComponent
+      ),
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./pages/adminUsers/page.reset-password-component').then(
+        (m) => m.ResetPasswordPageComponent
+      ),
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./shared/components/admin-layout/admin-layout.component').then(

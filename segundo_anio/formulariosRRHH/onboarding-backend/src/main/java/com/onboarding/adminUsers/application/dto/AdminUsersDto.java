@@ -47,4 +47,19 @@ public class AdminUsersDto {
         private String fullName;
         private String token;
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ForgotPasswordRequest {
+        private String email;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResetPasswordRequest {
+        private String token;
+        private String newPassword;
+    }
 }

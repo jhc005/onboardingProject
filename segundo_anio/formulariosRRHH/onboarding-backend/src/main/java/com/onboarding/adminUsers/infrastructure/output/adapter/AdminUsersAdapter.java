@@ -33,6 +33,11 @@ public class AdminUsersAdapter implements AdminUsersRepositoryPort {
     }
 
     @Override
+    public Optional<AdminUsers>findByResetToken(String token){
+        return repository.findByResetToken(token).map(mapper::toDomain);
+    }
+
+    @Override
     public List<AdminUsers> findAll() {
         return repository.findAll().stream().map(mapper::toDomain).toList();
     }

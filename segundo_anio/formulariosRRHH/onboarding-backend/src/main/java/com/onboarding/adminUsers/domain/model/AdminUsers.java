@@ -18,4 +18,6 @@ public class AdminUsers {
     private String passwordHash;
     private String fullName;
     private LocalDateTime createdAt;
+    private String resetToken;
+    private LocalDateTime resetTokenExpiresAt;
 }
