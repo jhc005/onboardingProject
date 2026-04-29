@@ -1,7 +1,6 @@
 package com.onboarding.notifications.infrastructure.output.adapter;
 
 import com.onboarding.notifications.domain.model.Notifications;
-import com.onboarding.notifications.domain.valueobject.NotificationType;
 import com.onboarding.notifications.domain.outport.NotificationsRepositoryPort;
 import com.onboarding.notifications.infrastructure.output.jpa.NotificationsJpaEntity;
 import com.onboarding.notifications.infrastructure.output.jpa.NotificationsJpaRepository;
@@ -42,13 +41,4 @@ public class NotificationsAdapter implements NotificationsRepositoryPort {
                 .toList();
     }
 
-    @Override
-    public List<Notifications> findByOnboardingProcessIdAndType(String processId,NotificationType type) {
-
-        return repository
-                .findByOnboardingProcess_IdAndType(processId, type)
-                .stream()
-                .map(mapper::toDomain)
-                .toList();
-    }
 }

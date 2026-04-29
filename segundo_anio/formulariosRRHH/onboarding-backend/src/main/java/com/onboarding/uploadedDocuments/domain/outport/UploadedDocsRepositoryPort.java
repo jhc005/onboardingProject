@@ -1,7 +1,6 @@
 package com.onboarding.uploadedDocuments.domain.outport;
 
 import com.onboarding.uploadedDocuments.domain.model.UploadedDocs;
-import com.onboarding.uploadedDocuments.domain.model.UploadedDocs.ValidationStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +11,4 @@ public interface UploadedDocsRepositoryPort {
     Optional<UploadedDocs> findById(Long id);
     List<UploadedDocs> findByOnboardingProcessId(String onboardingProcessId);
     Optional<UploadedDocs> findByOnboardingProcessIdAndDocumentRequirementId(String onboardingProcessId, Long documentRequirementId);
-    List<UploadedDocs> findByOnboardingProcessIdAndValidationStatus(String onboardingProcessId, ValidationStatus status);
-    void deleteById(Long id);
 }

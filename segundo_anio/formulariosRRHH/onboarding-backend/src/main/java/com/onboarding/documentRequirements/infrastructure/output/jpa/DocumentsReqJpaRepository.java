@@ -7,5 +7,4 @@ import java.util.List;
 public interface DocumentsReqJpaRepository extends JpaRepository<DocumentsReqJpaEntity, Long> {
 
     List<DocumentsReqJpaEntity> findAllByOrderByDisplayOrderAsc();
-    List<DocumentsReqJpaEntity> findByIsRequired(Boolean isRequired);
 }

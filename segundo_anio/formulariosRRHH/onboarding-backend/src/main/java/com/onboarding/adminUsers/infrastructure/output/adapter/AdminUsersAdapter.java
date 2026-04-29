@@ -23,11 +23,6 @@ public class AdminUsersAdapter implements AdminUsersRepositoryPort {
     }
 
     @Override
-    public Optional<AdminUsers> findById(Long id) {
-        return repository.findById(id).map(mapper::toDomain);
-    }
-
-    @Override
     public Optional<AdminUsers> findByEmail(String email) {
         return repository.findByEmail(email).map(mapper::toDomain);
     }

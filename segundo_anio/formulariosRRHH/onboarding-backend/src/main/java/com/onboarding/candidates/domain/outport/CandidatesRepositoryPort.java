@@ -9,8 +9,6 @@ public interface CandidatesRepositoryPort {
 
     Candidates save(Candidates candidate);
     Optional<Candidates> findById(String id);
-    Optional<Candidates> findByEmail(String email);
     List<Candidates> findAll();
-    void deleteById(String id);
     boolean existsByEmail(String email);
 }

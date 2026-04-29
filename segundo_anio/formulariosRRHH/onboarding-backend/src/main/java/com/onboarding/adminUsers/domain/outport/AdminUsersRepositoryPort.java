@@ -8,7 +8,6 @@ import java.util.Optional;
 public interface AdminUsersRepositoryPort {
 
     AdminUsers save(AdminUsers adminUser);
-    Optional<AdminUsers> findById(Long id);
     Optional<AdminUsers> findByEmail(String email);
     Optional<AdminUsers>findByResetToken(String resetToken);
     List<AdminUsers> findAll();

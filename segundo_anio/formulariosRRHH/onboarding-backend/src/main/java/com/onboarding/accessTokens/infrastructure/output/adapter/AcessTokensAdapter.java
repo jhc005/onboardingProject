@@ -34,13 +34,4 @@ public class AcessTokensAdapter implements AccessTokensRepositoryPort {
         return repository.findByTokenHash(tokenHash).map(mapper::toDomain);
     }
 
-    @Override
-    public Optional<AcessTokens> findByOnboardingProcessId(String processId) {
-        return repository.findByOnboardingProcess_Id(processId).map(mapper::toDomain);
-    }
-
-    @Override
-    public void deleteByOnboardingProcessId(String processId) {
-        repository.deleteByOnboardingProcess_Id(processId);
-    }
 }

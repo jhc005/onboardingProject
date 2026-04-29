@@ -9,8 +9,6 @@ public interface DocumentsReqRepository {
 
     DocumentsReq save(DocumentsReq requirement);
     Optional<DocumentsReq> findById(Long id);
-    List<DocumentsReq> findAll();
     List<DocumentsReq> findAllOrderedByDisplayOrder();
-    List<DocumentsReq> findByIsRequired(Boolean isRequired);
     void deleteById(Long id);
 }

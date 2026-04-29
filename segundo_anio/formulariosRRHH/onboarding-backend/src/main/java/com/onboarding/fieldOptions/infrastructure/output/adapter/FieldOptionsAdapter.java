@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -27,11 +26,6 @@ public class FieldOptionsAdapter implements FieldOptionsRepositoryPort {
             dataFieldsRepository.findById(fieldOption.getDataFieldId()).ifPresent(entity::setDataField);
         }
         return mapper.toDomain(repository.save(entity));
-    }
-
-    @Override
-    public Optional<FieldOptions> findById(Long id) {
-        return repository.findById(id).map(mapper::toDomain);
     }
 
     @Override

@@ -29,19 +29,9 @@ public class CandidatesAdapter implements CandidatesRepositoryPort {
     }
 
     @Override
-    public Optional<Candidates> findByEmail(String email) {
-        return repository.findByEmail(email).map(mapper::toDomain);
-    }
-
-    @Override
     public List<Candidates> findAll() {
         return repository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"))
                 .stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
-    public void deleteById(String id) {
-        repository.deleteById(id);
     }
 
     @Override

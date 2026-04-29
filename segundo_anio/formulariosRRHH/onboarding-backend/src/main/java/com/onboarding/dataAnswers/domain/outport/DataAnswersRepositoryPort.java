@@ -8,10 +8,7 @@ import java.util.Optional;
 public interface DataAnswersRepositoryPort {
 
     DataAnswers save(DataAnswers answer);
-    List<DataAnswers> saveAll(List<DataAnswers> answers);
-    Optional<DataAnswers> findById(Long id);
     List<DataAnswers> findByOnboardingProcessId(String onboardingProcessId);
     Optional<DataAnswers> findByOnboardingProcessIdAndDataFieldId(String onboardingProcessId, Long dataFieldId);
-    void deleteByOnboardingProcessId(String onboardingProcessId);
     void deleteByDataFieldId(Long dataFieldId);
 }

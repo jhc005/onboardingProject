@@ -49,17 +49,4 @@ public class UploadedDocsAdapter implements UploadedDocsRepositoryPort {
         return repository.findByOnboardingProcess_IdAndDocumentRequirement_Id(processId, requirementId)
                 .map(mapper::toDomain);
     }
-
-    @Override
-    public List<UploadedDocs> findByOnboardingProcessIdAndValidationStatus(String processId, UploadedDocs.ValidationStatus status) {
-        UploadedDocsJpaEntity.ValidationStatus jpaStatus =
-                UploadedDocsJpaEntity.ValidationStatus.valueOf(status.name());
-        return repository.findByOnboardingProcess_IdAndValidationStatus(processId, jpaStatus)
-                .stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
 }

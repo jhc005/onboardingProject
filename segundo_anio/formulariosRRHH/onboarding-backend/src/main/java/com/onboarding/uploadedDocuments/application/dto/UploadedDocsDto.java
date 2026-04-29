@@ -26,10 +26,4 @@ public class UploadedDocsDto {
         private LocalDateTime uploadedAt;
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ReviewRequest {
-        private String notes;
-    }
 }

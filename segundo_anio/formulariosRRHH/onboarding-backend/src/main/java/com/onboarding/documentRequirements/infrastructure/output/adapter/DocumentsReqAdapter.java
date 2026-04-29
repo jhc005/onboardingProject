@@ -28,18 +28,8 @@ public class DocumentsReqAdapter implements DocumentsReqRepository {
     }
 
     @Override
-    public List<DocumentsReq> findAll() {
-        return repository.findAll().stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
     public List<DocumentsReq> findAllOrderedByDisplayOrder() {
         return repository.findAllByOrderByDisplayOrderAsc().stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
-    public List<DocumentsReq> findByIsRequired(Boolean isRequired) {
-        return repository.findByIsRequired(isRequired).stream().map(mapper::toDomain).toList();
     }
 
     @Override

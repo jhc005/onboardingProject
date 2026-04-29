@@ -8,6 +8,4 @@ public interface AccessTokensRepositoryPort {
 
     AcessTokens save(AcessTokens token);
     Optional<AcessTokens> findByTokenHash(String tokenHash);
-    Optional<AcessTokens> findByOnboardingProcessId(String onboardingProcessId);
-    void deleteByOnboardingProcessId(String onboardingProcessId);
 }

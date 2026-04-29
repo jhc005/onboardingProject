@@ -36,16 +36,6 @@ public class DataAnswersAdapter implements DataAnswersRepositoryPort {
     }
 
     @Override
-    public List<DataAnswers> saveAll(List<DataAnswers> answers) {
-        return answers.stream().map(this::save).toList();
-    }
-
-    @Override
-    public Optional<DataAnswers> findById(Long id) {
-        return repository.findById(id).map(mapper::toDomain);
-    }
-
-    @Override
     public List<DataAnswers> findByOnboardingProcessId(String onboardingProcessId) {
         return repository.findByOnboardingProcess_Id(onboardingProcessId)
                 .stream().map(mapper::toDomain).toList();
@@ -56,12 +46,7 @@ public class DataAnswersAdapter implements DataAnswersRepositoryPort {
         return repository.findByOnboardingProcess_IdAndDataField_Id(processId, dataFieldId)
                 .map(mapper::toDomain);
     }
-
-    @Override
-    public void deleteByOnboardingProcessId(String onboardingProcessId) {
-        repository.deleteByOnboardingProcess_Id(onboardingProcessId);
-    }
-
+    
     @Override
     public void deleteByDataFieldId(Long dataFieldId) {
         repository.deleteByDataField_Id(dataFieldId);

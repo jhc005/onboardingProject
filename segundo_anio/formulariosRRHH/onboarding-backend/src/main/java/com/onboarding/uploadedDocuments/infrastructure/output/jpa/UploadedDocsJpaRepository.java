@@ -9,5 +9,4 @@ public interface UploadedDocsJpaRepository extends JpaRepository<UploadedDocsJpa
 
     List<UploadedDocsJpaEntity> findByOnboardingProcess_Id(String processId);
     Optional<UploadedDocsJpaEntity> findByOnboardingProcess_IdAndDocumentRequirement_Id(String processId, Long requirementId);
-    List<UploadedDocsJpaEntity> findByOnboardingProcess_IdAndValidationStatus(String processId, UploadedDocsJpaEntity.ValidationStatus status);
 }

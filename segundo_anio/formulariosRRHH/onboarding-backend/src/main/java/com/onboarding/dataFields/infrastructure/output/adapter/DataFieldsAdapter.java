@@ -28,11 +28,6 @@ public class DataFieldsAdapter implements DataFieldsRepositoryPort {
     }
 
     @Override
-    public List<DataFields> findAll() {
-        return repository.findAll().stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
     public List<DataFields> findAllOrderedByDisplayOrder() {
         return repository.findAllByOrderByDisplayOrderAsc().stream().map(mapper::toDomain).toList();
     }

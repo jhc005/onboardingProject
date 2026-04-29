@@ -41,20 +41,8 @@ public class OnboardingProcAdapter implements OnboardingProcRepositoryPort {
     }
 
     @Override
-    public Optional<OnboardingProc> findByCandidateId(String candidateId) {
-        return repository.findByCandidate_Id(candidateId).map(mapper::toDomain);
-    }
-
-    @Override
     public List<OnboardingProc> findAll() {
         return repository.findAll().stream().map(mapper::toDomain).toList();
-    }
-
-    @Override
-    public List<OnboardingProc> findByStatus(OnboardingStatus status) {
-        OnboardingStatus jpaStatus =
-                OnboardingStatus.valueOf(status.name());
-        return repository.findByStatus(jpaStatus).stream().map(mapper::toDomain).toList();
     }
 
     @Override
@@ -65,10 +53,5 @@ public class OnboardingProcAdapter implements OnboardingProcRepositoryPort {
                 OnboardingStatus.SUBMITTED,
                 OnboardingStatus.REJECTED
         ));
-    }
-
-    @Override
-    public void deleteById(String id) {
-        repository.deleteById(id);
     }
 }

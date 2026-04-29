@@ -9,7 +9,6 @@ public interface DataFieldsRepositoryPort {
 
     DataFields save(DataFields dataField);
     Optional<DataFields> findById(Long id);
-    List<DataFields> findAll();
     List<DataFields> findAllOrderedByDisplayOrder();
     void deleteById(Long id);
 }
