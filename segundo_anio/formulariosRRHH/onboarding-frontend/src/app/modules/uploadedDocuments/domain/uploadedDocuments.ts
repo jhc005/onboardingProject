@@ -9,6 +9,5 @@ export interface UploadedDocument {
   mimeType: string;
   fileSizeBytes: number;
   validationStatus: ValidationStatus;
-  validationNotes: string | null;
   uploadedAt: string;
 }
