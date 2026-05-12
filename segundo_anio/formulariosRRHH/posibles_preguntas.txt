@@ -1,0 +1,23 @@
+Plan de accion
+Problema 1 — Credenciales visibles en el inspector (texto plano)
+Causa real: El servidor corre en http:// (sin SSL). En HTTP, el payload viaja sin cifrar por la red. El inspector del navegador siempre mostrara el payload descifrado porque es una herramienta local, pero en produccion lo que importa es que nadie en la red pueda interceptarlo.
+
+Accion: Configurar HTTPS en el servidor de produccion. Con HTTPS el payload sigue siendo visible en el inspector local (eso es inevitable e inofensivo — solo tu lo ves), pero viaja cifrado por la red y ningun intermediario puede leerlo.
+
+Problema 2 — Token guardado en localStorage (riesgo XSS)
+Causa: AuthService guarda civica_token en localStorage, que es accesible desde cualquier JavaScript de la pagina. Si hubiera un ataque XSS, el atacante podria robar el token.
+
+Accion: Migrar a cookies HttpOnly. Una cookie HttpOnly no es accesible desde JavaScript, solo la envia el navegador automaticamente en cada request. Implicaria:
+
+Backend: responder al login con Set-Cookie: token=...; HttpOnly; Secure; SameSite=Strict en lugar de devolver el token en el body.
+Frontend: eliminar el localStorage y el authInterceptor (ya no hace falta anadir el header manualmente, la cookie va sola).
+Backend: configurar Spring Security para leer el token de la cookie en lugar del header Authorization.
+Problema 3 — Passwords sin proteccion en logs del backend
+Causa: Si el backend tiene logging de requests activado (Spring Boot lo puede hacer en modo debug), el password del body podria aparecer en los logs del servidor.
+
+Accion: Asegurarse de que ningun logger registra el body de /api/admin/auth/login. Configurar un filtro de enmascaramiento de campos sensibles en los logs.
+
+Problema 4 — Sin limite de intentos de login (Brute Force)
+Causa: El endpoint POST /api/admin/auth/login no tiene ninguna proteccion contra intentos repetidos.
+
+Accion: Implementar rate limiting en el backend (por ejemplo con Bucket4j o similar) para bloquear una IP tras N intentos fallidos en un periodo de tiempo.
